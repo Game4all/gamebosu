@@ -16,4 +16,7 @@
     <Folder Include="Resources\Samples\Gameplay" />
     <Folder Include="Resources\Textures" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emux\Emux.GameBoy\Emux.GameBoy.csproj" />
+  </ItemGroup>
 </Project>

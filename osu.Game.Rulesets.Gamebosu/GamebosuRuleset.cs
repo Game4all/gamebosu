@@ -49,8 +49,13 @@ namespace osu.Game.Rulesets.Gamebosu
 
         public override IEnumerable<KeyBinding> GetDefaultKeyBindings(int variant = 0) => new[]
         {
-            new KeyBinding(InputKey.Z, GamebosuAction.Button1),
-            new KeyBinding(InputKey.X, GamebosuAction.Button2),
+            new KeyBinding(InputKey.Left, GamebosuAction.DPadLeft),
+            new KeyBinding(InputKey.Right, GamebosuAction.DPadRight),
+            new KeyBinding(InputKey.Up, GamebosuAction.DPadUp),
+            new KeyBinding(InputKey.Down, GamebosuAction.DPadDown),
+
+            new KeyBinding(InputKey.A, GamebosuAction.ButtonA),
+            new KeyBinding(InputKey.B, GamebosuAction.ButtonB)
         };
 
         public override Drawable CreateIcon() => new Icon(ShortName[0]);
