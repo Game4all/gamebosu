@@ -1,0 +1,3 @@
+[submodule "Emux"]
+	path = Emux
+	url = https://github.com/Washi1337/Emux
