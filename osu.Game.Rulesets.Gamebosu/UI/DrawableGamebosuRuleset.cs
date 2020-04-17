@@ -4,9 +4,12 @@
 using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Input;
+using osu.Framework.Logging;
+using osu.Framework.Platform;
 using osu.Game.Beatmaps;
 using osu.Game.Input.Handlers;
 using osu.Game.Replays;
+using osu.Game.Rulesets.Gamebosu.IO;
 using osu.Game.Rulesets.Gamebosu.Objects;
 using osu.Game.Rulesets.Gamebosu.Objects.Drawables;
 using osu.Game.Rulesets.Gamebosu.Replays;
@@ -31,5 +34,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI
         public override DrawableHitObject<GamebosuHitObject> CreateDrawableRepresentation(GamebosuHitObject h) => new DrawableGamebosuHitObject(h);
 
         protected override PassThroughInputManager CreateInputManager() => new GamebosuInputManager(Ruleset?.RulesetInfo);
+
+        protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
+        {
+            var deps = new DependencyContainer(base.CreateChildDependencies(parent));
+            deps.Cache(new RomStore(deps.Get<Storage>()));
+            return deps;
+        }
     }
 }
