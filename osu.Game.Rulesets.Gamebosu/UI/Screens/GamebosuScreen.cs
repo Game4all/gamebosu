@@ -18,7 +18,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         public bool ValidForResume { get; set; } = false;
         public bool ValidForPush { get; set; } = true;
 
-        public void OnEntering(IScreen last)
+        public virtual void OnEntering(IScreen last)
         {
             Content
                 .ScaleTo(0.5f)
@@ -26,16 +26,16 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 .FadeInFromZero(500, Easing.OutQuint);
         }
 
-        public bool OnExiting(IScreen next)
+        public virtual bool OnExiting(IScreen next)
         {
             return false;
         }
 
-        public void OnResuming(IScreen last)
+        public virtual void OnResuming(IScreen last)
         {
         }
 
-        public void OnSuspending(IScreen next)
+        public virtual void OnSuspending(IScreen next)
         {
         }
     }

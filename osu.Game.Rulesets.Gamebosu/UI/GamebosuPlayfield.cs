@@ -3,6 +3,7 @@
 
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Screens;
 using osu.Game.Rulesets.Gamebosu.UI.Screens;
 using osu.Game.Rulesets.UI;
 
@@ -25,7 +26,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI
 
         protected override void LoadComplete()
         {
-            stack?.Push(new DisclaimerScreen());
+            stack?.Push(new DisclaimerScreen
+            {
+                Complete = (sc) => sc.Push(new RomSelectionScreen())
+            });
             base.LoadComplete();
         }
     }
