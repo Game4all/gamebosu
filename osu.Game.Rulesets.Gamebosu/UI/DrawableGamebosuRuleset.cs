@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Input;
-using osu.Framework.Logging;
 using osu.Framework.Platform;
 using osu.Game.Beatmaps;
 using osu.Game.Input.Handlers;
