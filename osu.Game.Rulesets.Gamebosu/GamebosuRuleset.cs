@@ -8,11 +8,16 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
 using osu.Game.Beatmaps;
+using osu.Game.Configuration;
 using osu.Game.Graphics;
+using osu.Game.Overlays.Settings;
+using osu.Game.Rulesets.Configuration;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Gamebosu.Beatmaps;
+using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.Mods;
 using osu.Game.Rulesets.Gamebosu.UI;
+using osu.Game.Rulesets.Gamebosu.UI.Configuration;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.UI;
 using osuTK;
@@ -59,6 +64,10 @@ namespace osu.Game.Rulesets.Gamebosu
         };
 
         public override Drawable CreateIcon() => new Icon(ShortName[0]);
+
+        public override IRulesetConfigManager CreateConfig(SettingsStore settings) => new GamebosuConfigManager(settings, RulesetInfo);
+
+        public override RulesetSettingsSubsection CreateSettings() => new GamebosuSettingsSubsection(this);
 
         public class Icon : CompositeDrawable
         {
