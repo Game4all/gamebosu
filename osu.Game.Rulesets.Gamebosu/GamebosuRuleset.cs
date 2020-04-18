@@ -19,6 +19,7 @@ using osu.Game.Rulesets.Gamebosu.Mods;
 using osu.Game.Rulesets.Gamebosu.UI;
 using osu.Game.Rulesets.Gamebosu.UI.Configuration;
 using osu.Game.Rulesets.Mods;
+using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
 using osuTK;
 using osuTK.Graphics;
@@ -37,6 +38,9 @@ namespace osu.Game.Rulesets.Gamebosu
 
         public override DifficultyCalculator CreateDifficultyCalculator(WorkingBeatmap beatmap) =>
             new GamebosuDifficultyCalculator(this, beatmap);
+
+        //this exists for the sole purpose of disabling the red tint on playfield when health is low.
+        public override HealthProcessor CreateHealthProcessor(double drainStartTime) => new AccumulatingHealthProcessor(1f);
 
         public override IEnumerable<Mod> GetModsFor(ModType type)
         {
