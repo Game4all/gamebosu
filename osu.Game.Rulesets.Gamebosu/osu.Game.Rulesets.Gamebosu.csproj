@@ -10,7 +10,7 @@
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ppy.osu.Game" Version="2020.312.0" />
+    <PackageReference Include="ppy.osu.Game" Version="2020.418.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Samples\Gameplay" />
