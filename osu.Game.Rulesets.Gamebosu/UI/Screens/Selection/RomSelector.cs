@@ -85,7 +85,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                         Child = romName = new OsuSpriteText
                         {
                             Font = OsuFont.GetFont(Typeface.Torus, 24, FontWeight.SemiBold),
-                            Text = "ROM NAME",
+                            Text = "No avalaible rom found!",
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
                         }
@@ -126,7 +126,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                 .FadeOut(200, Easing.OutQuint)
                 .OnComplete(t =>
                 {
-                    t.Text = avalaible_roms.ElementAt(selection.NewValue);
+                    var text = avalaible_roms.ElementAtOrDefault(selection.NewValue);
+
+                    if (text != null)
+                        t.Text = text;
+
                     t.FadeIn(200, Easing.OutQuint);
                 });
         }
@@ -156,8 +160,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                 case GamebosuAction.ButtonA:
                 case GamebosuAction.ButtonStart:
                 case GamebosuAction.ButtonSelect:
-                    roms.GetAsync(avalaible_roms.ElementAt(selection.Value))
-                        .ContinueWith(t => Selected?.Invoke(t.Result));
+                    var rom = avalaible_roms.ElementAtOrDefault(selection.Value);
+                    if (rom != null)
+                        roms.GetAsync(rom)
+                            .ContinueWith(t => Selected?.Invoke(t.Result));
                     break;
 
                 default:
