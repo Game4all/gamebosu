@@ -1,4 +1,5 @@
 ﻿using osu.Framework.Allocation;
+using osu.Framework.Graphics;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Screens;
 using osu.Game.Graphics;
@@ -20,10 +21,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             Child = textFlow = new OsuTextFlowContainer()
             {
-                RelativeSizeAxes = Framework.Graphics.Axes.Both,
-                Origin = Framework.Graphics.Anchor.Centre,
-                Anchor = Framework.Graphics.Anchor.Centre,
-                TextAnchor = Framework.Graphics.Anchor.Centre,
+                RelativeSizeAxes = Axes.Both,
+                Origin = Anchor.Centre,
+                Anchor = Anchor.Centre,
+                TextAnchor = Anchor.Centre,
             };
         }
 
@@ -54,7 +55,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         public override void OnEntering(IScreen last)
         {
             base.OnEntering(last);
-            Scheduler.AddDelayed(() => Complete?.Invoke(this), 5000, false);
+
+            Content.Delay(5000)
+                    .ScaleTo(0.25f, 250, Easing.OutQuint)
+                    .FadeOut(250, Easing.Out)
+                    .OnComplete(t => Complete?.Invoke(this));
         }
     }
 }

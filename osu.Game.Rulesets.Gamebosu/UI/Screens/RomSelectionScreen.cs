@@ -2,7 +2,7 @@
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
-using osu.Framework.Logging;
+using osu.Framework.Screens;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
@@ -46,6 +46,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             };
         }
 
-        protected virtual void PushGameplay(EmulatedCartridge e) => Logger.Log($"Selected rom : {e.GameTitle}", LoggingTarget.Runtime, LogLevel.Debug);
+        protected virtual void PushGameplay(EmulatedCartridge e) => this.Push(new GameplayScreen(e));
     }
 }

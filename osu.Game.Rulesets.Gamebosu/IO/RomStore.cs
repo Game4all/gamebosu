@@ -48,8 +48,9 @@ namespace osu.Game.Rulesets.Gamebosu.IO
                         return new EmulatedCartridge(cart_rom, new StreamedExternalMemory(save_stream));
                     }
                 }
-                catch (System.Exception)
+                catch (System.Exception e)
                 {
+                    Logger.Error(e, "Load of cartridge failed", LoggingTarget.Runtime);
                     continue;
                 }
             }

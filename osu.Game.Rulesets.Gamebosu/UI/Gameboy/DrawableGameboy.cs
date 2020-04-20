@@ -56,6 +56,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         public void Start()
         {
+            screen.Clear();
+
             if (!gameBoy.Cpu.Running)
                 gameBoy.Cpu.Run();
         }
@@ -81,6 +83,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
             foreach (var channel in gameBoy.Spu.Channels)
                 channel.ChannelOutput = new DummyAudioChannelOutput();
+        }
+
+        protected override void Dispose(bool isDisposing)
+        {
+            gameBoy?.Cpu?.Shutdown();
+            base.Dispose(isDisposing);
         }
     }
 }
