@@ -5,10 +5,12 @@ using Emux.GameBoy;
 using Emux.GameBoy.Cartridge;
 using Emux.GameBoy.Input;
 using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Input.Bindings;
 using osu.Game.Rulesets.Gamebosu.Audio;
+using osu.Game.Rulesets.Gamebosu.Configuration;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
@@ -21,6 +23,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         private readonly DrawableGameboyScreen screen;
 
         private GameBoy gameBoy;
+
+        private Bindable<double> clockRate;
 
         public DrawableGameboy(ICartridge cart)
         {
@@ -79,13 +83,16 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         };
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(GamebosuConfigManager cfg)
         {
-            gameBoy = new GameBoy(cartridge, clock, true);
+            gameBoy = new GameBoy(cartridge, clock, cfg.Get<bool>(GamebosuSetting.PreferGBCMode));
             gameBoy.Gpu.VideoOutput = screen;
 
             foreach (var channel in gameBoy.Spu.Channels)
                 channel.ChannelOutput = new DummyAudioChannelOutput();
+
+            clockRate = cfg.GetBindable<double>(GamebosuSetting.ClockRate);
+            clock.Rate.BindTo(clockRate);
         }
 
         protected override void Dispose(bool isDisposing)
