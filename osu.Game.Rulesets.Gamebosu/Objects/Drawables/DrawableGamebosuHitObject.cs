@@ -1,5 +1,5 @@
-﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
-// See the LICENCE file in the repository root for full licence text.
+﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under MIT. 
+// See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Graphics;
 using osu.Game.Rulesets.Objects.Drawables;

@@ -1,4 +1,7 @@
-﻿using osu.Framework.Allocation;
+﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under MIT. 
+// See LICENSE at root of repo for more information on licensing.
+
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Screens;

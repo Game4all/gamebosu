@@ -1,4 +1,7 @@
-﻿using Emux.GameBoy.Cartridge;
+﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under MIT. 
+// See LICENSE at root of repo for more information on licensing.
+
+using Emux.GameBoy.Cartridge;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;

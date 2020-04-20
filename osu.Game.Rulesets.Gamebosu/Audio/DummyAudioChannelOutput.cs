@@ -1,4 +1,7 @@
-﻿using Emux.GameBoy.Audio;
+﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under MIT. 
+// See LICENSE at root of repo for more information on licensing.
+
+using Emux.GameBoy.Audio;
 
 namespace osu.Game.Rulesets.Gamebosu.Audio
 {

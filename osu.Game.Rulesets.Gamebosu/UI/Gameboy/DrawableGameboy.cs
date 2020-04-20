@@ -1,4 +1,7 @@
-﻿using Emux.GameBoy;
+﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under MIT. 
+// See LICENSE at root of repo for more information on licensing.
+
+using Emux.GameBoy;
 using Emux.GameBoy.Cartridge;
 using Emux.GameBoy.Input;
 using osu.Framework.Allocation;
