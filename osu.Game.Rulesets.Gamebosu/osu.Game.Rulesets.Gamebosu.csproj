@@ -10,6 +10,7 @@
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" />
     <PackageReference Include="ppy.osu.Game" Version="2020.418.0" />
   </ItemGroup>
   <ItemGroup>
@@ -19,4 +20,33 @@
   <ItemGroup>
     <ProjectReference Include="..\Emux\Emux.GameBoy\Emux.GameBoy.csproj" />
   </ItemGroup>
+
+  <!--We need to copy framework assembly to the output, else ILRepack will fail to resolve framework assembly.-->
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <Target Name="ILRepack" AfterTargets="Build" Condition=" '$(Configuration)'=='Release' ">
+    <PropertyGroup>
+      <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <InputAssemblies Include="Emux.GameBoy.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <InternalizeExcludeAssemblies Include="osu.Game.dll" />
+      <InternalizeExcludeAssemblies Include="osu.Framework.dll" />
+    </ItemGroup>
+
+    <ILRepack
+    OutputType="$(OutputType)"
+    MainAssembly="$(AssemblyName).dll"
+    OutputAssembly="$(AssemblyName).Packed.dll"
+    InputAssemblies="@(InputAssemblies)"
+    InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)"
+    WorkingDirectory="$(WorkingDirectory)" />
+    
+  </Target>
 </Project>
