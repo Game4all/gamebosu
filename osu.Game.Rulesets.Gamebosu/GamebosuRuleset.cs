@@ -64,7 +64,9 @@ namespace osu.Game.Rulesets.Gamebosu
             new KeyBinding(InputKey.Down, GamebosuAction.DPadDown),
 
             new KeyBinding(InputKey.A, GamebosuAction.ButtonA),
-            new KeyBinding(InputKey.B, GamebosuAction.ButtonB)
+            new KeyBinding(InputKey.B, GamebosuAction.ButtonB),
+            new KeyBinding(InputKey.Enter, GamebosuAction.ButtonSelect),
+            new KeyBinding(InputKey.BackSpace, GamebosuAction.ButtonStart),
         };
 
         public override Drawable CreateIcon() => new Icon(ShortName[0]);
