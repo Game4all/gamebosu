@@ -28,7 +28,7 @@ namespace osu.Game.Rulesets.Gamebosu
 {
     public class GamebosuRuleset : Ruleset
     {
-        public override string Description => "a very gamebosuruleset ruleset";
+        public override string Description => "gamebosu!";
 
         public override DrawableRuleset CreateDrawableRulesetWith(IBeatmap beatmap, IReadOnlyList<Mod> mods = null) =>
             new DrawableGamebosuRuleset(this, beatmap, mods);
@@ -54,7 +54,9 @@ namespace osu.Game.Rulesets.Gamebosu
             }
         }
 
-        public override string ShortName => "gamebosuruleset";
+        public override string ShortName => "gamebosu";
+
+        public override string PlayingVerb => $"Playing gameboy";
 
         public override IEnumerable<KeyBinding> GetDefaultKeyBindings(int variant = 0) => new[]
         {
