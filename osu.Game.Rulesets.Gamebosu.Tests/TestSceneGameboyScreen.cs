@@ -1,4 +1,7 @@
-﻿using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
+﻿// gamebosu! ruleset. Licensed under GPLv3.
+// See LICENSE at root of repo for more information on licensing.
+
+using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
 using osu.Game.Tests.Visual;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests
