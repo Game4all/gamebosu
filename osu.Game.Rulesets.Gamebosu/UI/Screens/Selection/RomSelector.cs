@@ -3,6 +3,8 @@
 
 using Emux.GameBoy.Cartridge;
 using osu.Framework.Allocation;
+using osu.Framework.Audio;
+using osu.Framework.Audio.Sample;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -30,6 +32,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         private readonly OsuSpriteText romName;
         private readonly SpriteIcon selectionLeft;
         private readonly SpriteIcon selectionRight;
+
+        private SampleChannel selectSample;
+        private SampleChannel confirmSelectSample;
 
         private BindableInt selection;
 
@@ -95,9 +100,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         }
 
         [BackgroundDependencyLoader]
-        private void load(TextureStore store, RomStore roms)
+        private void load(TextureStore store, RomStore roms, AudioManager audio)
         {
             this.roms = roms;
+
+            selectSample = audio.Samples.Get("UI/generic-hover-soft");
+            confirmSelectSample = audio.Samples.Get("SongSelect/confirm-selection");
 
             cartridge.Texture = store.Get("cartridge");
             avalaible_roms = roms.GetAvailableResources();
@@ -113,6 +121,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 
         private void updateSelection(ValueChangedEvent<int> selection)
         {
+            selectSample?.Play();
+
             selectionLeft.FadeIn(200, Easing.OutQuint);
             selectionRight.FadeIn(200, Easing.OutQuint);
 
@@ -153,6 +163,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                 case GamebosuAction.DPadRight:
                     setSelection(1);
                     break;
+
                 case GamebosuAction.DPadLeft:
                     setSelection(-1);
                     break;
@@ -162,8 +173,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                 case GamebosuAction.ButtonSelect:
                     var rom = avalaible_roms.ElementAtOrDefault(selection.Value);
                     if (rom != null)
+                    {
+                        confirmSelectSample?.Play();
                         roms.GetAsync(rom)
                             .ContinueWith(t => Selected?.Invoke(t.Result));
+                    }
                     break;
 
                 default:
