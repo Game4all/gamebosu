@@ -5,7 +5,7 @@ using Emux.GameBoy.Cartridge;
 using osu.Framework.Allocation;
 using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
 
-namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
+namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class GameplayScreen : GamebosuScreen
     {
