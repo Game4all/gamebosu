@@ -123,17 +123,17 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         {
             selectSample?.Play();
 
-            selectionLeft.FadeIn(200, Easing.OutQuint);
-            selectionRight.FadeIn(200, Easing.OutQuint);
+            selectionLeft.FadeIn(400, Easing.OutQuint);
+            selectionRight.FadeIn(400, Easing.OutQuint);
 
             if (selection.NewValue == this.selection.MaxValue)
-                selectionRight.FadeOut(200, Easing.OutQuint);
+                selectionRight.FadeOut(400, Easing.OutQuint);
 
             if (selection.NewValue == 0)
-                selectionLeft.FadeOut(200, Easing.OutQuint);
+                selectionLeft.FadeOut(400, Easing.OutQuint);
 
             romName
-                .FadeOut(200, Easing.OutQuint)
+                .FadeOut(300, Easing.OutQuint)
                 .OnComplete(t =>
                 {
                     var text = avalaible_roms.ElementAtOrDefault(selection.NewValue);
