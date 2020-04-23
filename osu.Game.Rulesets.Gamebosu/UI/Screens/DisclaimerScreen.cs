@@ -48,7 +48,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             {
                 t.Colour = color.Blue;
             });
-            textFlow.NewParagraph();
             textFlow.AddParagraph("Please also disable the HUD for a better immersion.", t =>
             {
                 t.Colour = color.Blue;
