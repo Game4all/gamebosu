@@ -3,6 +3,9 @@
 
 using Emux.GameBoy.Cartridge;
 using osu.Framework.Allocation;
+using osu.Framework.Bindables;
+using osu.Framework.Graphics;
+using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
@@ -11,20 +14,23 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     {
         private readonly DrawableGameboy gameboy;
 
+        private Bindable<float> gameboyScale;
+
         public GameplayScreen(ICartridge cart)
         {
             Child = gameboy = new DrawableGameboy(cart)
             {
-                Anchor = Framework.Graphics.Anchor.Centre,
-                Origin = Framework.Graphics.Anchor.Centre,
-                RelativeSizeAxes = Framework.Graphics.Axes.Both,
-                Scale = new osuTK.Vector2(3f)
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                RelativeSizeAxes = Axes.Both,
             };
         }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(GamebosuConfigManager config)
         {
+            gameboyScale = config.GetBindable<float>(GamebosuSetting.GameboyScale);
+            gameboyScale.BindValueChanged(e => gameboy.ScaleTo(e.NewValue, 400, Easing.OutQuint), true);
             gameboy.Start();
         }
     }

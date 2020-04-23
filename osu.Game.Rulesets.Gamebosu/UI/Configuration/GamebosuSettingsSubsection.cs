@@ -33,7 +33,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 {
                     LabelText = "Prefer Gameboy Color mode when launching original gameboy ROMs",
                     Bindable =  config.GetBindable<bool>(GamebosuSetting.PreferGBCMode)
-                }
+                },
+                new SettingsSlider<float>
+                {
+                    LabelText = "Gameboy Scale",
+                    Bindable = config.GetBindable<float>(GamebosuSetting.GameboyScale)
+                },
             };
         }
     }
