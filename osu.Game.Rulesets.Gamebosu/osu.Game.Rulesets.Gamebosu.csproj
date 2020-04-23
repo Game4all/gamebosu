@@ -1,23 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Project">
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyTitle>osu.Game.Rulesets.Sample</AssemblyTitle>
+    <AssemblyTitle>osu.Game.Rulesets.Gamebosu</AssemblyTitle>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RootNamespace>osu.Game.Rulesets.Gamebosu</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\**" />
+    <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" />
     <PackageReference Include="ppy.osu.Game" Version="2020.418.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Samples\Gameplay" />
-    <Folder Include="Resources\Textures" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Emux\Emux.GameBoy\Emux.GameBoy.csproj" />
   </ItemGroup>
 
@@ -40,13 +34,7 @@
       <InternalizeExcludeAssemblies Include="osu.Framework.dll" />
     </ItemGroup>
 
-    <ILRepack
-    OutputType="$(OutputType)"
-    MainAssembly="$(AssemblyName).dll"
-    OutputAssembly="$(AssemblyName).Packed.dll"
-    InputAssemblies="@(InputAssemblies)"
-    InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)"
-    WorkingDirectory="$(WorkingDirectory)" />
+    <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).Packed.dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />
     
   </Target>
 </Project>
