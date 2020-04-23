@@ -15,6 +15,7 @@ using osu.Game.Rulesets.Configuration;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Gamebosu.Beatmaps;
 using osu.Game.Rulesets.Gamebosu.Configuration;
+using osu.Game.Rulesets.Gamebosu.Graphics;
 using osu.Game.Rulesets.Gamebosu.Mods;
 using osu.Game.Rulesets.Gamebosu.UI;
 using osu.Game.Rulesets.Gamebosu.UI.Configuration;
@@ -71,32 +72,15 @@ namespace osu.Game.Rulesets.Gamebosu
             new KeyBinding(InputKey.BackSpace, GamebosuAction.ButtonStart),
         };
 
-        public override Drawable CreateIcon() => new Icon(ShortName[0]);
+        public override Drawable CreateIcon() => new RulesetIcon()
+        {
+            Scale = new Vector2(0.5f),
+            Anchor = Anchor.Centre,
+            Origin = Anchor.Centre,
+        };
 
         public override IRulesetConfigManager CreateConfig(SettingsStore settings) => new GamebosuConfigManager(settings, RulesetInfo);
 
         public override RulesetSettingsSubsection CreateSettings() => new GamebosuSettingsSubsection(this);
-
-        public class Icon : CompositeDrawable
-        {
-            public Icon(char c)
-            {
-                InternalChildren = new Drawable[]
-                {
-                    new Circle
-                    {
-                        Size = new Vector2(20),
-                        Colour = Color4.White,
-                    },
-                    new SpriteText
-                    {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                        Text = c.ToString(),
-                        Font = OsuFont.Default.With(size: 18)
-                    }
-                };
-            }
-        }
     }
 }
