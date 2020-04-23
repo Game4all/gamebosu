@@ -65,6 +65,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 X = -0.25f,
                                 Size = new osuTK.Vector2(40),
                                 Icon = FontAwesome.Solid.ChevronLeft,
+                                Alpha = 0,
                             },
                             cartridge = new Sprite
                             {
@@ -80,6 +81,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 X = 0.25f,
                                 Size = new osuTK.Vector2(40),
                                 Icon = FontAwesome.Solid.ChevronRight,
+                                Alpha = 0,
                             },
                         }
                     },
