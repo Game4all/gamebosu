@@ -1,13 +1,13 @@
 ﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
-using System.Collections.Generic;
-using System.Linq;
 using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Difficulty.Preprocessing;
 using osu.Game.Rulesets.Difficulty.Skills;
 using osu.Game.Rulesets.Mods;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu
 {

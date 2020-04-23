@@ -29,7 +29,7 @@ namespace osu.Game.Rulesets.Gamebosu.IO
         public RomStore(Storage storage)
         {
             this.storage = storage.GetStorageForDirectory("roms");
-            savesStorage  = this.storage.GetStorageForDirectory("saves");
+            savesStorage = this.storage.GetStorageForDirectory("saves");
 
             foreach (var ext in RECOGNIZED_EXTENSIONS)
                 AddExtension(ext);

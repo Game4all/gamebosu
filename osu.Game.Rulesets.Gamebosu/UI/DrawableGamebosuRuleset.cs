@@ -1,7 +1,6 @@
 ﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
-using System.Collections.Generic;
 using osu.Framework.Allocation;
 using osu.Framework.Input;
 using osu.Framework.Platform;
@@ -15,6 +14,7 @@ using osu.Game.Rulesets.Gamebosu.Replays;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.UI;
+using System.Collections.Generic;
 
 namespace osu.Game.Rulesets.Gamebosu.UI
 {

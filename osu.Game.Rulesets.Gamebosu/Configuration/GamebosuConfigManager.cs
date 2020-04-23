@@ -8,7 +8,7 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
 {
     public class GamebosuConfigManager : RulesetConfigManager<GamebosuSetting>
     {
-        public GamebosuConfigManager(SettingsStore settings, RulesetInfo ruleset) 
+        public GamebosuConfigManager(SettingsStore settings, RulesetInfo ruleset)
             : base(settings, ruleset, 0)
         {
         }

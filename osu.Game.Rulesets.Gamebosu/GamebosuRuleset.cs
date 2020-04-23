@@ -1,15 +1,10 @@
 ﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
-using System.Collections.Generic;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
 using osu.Game.Beatmaps;
 using osu.Game.Configuration;
-using osu.Game.Graphics;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Configuration;
 using osu.Game.Rulesets.Difficulty;
@@ -23,7 +18,7 @@ using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
 using osuTK;
-using osuTK.Graphics;
+using System.Collections.Generic;
 
 namespace osu.Game.Rulesets.Gamebosu
 {

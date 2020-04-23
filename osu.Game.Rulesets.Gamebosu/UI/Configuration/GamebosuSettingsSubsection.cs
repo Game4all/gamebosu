@@ -10,7 +10,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 {
     public class GamebosuSettingsSubsection : RulesetSettingsSubsection
     {
-        public GamebosuSettingsSubsection(Ruleset ruleset) 
+        public GamebosuSettingsSubsection(Ruleset ruleset)
             : base(ruleset)
         {
         }

@@ -1,9 +1,8 @@
 ﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
-using System.Collections.Generic;
 using osu.Game.Rulesets.Replays;
-using osuTK;
+using System.Collections.Generic;
 
 namespace osu.Game.Rulesets.Gamebosu.Replays
 {
