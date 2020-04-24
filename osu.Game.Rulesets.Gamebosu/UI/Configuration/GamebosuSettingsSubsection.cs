@@ -3,6 +3,7 @@
 
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Platform;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 
@@ -18,7 +19,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         protected override string Header => "gamebosu!";
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(Storage storage) 
         {
             var config = Config as GamebosuConfigManager;
 
@@ -38,6 +39,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 {
                     LabelText = "Gameboy Scale",
                     Bindable = config.GetBindable<float>(GamebosuSetting.GameboyScale)
+                },
+                new SettingsButton
+                {
+                    Text = "Open ROMs folder",
+                    Action = () => storage.GetStorageForDirectory("roms")?.OpenInNativeExplorer()
                 },
             };
         }
