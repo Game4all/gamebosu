@@ -58,9 +58,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             base.OnEntering(last);
 
-            Content.Delay(5000)
-                    .ScaleTo(0.25f, 250, Easing.OutQuint)
-                    .FadeOut(250, Easing.Out)
+            Content.Delay(3000)
+                    .ScaleTo(0.25f, 300, Easing.OutQuint)
+                    .FadeOut(300, Easing.Out)
                     .OnComplete(t => Complete?.Invoke(this));
         }
     }
