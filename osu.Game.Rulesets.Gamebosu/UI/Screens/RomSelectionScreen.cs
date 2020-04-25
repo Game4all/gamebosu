@@ -8,7 +8,9 @@ using osu.Framework.Graphics.Sprites;
 using osu.Framework.Screens;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
+using osu.Game.Rulesets.Gamebosu.Graphics;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
+using osuTK;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
@@ -22,15 +24,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 RelativeSizeAxes = Axes.Both,
                 Anchor = Anchor.TopCentre,
                 Origin = Anchor.TopCentre,
+                Spacing = new Vector2(0, 5),
                 Direction = FillDirection.Vertical,
                 Children = new Drawable[]
                 {
-                    new SpriteIcon
+                    new RulesetIcon
                     {
                         Anchor = Anchor.TopCentre,
                         Origin = Anchor.TopCentre,
-                        Icon = FontAwesome.Solid.Gamepad,
-                        Size = new osuTK.Vector2(40)
                     },
                     new OsuSpriteText
                     {

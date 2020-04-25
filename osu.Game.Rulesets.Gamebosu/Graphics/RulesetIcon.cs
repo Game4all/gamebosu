@@ -10,6 +10,7 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
     {
         public RulesetIcon()
         {
+            AutoSizeAxes = Axes.Both;
             InternalChildren = new Drawable[]
             {
                 new SpriteIcon
