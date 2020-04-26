@@ -4,6 +4,9 @@ A ruleset that adds a playable gameboy to osu!lazer.
 <br/>
 </div>
 
+# **DISCLAIMER**
+This ruleset is still a _work in progress_ as there are still some features missing and there are bugs out. Prebuilt pre-releases will be provided along the developpement in the wait for an official release. Please _report any issues you are running into_ with this ruleset on the issue tracker of _this repository_.
+
 # Building the ruleset.
 
 Assuming you've got the .NET Core SDK tools in your path
@@ -18,8 +21,8 @@ For building this from an IDE, you should open the solution file with your prefe
 
 # Installation 
 
-- Go to osu!lazer executable folder (`%localappdata%/osulazer` on windows)
-- Drag and drop the file previously built or prebuilt there.
+- Go to osu!lazer data folder (`%appdata%/osu` on windows)
+- Drag and drop the file previously built or prebuilt in the `rulesets/` folder
 - Launch lazer. You should see the ruleset.
 
 # Installing Roms
@@ -28,7 +31,7 @@ This ruleset basically ports a gameboy emulator to lazer, so you'll need gameboy
 
 - Launch lazer with the ruleset installed and launch a beatmap (this is to create the roms folder).
 - Go to osu!lazer data folder (`%appdata%/osu` on windows)
-- Drag your gameboy (color) roms into `osu/roms`
+- Drag your gameboy (color) roms into `roms/` folder.
 
 
 # How to use
