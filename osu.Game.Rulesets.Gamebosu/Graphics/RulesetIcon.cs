@@ -8,6 +8,8 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
 {
     public class RulesetIcon : CompositeDrawable
     {
+        protected override bool CanBeFlattened => true;
+
         public RulesetIcon()
         {
             AutoSizeAxes = Axes.Both;
