@@ -53,7 +53,7 @@ namespace osu.Game.Rulesets.Gamebosu.IO
                 }
                 catch (System.Exception e)
                 {
-                    Logger.Error(e, "Load of cartridge failed", LoggingTarget.Runtime);
+                    Logger.LogPrint("Load of cartridge failed: " + e.ToString(), LoggingTarget.Runtime);
                     continue;
                 }
             }

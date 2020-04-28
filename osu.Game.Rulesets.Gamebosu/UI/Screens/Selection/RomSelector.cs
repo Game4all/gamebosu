@@ -14,9 +14,11 @@ using osu.Framework.Input.Bindings;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Rulesets.Gamebosu.IO;
+using osuTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
@@ -27,6 +29,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         public Action<EmulatedCartridge> Selected;
 
         private readonly Sprite cartridge;
+
+        private const double fade_time = 300;
+        private const Easing easing = Easing.OutQuint;
 
         private RomStore roms;
         private readonly OsuSpriteText romName;
@@ -134,17 +139,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             if (selection.NewValue == 0)
                 selectionLeft.FadeOut(400, Easing.OutQuint);
 
-            romName
-                .FadeOut(300, Easing.OutQuint)
-                .OnComplete(t =>
-                {
-                    var text = avalaible_roms.ElementAtOrDefault(selection.NewValue);
+            var text = avalaible_roms.ElementAtOrDefault(selection.NewValue);
 
-                    if (text != null)
-                        t.Text = text;
-
-                    t.FadeIn(200, Easing.OutQuint);
-                });
+            if (text != null)
+                setSelectionText(text, Color4.White);
         }
 
         private void setSelection(int idx)
@@ -156,6 +154,30 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             catch (Exception)
             {
             }
+        }
+
+        private void setSelectionText(string text, Color4 color)
+        {
+            romName.FadeOut(fade_time, easing)
+                   .OnComplete(t =>
+                   {
+                       t.Text = text;
+                       t.FadeColour(color, fade_time, Easing.OutQuint);
+                       t.FadeIn(fade_time, Easing.OutQuint);
+                   });
+        }
+
+        private void finalizeSelection(Task<EmulatedCartridge> cartridge)
+        {
+            confirmSelectSample?.Play();
+
+            if (cartridge.Result != null)
+                Selected?.Invoke(cartridge.Result);
+            else
+            {
+                setSelectionText("Couldn't load cartridge. Please make sure it is a valid gameboy (color) ROM file.", Color4.Red);
+            }
+                    
         }
 
         public bool OnPressed(GamebosuAction action)
@@ -176,9 +198,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                     var rom = avalaible_roms.ElementAtOrDefault(selection.Value);
                     if (rom != null)
                     {
-                        confirmSelectSample?.Play();
                         roms.GetAsync(rom)
-                            .ContinueWith(t => Selected?.Invoke(t.Result));
+                            .ContinueWith(finalizeSelection);
                     }
                     break;
 
