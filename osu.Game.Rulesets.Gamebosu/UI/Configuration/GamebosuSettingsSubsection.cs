@@ -19,7 +19,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         protected override string Header => "gamebosu!";
 
         [BackgroundDependencyLoader]
-        private void load(Storage storage) 
+        private void load(Storage storage)
         {
             var config = Config as GamebosuConfigManager;
 

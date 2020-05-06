@@ -20,7 +20,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
 
         private const float icon_pos = 0.40f;
 
-        public ClockRateIndicator() 
+        public ClockRateIndicator()
         {
             AutoSizeAxes = Axes.Y;
             RelativeSizeAxes = Axes.X;

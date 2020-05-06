@@ -177,7 +177,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             {
                 setSelectionText("Couldn't load cartridge. Please make sure it is a valid gameboy (color) ROM file.", Color4.Red);
             }
-                    
         }
 
         public bool OnPressed(GamebosuAction action)

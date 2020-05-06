@@ -4,7 +4,6 @@
 using Emux.GameBoy.Cartridge;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Sprites;
 using osu.Framework.Screens;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;

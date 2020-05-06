@@ -21,6 +21,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         public int Level => 0;
 
         private RectangleI bounds = new RectangleI(0, 0, 160, 144);
+
         public RectangleI Bounds
         {
             get => bounds;
