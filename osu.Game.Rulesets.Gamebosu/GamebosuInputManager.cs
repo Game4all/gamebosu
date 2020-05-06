@@ -40,5 +40,11 @@ namespace osu.Game.Rulesets.Gamebosu
 
         [Description("Select Button")]
         ButtonSelect,
+
+        [Description("Increment clock rate")]
+        ButtonIncrementClockRate,
+
+        [Description("Decrement clock rate")]
+        ButtonDecrementClockRate
     }
 }

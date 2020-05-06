@@ -61,6 +61,9 @@ namespace osu.Game.Rulesets.Gamebosu
             new KeyBinding(InputKey.Up, GamebosuAction.DPadUp),
             new KeyBinding(InputKey.Down, GamebosuAction.DPadDown),
 
+            new KeyBinding(InputKey.PageUp, GamebosuAction.ButtonIncrementClockRate),
+            new KeyBinding(InputKey.PageDown, GamebosuAction.ButtonDecrementClockRate),
+
             new KeyBinding(InputKey.A, GamebosuAction.ButtonA),
             new KeyBinding(InputKey.B, GamebosuAction.ButtonB),
             new KeyBinding(InputKey.Enter, GamebosuAction.ButtonSelect),

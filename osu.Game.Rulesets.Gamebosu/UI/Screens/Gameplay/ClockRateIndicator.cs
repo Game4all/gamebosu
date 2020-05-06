@@ -4,6 +4,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Colour;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Input.Bindings;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osuTK.Graphics;
@@ -11,7 +12,7 @@ using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
 {
-    public class ClockRateIndicator : CompositeDrawable
+    public class ClockRateIndicator : CompositeDrawable, IKeyBindingHandler<GamebosuAction>
     {
         public readonly BindableDouble Rate = new BindableDouble();
 
@@ -74,6 +75,38 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
         private void updateText(ValueChangedEvent<double> e)
         {
             rate_text.Text = $"{Math.Round(e.NewValue, 2, MidpointRounding.AwayFromZero)}x";
+        }
+
+        private void setRate(double delta)
+        {
+            try
+            {
+                Rate.Value += delta;
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public bool OnPressed(GamebosuAction action)
+        {
+            switch (action)
+            {
+                case GamebosuAction.ButtonIncrementClockRate:
+                    setRate(0.1);
+                    return true;
+
+                case GamebosuAction.ButtonDecrementClockRate:
+                    setRate(-0.1);
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+        public void OnReleased(GamebosuAction action)
+        {
         }
     }
 }
