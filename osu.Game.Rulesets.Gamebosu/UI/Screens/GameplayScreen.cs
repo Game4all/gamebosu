@@ -7,6 +7,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
+using osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
@@ -14,15 +15,26 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     {
         private readonly DrawableGameboy gameboy;
 
+        private readonly ClockRateIndicator indicator;
+
         private Bindable<float> gameboyScale;
 
         public GameplayScreen(ICartridge cart)
         {
-            Child = gameboy = new DrawableGameboy(cart)
+            Children = new Drawable[]
             {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                RelativeSizeAxes = Axes.Both,
+                gameboy = new DrawableGameboy(cart)
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    RelativeSizeAxes = Axes.Both,
+                },
+                indicator = new ClockRateIndicator
+                {
+                    Anchor = Anchor.BottomCentre,
+                    Origin = Anchor.BottomCentre,
+                    Margin = new MarginPadding { Bottom = 20 }
+                }
             };
         }
 
@@ -31,6 +43,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             gameboyScale = config.GetBindable<float>(GamebosuSetting.GameboyScale);
             gameboyScale.BindValueChanged(e => gameboy.ScaleTo(e.NewValue, 400, Easing.OutQuint), true);
+            config.BindWith(GamebosuSetting.ClockRate, indicator.Rate);
             gameboy.Start();
         }
     }

@@ -60,7 +60,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
                     Origin = Anchor.TopCentre,
                     Text = "1x",
                     Font = OsuFont.GetFont(Typeface.Torus, 16, FontWeight.Bold, true),
-                    Margin = new MarginPadding { Bottom = 30 }
+                    Margin = new MarginPadding { Bottom = 25 }
                 }
             };
         }
