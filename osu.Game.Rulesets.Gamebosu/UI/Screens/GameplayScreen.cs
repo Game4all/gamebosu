@@ -5,6 +5,7 @@ using Emux.GameBoy.Cartridge;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay;
@@ -14,7 +15,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     public class GameplayScreen : GamebosuScreen
     {
         private readonly DrawableGameboy gameboy;
-
+        private readonly Container container;
         private readonly ClockRateIndicator indicator;
 
         private Bindable<float> gameboyScale;
@@ -23,11 +24,16 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             Children = new Drawable[]
             {
-                gameboy = new DrawableGameboy(cart)
+                container = new Container
                 {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    RelativeSizeAxes = Axes.Both,
+                    AutoSizeAxes = Axes.Both,
+                    Child = gameboy = new DrawableGameboy(cart)
+                    {
+                        Anchor = Anchor.Centre,
+                        Origin = Anchor.Centre,
+                    },
                 },
                 indicator = new ClockRateIndicator
                 {
@@ -42,7 +48,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         private void load(GamebosuConfigManager config)
         {
             gameboyScale = config.GetBindable<float>(GamebosuSetting.GameboyScale);
-            gameboyScale.BindValueChanged(e => gameboy.ScaleTo(e.NewValue, 400, Easing.OutQuint), true);
+            gameboyScale.BindValueChanged(e => container.ScaleTo(e.NewValue, 400, Easing.OutQuint), true);
             config.BindWith(GamebosuSetting.ClockRate, indicator.Rate);
             gameboy.Start();
         }

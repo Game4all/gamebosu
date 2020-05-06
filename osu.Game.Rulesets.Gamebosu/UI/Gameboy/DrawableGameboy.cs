@@ -28,6 +28,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         public DrawableGameboy(ICartridge cart)
         {
+            AutoSizeAxes = Axes.Both;
+            Masking = true;
+            CornerRadius = 5;
+
             cartridge = cart;
 
             InternalChildren = new Drawable[]
@@ -40,9 +44,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
                     Origin = Anchor.Centre
                 }
             };
-
-            Masking = true;
-            CornerRadius = 5;
         }
 
         public bool OnPressed(GamebosuAction action)
