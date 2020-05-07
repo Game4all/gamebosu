@@ -44,7 +44,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
                     Width = 0.75f,
                     Height = 15,
                     Value = new BindableDouble { BindTarget = Rate },
-                    BarColour = ColourInfo.GradientHorizontal(Color4.Green, Color4.LightGreen)
+                    BarColour = Color4.White
                 },
                 new SpriteIcon
                 {
