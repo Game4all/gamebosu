@@ -48,15 +48,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             });
 
             textFlow.AddParagraph("This is a WIP, so don't expect things to work as expected.");
-            textFlow.AddParagraph("For now, please use beatmaps without breaks for the best experience!", t =>
-            {
-                t.Colour = color.Blue;
-            });
-
-            textFlow.AddParagraph("Please also disable the HUD for a better immersion.", t =>
-            {
-                t.Colour = color.Blue;
-            });
 
             textFlow.NewParagraph();
             textFlow.NewParagraph();
