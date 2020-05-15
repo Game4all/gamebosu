@@ -34,6 +34,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI
 
         protected override PassThroughInputManager CreateInputManager() => new GamebosuInputManager(Ruleset?.RulesetInfo);
 
+        public override bool AllowGameplayOverlays => false;
+
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
         {
             var deps = new DependencyContainer(base.CreateChildDependencies(parent));
