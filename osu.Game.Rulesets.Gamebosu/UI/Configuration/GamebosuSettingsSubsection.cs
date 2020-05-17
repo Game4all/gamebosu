@@ -2,6 +2,7 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
+using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Platform;
 using osu.Game.Overlays.Settings;
@@ -45,6 +46,16 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                     Text = "Open ROMs folder",
                     Action = () => storage.GetStorageForDirectory("roms")?.OpenInNativeExplorer()
                 },
+                new DangerousSettingsButton
+                {
+                    Text = "Delete ROM save data",
+                    Action = () => 
+                    {
+                        var saves = storage.GetStorageForDirectory("roms/saves");
+                        var files = saves.GetFiles(".");
+                        files.ForEach(file => saves.Delete(file));
+                    }
+                }
             };
         }
     }
