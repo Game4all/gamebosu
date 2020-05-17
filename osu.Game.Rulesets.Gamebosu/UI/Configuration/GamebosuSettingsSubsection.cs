@@ -5,8 +5,10 @@ using osu.Framework.Allocation;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Platform;
+using osu.Game.Overlays;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Gamebosu.Configuration;
+using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 {
@@ -20,7 +22,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         protected override string Header => "gamebosu!";
 
         [BackgroundDependencyLoader]
-        private void load(Storage storage)
+        private void load(Storage storage, DialogOverlay dialog)
         {
             var config = Config as GamebosuConfigManager;
 
@@ -51,9 +53,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                     Text = "Delete ROM save data",
                     Action = () => 
                     {
-                        var saves = storage.GetStorageForDirectory("roms/saves");
-                        var files = saves.GetFiles(".");
-                        files.ForEach(file => saves.Delete(file));
+                        Action deleteAction = delegate
+                        {
+                            var saves = storage.GetStorageForDirectory("roms/saves");
+                            var files = saves.GetFiles(".");
+                            files.ForEach(file => saves.Delete(file));
+                        };
+
+                        dialog.Push(new DeleteDataDialog(deleteAction));
                     }
                 }
             };
