@@ -67,7 +67,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             screen.Clear();
 
             if (!gameBoy.Cpu.Running)
-                gameBoy.Cpu.Run();
+                gameBoy.Run();
         }
 
         private GameBoyPadButton getFromAction(GamebosuAction action) => action switch
