@@ -59,7 +59,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                     new Container
                     {
                         RelativeSizeAxes = Axes.X,
-                        Height = 300,
+                        Height = 400,
                         Children = new Drawable[]
                         {
                             selectionLeft = new SpriteIcon
@@ -72,11 +72,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 Icon = FontAwesome.Solid.ChevronLeft,
                                 Alpha = 0,
                             },
-                            cartridge = new Sprite
+                            new SelectionCard()
                             {
                                 Anchor = Anchor.Centre,
                                 Origin = Anchor.Centre,
-                                Scale = new osuTK.Vector2(2f)
                             },
                             selectionRight = new SpriteIcon
                             {
@@ -114,7 +113,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             selectSample = audio.Samples.Get("UI/generic-hover-soft");
             confirmSelectSample = audio.Samples.Get("SongSelect/confirm-selection");
 
-            cartridge.Texture = store.Get("cartridge");
             avalaible_roms = roms.GetAvailableResources();
 
             selection = new BindableInt(0)
