@@ -15,7 +15,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
     {
         private readonly Sprite cartridge;
 
-        public SelectionCard()
+        public SelectionCard(string romName)
         {
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
@@ -83,7 +83,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                     Font = OsuFont.GetFont(Typeface.Torus, 24, FontWeight.Bold),
                                     Anchor = Anchor.Centre,
                                     Origin = Anchor.Centre,
-                                    Text = "ROM NAME",                                   
+                                    Text = romName,
                                 }
                             }
                         }

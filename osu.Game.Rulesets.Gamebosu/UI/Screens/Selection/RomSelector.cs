@@ -11,10 +11,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
-using osu.Game.Graphics;
-using osu.Game.Graphics.Sprites;
 using osu.Game.Rulesets.Gamebosu.IO;
-using osuTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +25,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 
         public Action<EmulatedCartridge> Selected;
 
-        private readonly Sprite cartridge;
-
         private const double fade_time = 300;
         private const Easing easing = Easing.OutQuint;
 
         private RomStore roms;
-        private readonly OsuSpriteText romName;
+        private readonly SelectionContainer selectionContainer;
         private readonly SpriteIcon selectionLeft;
         private readonly SpriteIcon selectionRight;
 
@@ -72,10 +67,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 Icon = FontAwesome.Solid.ChevronLeft,
                                 Alpha = 0,
                             },
-                            new SelectionCard()
+                            selectionContainer = new SelectionContainer
                             {
                                 Anchor = Anchor.Centre,
                                 Origin = Anchor.Centre,
+                                RelativeSizeAxes = Axes.Both,
                             },
                             selectionRight = new SpriteIcon
                             {
@@ -89,18 +85,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                             },
                         }
                     },
-                    new Container
-                    {
-                        RelativeSizeAxes = Axes.X,
-                        AutoSizeAxes = Axes.Y,
-                        Child = romName = new OsuSpriteText
-                        {
-                            Font = OsuFont.GetFont(Typeface.Torus, 24, FontWeight.SemiBold),
-                            Text = "No avalaible rom found!",
-                            Anchor = Anchor.Centre,
-                            Origin = Anchor.Centre,
-                        }
-                    }
                 }
             };
         }
@@ -115,32 +99,38 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 
             avalaible_roms = roms.GetAvailableResources();
 
+            foreach (var item in avalaible_roms)
+            {
+                selectionContainer.Add(new SelectionCard(item)
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                });
+            }
+
             selection = new BindableInt(0)
             {
                 MinValue = 0,
                 MaxValue = ((avalaible_roms.Count() - 1) >= 0 ? (avalaible_roms.Count() - 1) : 0)
             };
 
+            selectionContainer.Current.BindTo(selection);
             selection.BindValueChanged(updateSelection, true);
+            selectionContainer.Current.TriggerChange();
         }
 
         private void updateSelection(ValueChangedEvent<int> selection)
         {
             selectSample?.Play();
 
-            selectionLeft.FadeIn(400, Easing.OutQuint);
-            selectionRight.FadeIn(400, Easing.OutQuint);
+            selectionLeft.FadeIn(fade_time, easing);
+            selectionRight.FadeIn(fade_time, easing);
 
             if (selection.NewValue == this.selection.MaxValue)
-                selectionRight.FadeOut(400, Easing.OutQuint);
+                selectionRight.FadeOut(fade_time, easing);
 
             if (selection.NewValue == 0)
-                selectionLeft.FadeOut(400, Easing.OutQuint);
-
-            var text = avalaible_roms.ElementAtOrDefault(selection.NewValue);
-
-            if (text != null)
-                setSelectionText(text, Color4.White);
+                selectionLeft.FadeOut(fade_time, easing);
         }
 
         private void setSelection(int idx)
@@ -154,27 +144,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             }
         }
 
-        private void setSelectionText(string text, Color4 color)
-        {
-            romName.FadeOut(fade_time, easing)
-                   .OnComplete(t =>
-                   {
-                       t.Text = text;
-                       t.FadeColour(color, fade_time, Easing.OutQuint);
-                       t.FadeIn(fade_time, Easing.OutQuint);
-                   });
-        }
-
         private void finalizeSelection(Task<EmulatedCartridge> cartridge)
         {
             confirmSelectSample?.Play();
 
             if (cartridge.Result != null)
                 Selected?.Invoke(cartridge.Result);
-            else
-            {
-                setSelectionText("Couldn't load cartridge. Please make sure it is a valid gameboy (color) ROM file.", Color4.Red);
-            }
         }
 
         public bool OnPressed(GamebosuAction action)
