@@ -19,7 +19,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             Child = new FillFlowContainer
             {
-                Margin = new MarginPadding { Top = 150 },
+                Margin = new MarginPadding { Top = 100 },
                 RelativeSizeAxes = Axes.Both,
                 Anchor = Anchor.TopCentre,
                 Origin = Anchor.TopCentre,
