@@ -6,9 +6,15 @@ namespace osu.Game.Rulesets.Gamebosu.Tests
 {
     public class TestSceneRomSelector : OsuTestScene
     {
-        private readonly RomSelector romSelector;
+        private RomSelector romSelector;
 
         public TestSceneRomSelector()
+        {
+        }
+
+        
+        [SetUp]
+        public void SetUp()
         {
             Child = romSelector = new RomSelector()
             {
@@ -34,6 +40,11 @@ namespace osu.Game.Rulesets.Gamebosu.Tests
             AddStep("select next rom", () => romSelector.OnPressed(GamebosuAction.DPadRight));
             AddStep("go back to previous rom", () => romSelector.OnPressed(GamebosuAction.DPadLeft));
             AddStep("show rom as unavalaible", () => romSelector.MarkUnavalaible());
+        }
+
+        [Test]
+        public void TestNoRom()
+        {
         }
     }
 }

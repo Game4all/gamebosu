@@ -11,6 +11,8 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
+using osu.Game.Graphics;
+using osu.Game.Graphics.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         {
             set
             {
+                if (value.Count() == 0)
+                    return;
+
                 avalaible_roms = value;
 
                 foreach (var item in avalaible_roms)
@@ -42,6 +47,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                     MaxValue = ((avalaible_roms.Count() - 1) >= 0 ? (avalaible_roms.Count() - 1) : 0)
                 };
 
+                noRomContainer.Hide();
                 selectionContainer.Current.BindTo(selection);
                 selection.BindValueChanged(updateSelection, true);
                 selectionContainer.Current.TriggerChange();
@@ -61,6 +67,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         private readonly SelectionContainer selectionContainer;
         private readonly SpriteIcon selectionLeft;
         private readonly SpriteIcon selectionRight;
+        private readonly Container noRomContainer;
 
         private SampleChannel selectSample;
         private SampleChannel confirmSelectSample;
@@ -86,6 +93,31 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                         Height = 400,
                         Children = new Drawable[]
                         {
+                            noRomContainer = new Container
+                            {
+                                RelativeSizeAxes = Axes.Y,
+                                AutoSizeAxes = Axes.X,
+                                Anchor = Anchor.Centre,
+                                Origin = Anchor.Centre,
+                                Children = new Drawable[]
+                                {
+                                    new SpriteIcon
+                                    {
+                                        Icon = FontAwesome.Solid.SadCry,
+                                        RelativeSizeAxes = Axes.Y,
+                                        Anchor = Anchor.Centre,
+                                        Origin = Anchor.Centre,
+                                        Size = new osuTK.Vector2(120)
+                                    },
+                                    new OsuSpriteText
+                                    {
+                                        Anchor = Anchor.BottomCentre,
+                                        Origin = Anchor.BottomCentre,
+                                        Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
+                                        Text = "Sadly there's no usable ROM avalaible ...",
+                                    }
+                                }
+                            },
                             selectionLeft = new SpriteIcon
                             {
                                 Anchor = Anchor.Centre,
