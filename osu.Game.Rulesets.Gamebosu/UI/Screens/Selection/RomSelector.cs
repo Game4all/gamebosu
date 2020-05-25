@@ -150,6 +150,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 
             if (cartridge.Result != null)
                 Selected?.Invoke(cartridge.Result);
+            else
+                selectionContainer[selection.Value].MarkUnavalaible();
         }
 
         public bool OnPressed(GamebosuAction action)

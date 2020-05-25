@@ -5,7 +5,7 @@ using osu.Framework.Graphics.Containers;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
-    public class SelectionContainer : Container
+    public class SelectionContainer : Container<SelectionCard>
     {
         private const double fade_time = 300;
         private const Easing easing = Easing.OutQuint;
@@ -19,7 +19,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         {
         }
 
-        public override void Add(Drawable drawable)
+        public override void Add(SelectionCard drawable)
         {
             drawable.Hide();
             base.Add(drawable);

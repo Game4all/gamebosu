@@ -1,4 +1,5 @@
-﻿using osu.Framework.Allocation;
+﻿using ManagedBass;
+using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -14,6 +15,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
     public class SelectionCard : CompositeDrawable
     {
         private readonly Sprite cartridge;
+        private readonly SpriteIcon loadFailedIcon;
+        private readonly OsuSpriteText loadFailedText;
+        private readonly OsuSpriteText romNameText;
 
         public SelectionCard(string romName)
         {
@@ -61,12 +65,31 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                         RelativeSizeAxes = Axes.Both,
                                         Colour = Color4.Black.Opacity(0.6f)
                                     },
+                                    loadFailedText = new OsuSpriteText
+                                    {
+                                        Anchor = Anchor.BottomCentre,
+                                        Origin = Anchor.BottomCentre,
+                                        Margin = new MarginPadding { Bottom = 10 },
+                                        Font = OsuFont.GetFont(Typeface.Torus, 20, FontWeight.Bold),
+                                        Text = "Failed to load cartridge!",
+                                        Colour = Color4.Red,
+                                        Alpha = 0,
+                                    },
                                     cartridge = new Sprite
                                     {
                                         Anchor = Anchor.Centre,
                                         Origin = Anchor.Centre,
                                         Scale = new osuTK.Vector2(2)
-                                    }
+                                    },
+                                    loadFailedIcon = new SpriteIcon
+                                    {
+                                        Icon = OsuIcon.CrossCircle,
+                                        Anchor = Anchor.Centre,
+                                        Origin = Anchor.Centre,
+                                        Colour = Color4.Red.Opacity(0.9f),
+                                        Size = new osuTK.Vector2(160),
+                                        Alpha = 0
+                                    },
                                 },
                                 CornerRadius = 15
                             },
@@ -78,9 +101,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 RelativeSizeAxes = Axes.Y,
                                 Height = 0.10f,
                                 Margin = new MarginPadding { Horizontal =  10, Vertical = 10 },
-                                Child = new OsuSpriteText
+                                Child = romNameText = new OsuSpriteText
                                 {
-                                    Font = OsuFont.GetFont(Typeface.Torus, 24, FontWeight.Bold),
+                                    Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
                                     Anchor = Anchor.Centre,
                                     Origin = Anchor.Centre,
                                     Text = romName,
@@ -96,6 +119,24 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         private void load(TextureStore textures)
         {
             cartridge.Texture = textures?.Get("cartridge");
+        }
+
+        public void MarkUnavalaible()
+        {
+            loadFailedIcon
+                .FadeIn(250, Easing.In)
+                .Then(800)
+                .FadeOut(400, Easing.Out);
+
+            loadFailedText
+                .FadeIn(250, Easing.In)
+                .Then(800)
+                .FadeOut(400, Easing.Out);
+
+            romNameText
+                .FadeColour(Color4.Red, 250, Easing.In)
+                .Then(800)
+                .FadeColour(Color4.White, 400, Easing.Out);
         }
     }
 }
