@@ -11,11 +11,9 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
-using osu.Game.Rulesets.Gamebosu.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
@@ -23,12 +21,43 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
     {
         private IEnumerable<string> avalaible_roms;
 
+        public IEnumerable<string> AvalaibleRoms
+        {
+            set
+            {
+                avalaible_roms = value;
+
+                foreach (var item in avalaible_roms)
+                {
+                    selectionContainer.Add(new SelectionCard(item)
+                    {
+                        Anchor = Anchor.Centre,
+                        Origin = Anchor.Centre,
+                    });
+                }
+
+                selection = new BindableInt(0)
+                {
+                    MinValue = 0,
+                    MaxValue = ((avalaible_roms.Count() - 1) >= 0 ? (avalaible_roms.Count() - 1) : 0)
+                };
+
+                selectionContainer.Current.BindTo(selection);
+                selection.BindValueChanged(updateSelection, true);
+                selectionContainer.Current.TriggerChange();
+            }
+        }
+
         public Action<EmulatedCartridge> Selected;
+
+        /// <summary>
+        /// Called when the ROM has been selected.
+        /// </summary>
+        public Action<string> RomSelected;
 
         private const double fade_time = 300;
         private const Easing easing = Easing.OutQuint;
 
-        private RomStore roms;
         private readonly SelectionContainer selectionContainer;
         private readonly SpriteIcon selectionLeft;
         private readonly SpriteIcon selectionRight;
@@ -89,34 +118,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             };
         }
 
-        [BackgroundDependencyLoader]
-        private void load(TextureStore store, RomStore roms, AudioManager audio)
-        {
-            this.roms = roms;
+        public void MarkUnavalaible() => Scheduler.Add(() => selectionContainer.GetSelection(selection.Value)?.MarkUnavalaible());
 
+        [BackgroundDependencyLoader]
+        private void load(TextureStore store, AudioManager audio)
+        {
             selectSample = audio.Samples.Get("UI/generic-hover-soft");
             confirmSelectSample = audio.Samples.Get("SongSelect/confirm-selection");
-
-            avalaible_roms = roms.GetAvailableResources();
-
-            foreach (var item in avalaible_roms)
-            {
-                selectionContainer.Add(new SelectionCard(item)
-                {
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                });
-            }
-
-            selection = new BindableInt(0)
-            {
-                MinValue = 0,
-                MaxValue = ((avalaible_roms.Count() - 1) >= 0 ? (avalaible_roms.Count() - 1) : 0)
-            };
-
-            selectionContainer.Current.BindTo(selection);
-            selection.BindValueChanged(updateSelection, true);
-            selectionContainer.Current.TriggerChange();
         }
 
         private void updateSelection(ValueChangedEvent<int> selection)
@@ -158,16 +166,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             }
         }
 
-        private void finalizeSelection(Task<EmulatedCartridge> cartridge)
-        {
-            confirmSelectSample?.Play();
-
-            if (cartridge.Result != null)
-                Selected?.Invoke(cartridge.Result);
-            else
-                selectionContainer[selection.Value].MarkUnavalaible();
-        }
-
         public bool OnPressed(GamebosuAction action)
         {
             switch (action)
@@ -183,12 +181,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                 case GamebosuAction.ButtonA:
                 case GamebosuAction.ButtonStart:
                 case GamebosuAction.ButtonSelect:
-                    var rom = avalaible_roms.ElementAtOrDefault(selection.Value);
-                    if (rom != null)
-                    {
-                        roms.GetAsync(rom)
-                            .ContinueWith(finalizeSelection);
-                    }
+                    var rom = avalaible_roms?.ElementAtOrDefault(selection.Value);
+
+                    if (rom == null)
+                        goto default;
+
+                    confirmSelectSample?.Play();
+                    RomSelected?.Invoke(rom);
                     break;
 
                 default:

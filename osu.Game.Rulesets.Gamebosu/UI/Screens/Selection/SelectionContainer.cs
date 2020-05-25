@@ -28,10 +28,18 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             base.Add(drawable);
         }
 
+        public SelectionCard GetSelection(int index)
+        {
+            if (Count < index || Count == 0)
+                return null;
+
+            return this[index];
+        }
+
         private void updateVisibleDrawable(ValueChangedEvent<int> e)
         {
-            this[e.OldValue].FadeOut(fade_time, easing);
-            this[e.NewValue].FadeIn(2 * fade_time, easing);
+            GetSelection(e.OldValue)?.FadeOut(fade_time, easing);
+            GetSelection(e.NewValue)?.FadeIn(2 * fade_time, easing);
         }
 
         [BackgroundDependencyLoader]
