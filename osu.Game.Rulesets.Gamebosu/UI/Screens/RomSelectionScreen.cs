@@ -23,7 +23,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 RelativeSizeAxes = Axes.Both,
                 Anchor = Anchor.TopCentre,
                 Origin = Anchor.TopCentre,
-                Spacing = new Vector2(0, 5),
+                Spacing = new Vector2(0, 20),
                 Direction = FillDirection.Vertical,
                 Children = new Drawable[]
                 {
