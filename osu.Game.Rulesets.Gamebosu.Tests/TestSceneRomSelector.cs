@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿// gamebosu! ruleset. Licensed under GPLv3.
+// See LICENSE at root of repo for more information on licensing.
+
+using NUnit.Framework;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
 using osu.Game.Tests.Visual;
 
