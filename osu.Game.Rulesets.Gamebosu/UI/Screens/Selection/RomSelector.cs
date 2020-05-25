@@ -138,6 +138,20 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             try
             {
                 selection.Value += idx;
+                if (idx == 1)
+                {
+                    selectionRight
+                        .ScaleTo(1.5f, 150, Easing.OutQuint)
+                        .Then(0)
+                        .ScaleTo(1, 150, Easing.OutQuint);
+                }
+                else
+                {
+                    selectionLeft
+                        .ScaleTo(1.5f, 150, Easing.OutQuint)
+                        .Then(0)
+                        .ScaleTo(1, 150, Easing.OutQuint);
+                }
             }
             catch (Exception)
             {
