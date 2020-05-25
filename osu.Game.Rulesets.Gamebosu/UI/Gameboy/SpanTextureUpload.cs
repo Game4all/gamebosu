@@ -1,4 +1,7 @@
-﻿using osu.Framework.Graphics.Primitives;
+﻿// gamebosu! ruleset. Licensed under GPLv3.
+// See LICENSE at root of repo for more information on licensing.
+
+using osu.Framework.Graphics.Primitives;
 using osu.Framework.Graphics.Textures;
 using osuTK.Graphics.ES30;
 using SixLabors.ImageSharp.PixelFormats;

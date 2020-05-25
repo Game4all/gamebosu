@@ -1,4 +1,4 @@
-﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under GPLv3.
+﻿// gamebosu! ruleset. Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
@@ -58,7 +58,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
             textFlow.AddParagraph("This is a WIP, so don't expect things to work as expected.");
 
-            textFlow.AddParagraph("Tip: " + disclaimer_tips[RNG.Next(0, disclaimer_tips.Length)], t => 
+            textFlow.AddParagraph("Tip: " + disclaimer_tips[RNG.Next(0, disclaimer_tips.Length)], t =>
             {
                 t.Colour = color.BlueLighter;
             });

@@ -1,4 +1,7 @@
-﻿using osu.Framework.Graphics.Sprites;
+﻿// gamebosu! ruleset. Licensed under GPLv3.
+// See LICENSE at root of repo for more information on licensing.
+
+using osu.Framework.Graphics.Sprites;
 using osu.Game.Overlays.Dialog;
 using System;
 

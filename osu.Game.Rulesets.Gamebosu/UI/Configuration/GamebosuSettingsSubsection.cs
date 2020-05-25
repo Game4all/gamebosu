@@ -1,4 +1,4 @@
-﻿// gamebosu! ruleset. Copyright (c) Game4all 2020 Licensed under GPLv3.
+﻿// gamebosu! ruleset. Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
@@ -51,7 +51,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 new DangerousSettingsButton
                 {
                     Text = "Delete ROM save data",
-                    Action = () => 
+                    Action = () =>
                     {
                         Action deleteAction = delegate
                         {

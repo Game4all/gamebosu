@@ -1,4 +1,7 @@
-﻿using osu.Framework.Allocation;
+﻿// gamebosu! ruleset. Licensed under GPLv3.
+// See LICENSE at root of repo for more information on licensing.
+
+using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -28,7 +31,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         private void updateVisibleDrawable(ValueChangedEvent<int> e)
         {
             this[e.OldValue].FadeOut(fade_time, easing);
-            this[e.NewValue].FadeIn(2*fade_time, easing);
+            this[e.NewValue].FadeIn(2 * fade_time, easing);
         }
 
         [BackgroundDependencyLoader]
