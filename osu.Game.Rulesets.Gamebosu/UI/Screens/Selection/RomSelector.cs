@@ -113,8 +113,16 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                     {
                                         Anchor = Anchor.BottomCentre,
                                         Origin = Anchor.BottomCentre,
+                                        Margin = new MarginPadding() { Bottom = 20 },
                                         Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
                                         Text = "Sadly there's no usable ROM avalaible ...",
+                                    },
+                                    new OsuSpriteText
+                                    {
+                                        Anchor = Anchor.BottomCentre,
+                                        Origin = Anchor.BottomCentre,
+                                        Font = OsuFont.GetFont(Typeface.Torus, 16, FontWeight.Regular),
+                                        Text = "Go grab some ROM files and put 'em in the roms folder",
                                     }
                                 }
                             },
