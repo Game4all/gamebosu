@@ -1,5 +1,5 @@
-// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
-// See the LICENCE file in the repository root for full licence text.
+// gamebosu! ruleset. Copyright Lucas A. aka Game4all. Licensed under GPLv3.
+// See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;

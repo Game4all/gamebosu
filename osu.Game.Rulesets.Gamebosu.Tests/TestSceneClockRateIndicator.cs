@@ -1,4 +1,7 @@
-﻿using osu.Framework.Bindables;
+﻿// gamebosu! ruleset. Copyright Lucas A. aka Game4all. Licensed under GPLv3.
+// See LICENSE at root of repo for more information on licensing.
+
+using osu.Framework.Bindables;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay;
 using osu.Game.Tests.Visual;
 
