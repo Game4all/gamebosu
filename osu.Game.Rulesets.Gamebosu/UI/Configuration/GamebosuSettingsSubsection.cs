@@ -2,6 +2,7 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Platform;
@@ -14,6 +15,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 {
     public class GamebosuSettingsSubsection : RulesetSettingsSubsection
     {
+        private SettingsSlider<double> clockRate;
+        private Bindable<bool> lockClockRate;
+
         public GamebosuSettingsSubsection(Ruleset ruleset)
             : base(ruleset)
         {
@@ -25,13 +29,19 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         private void load(Storage storage, DialogOverlay dialog)
         {
             var config = Config as GamebosuConfigManager;
+            lockClockRate = config.GetBindable<bool>(GamebosuSetting.LockClockRate);
 
             Children = new Drawable[]
             {
-                new SettingsSlider<double>
+                clockRate = new SettingsSlider<double>
                 {
                     LabelText = "Gameboy Clock rate",
                     Bindable = config.GetBindable<double>(GamebosuSetting.ClockRate)
+                },
+                new SettingsCheckbox
+                {
+                    LabelText = "Lock gameboy clock rate",
+                    Bindable = lockClockRate
                 },
                 new SettingsCheckbox
                 {
@@ -64,6 +74,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                     }
                 }
             };
+
+            lockClockRate.BindValueChanged(e => clockRate.Bindable.Disabled = e.NewValue, true);
         }
     }
 }

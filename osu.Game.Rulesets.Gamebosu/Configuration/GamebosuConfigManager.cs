@@ -15,6 +15,7 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
 
         protected override void InitialiseDefaults()
         {
+            Set(GamebosuSetting.LockClockRate, false);
             Set(GamebosuSetting.ClockRate, 1, 0.1, 5, 0.1);
             Set(GamebosuSetting.PreferGBCMode, true);
             Set(GamebosuSetting.GameboyScale, 2f, 1f, 4.5f, 0.1f);
@@ -24,6 +25,7 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
 
     public enum GamebosuSetting
     {
+        LockClockRate,
         ClockRate,
         GameboyScale,
         PreferGBCMode
