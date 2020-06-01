@@ -18,6 +18,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         private readonly Container container;
         private readonly ClockRateIndicator indicator;
 
+        private Bindable<bool> lockedClockRate;
         private Bindable<float> gameboyScale;
 
         public GameplayScreen(ICartridge cart)
@@ -39,7 +40,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 {
                     Anchor = Anchor.BottomCentre,
                     Origin = Anchor.BottomCentre,
-                    Margin = new MarginPadding { Bottom = 20 }
+                    Margin = new MarginPadding { Bottom = 20 },
+                    Alpha = 0,
                 }
             };
         }
@@ -47,9 +49,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         [BackgroundDependencyLoader]
         private void load(GamebosuConfigManager config)
         {
+            lockedClockRate = config.GetBindable<bool>(GamebosuSetting.LockClockRate);
+            lockedClockRate.BindValueChanged(e => indicator.FadeTo(!e.NewValue ? 1f : 0f, 400, Easing.OutQuint), true);
+
             gameboyScale = config.GetBindable<float>(GamebosuSetting.GameboyScale);
             gameboyScale.BindValueChanged(e => container.ScaleTo(e.NewValue, 400, Easing.OutQuint), true);
             config.BindWith(GamebosuSetting.ClockRate, indicator.Rate);
+
             gameboy.Start();
         }
     }
