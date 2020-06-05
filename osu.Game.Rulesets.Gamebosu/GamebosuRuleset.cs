@@ -11,13 +11,13 @@ using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Gamebosu.Beatmaps;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.Graphics;
-using osu.Game.Rulesets.Gamebosu.Mods;
 using osu.Game.Rulesets.Gamebosu.UI;
 using osu.Game.Rulesets.Gamebosu.UI.Configuration;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
 using osuTK;
+using System;
 using System.Collections.Generic;
 
 namespace osu.Game.Rulesets.Gamebosu
@@ -38,17 +38,7 @@ namespace osu.Game.Rulesets.Gamebosu
         //this exists for the sole purpose of disabling the red tint on playfield when health is low.
         public override HealthProcessor CreateHealthProcessor(double drainStartTime) => new AccumulatingHealthProcessor(1f);
 
-        public override IEnumerable<Mod> GetModsFor(ModType type)
-        {
-            switch (type)
-            {
-                case ModType.Automation:
-                    return new[] { new GamebosuModAutoplay() };
-
-                default:
-                    return new Mod[] { null };
-            }
-        }
+        public override IEnumerable<Mod> GetModsFor(ModType type) => Array.Empty<Mod>();
 
         public override string ShortName => "gamebosu";
 
