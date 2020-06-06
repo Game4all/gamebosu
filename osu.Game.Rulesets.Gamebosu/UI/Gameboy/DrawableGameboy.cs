@@ -86,7 +86,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         [BackgroundDependencyLoader]
         private void load(GamebosuConfigManager cfg)
         {
-            gameBoy = new GameBoy(cartridge, clock, cfg.Get<bool>(GamebosuSetting.PreferGBCMode));
+            var forceGBCMode = cartridge.GameBoyColorFlag == GameBoyColorFlag.GameBoyColorOnly ? true : cfg.Get<bool>(GamebosuSetting.PreferGBCMode);
+
+            gameBoy = new GameBoy(cartridge, clock, forceGBCMode);
             gameBoy.Gpu.VideoOutput = screen;
 
             foreach (var channel in gameBoy.Spu.Channels)
