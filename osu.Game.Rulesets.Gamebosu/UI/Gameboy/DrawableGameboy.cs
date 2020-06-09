@@ -100,7 +100,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         protected override void Dispose(bool isDisposing)
         {
-            gameBoy?.Cpu?.Shutdown();
+            gameBoy?.Terminate();
 
             var mem = (gameBoy?.Cartridge as IFullyAccessibleCartridge)?.ExternalMemory;
             (mem as StreamedExternalMemory)?.Dispose();
