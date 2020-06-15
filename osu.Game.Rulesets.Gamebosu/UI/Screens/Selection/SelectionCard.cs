@@ -10,6 +10,7 @@ using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
+using osu.Game.Rulesets.Gamebosu.Graphics;
 using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
@@ -103,7 +104,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 RelativeSizeAxes = Axes.Y,
                                 Height = 0.10f,
                                 Margin = new MarginPadding { Horizontal =  10, Vertical = 10 },
-                                Child = romNameText = new OsuSpriteText
+                                Child = romNameText = new ScrollingSpriteText
                                 {
                                     Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
                                     Anchor = Anchor.Centre,
