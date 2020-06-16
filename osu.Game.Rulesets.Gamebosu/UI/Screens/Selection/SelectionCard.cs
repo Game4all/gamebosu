@@ -11,7 +11,9 @@ using osu.Framework.Graphics.Textures;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Rulesets.Gamebosu.Graphics;
+using osu.Game.Rulesets.Gamebosu.IO;
 using osuTK.Graphics;
+using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
@@ -109,7 +111,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                     Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
                                     Anchor = Anchor.Centre,
                                     Origin = Anchor.Centre,
-                                    Text = romName,
+                                    Text = romName.Replace(RomStore.RECOGNIZED_EXTENSIONS.Where(ext => romName.Contains(ext)).First(), "")
                                 }
                             }
                         }
