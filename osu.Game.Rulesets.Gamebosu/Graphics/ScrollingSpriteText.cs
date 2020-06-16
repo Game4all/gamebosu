@@ -27,7 +27,7 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
 
                     var speedRatio = DrawWidth / Parent.DrawWidth * 8;
 
-                    this.MoveToX(-(DrawWidth + 50), speedRatio * DrawWidth)
+                    this.MoveToX(-(DrawWidth + 20), speedRatio * DrawWidth)
                         .Then()
                         .FadeOut(transform_time)
                         .Then()
