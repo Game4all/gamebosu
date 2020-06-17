@@ -9,7 +9,6 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
@@ -161,7 +160,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         public void MarkUnavalaible() => Scheduler.Add(() => selectionContainer.GetSelection(selection.Value)?.MarkUnavalaible());
 
         [BackgroundDependencyLoader]
-        private void load(TextureStore store, AudioManager audio)
+        private void load(AudioManager audio)
         {
             selectSample = audio.Samples.Get("UI/generic-hover-soft");
             confirmSelectSample = audio.Samples.Get("SongSelect/confirm-selection");
