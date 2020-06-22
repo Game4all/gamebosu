@@ -2,6 +2,7 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using Emux.GameBoy;
+using Emux.GameBoy.Audio;
 using Emux.GameBoy.Cartridge;
 using Emux.GameBoy.Input;
 using osu.Framework.Allocation;
@@ -92,8 +93,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             gameBoy = new GameBoy(cartridge, clock, forceGBCMode);
             gameBoy.Gpu.VideoOutput = screen;
 
+            var soundEnabled = cfg.Get<bool>(GamebosuSetting.EnableSoundPlayback);
+
             foreach (var channel in gameBoy.Spu.Channels)
-                channel.ChannelOutput = new BASSAudioChannelOutput();
+                channel.ChannelOutput = soundEnabled ? new BASSAudioChannelOutput() : (IAudioChannelOutput)new DummyAudioChannelOutput();
 
             clockRate = cfg.GetBindable<double>(GamebosuSetting.ClockRate);
             clock.Rate.BindTo(clockRate);

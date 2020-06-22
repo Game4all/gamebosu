@@ -19,6 +19,7 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
             Set(GamebosuSetting.ClockRate, 1, 0.1, 5, 0.1);
             Set(GamebosuSetting.PreferGBCMode, true);
             Set(GamebosuSetting.GameboyScale, 2f, 1f, 4.5f, 0.1f);
+            Set(GamebosuSetting.EnableSoundPlayback, false); //Disable the audio playback by default since it is very experimental.
             base.InitialiseDefaults();
         }
     }
@@ -28,6 +29,7 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
         LockClockRate,
         ClockRate,
         GameboyScale,
-        PreferGBCMode
+        PreferGBCMode,
+        EnableSoundPlayback,
     }
 }

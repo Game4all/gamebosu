@@ -9,6 +9,7 @@ using osu.Framework.Platform;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Gamebosu.Configuration;
+using osuTK.Graphics;
 using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
@@ -72,6 +73,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 
                         dialog.Push(new DeleteDataDialog(deleteAction));
                     }
+                },
+                new SettingsCheckbox
+                {
+                    LabelText = "Enable Sound Playback (VERY EXPERIMENTAL)",
+                    Bindable = config.GetBindable<bool>(GamebosuSetting.EnableSoundPlayback)
                 }
             };
 
