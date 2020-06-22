@@ -93,7 +93,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             gameBoy.Gpu.VideoOutput = screen;
 
             foreach (var channel in gameBoy.Spu.Channels)
-                channel.ChannelOutput = new DummyAudioChannelOutput();
+                channel.ChannelOutput = new BASSAudioChannelOutput();
 
             clockRate = cfg.GetBindable<double>(GamebosuSetting.ClockRate);
             clock.Rate.BindTo(clockRate);
@@ -105,6 +105,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
             var mem = (gameBoy?.Cartridge as IFullyAccessibleCartridge)?.ExternalMemory;
             (mem as RAMMemory)?.Dispose();
+
+            foreach (var channel in gameBoy.Spu.Channels)
+                (channel.ChannelOutput as BASSAudioChannelOutput)?.Dispose();
 
             base.Dispose(isDisposing);
         }
