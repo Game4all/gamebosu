@@ -4,14 +4,14 @@
 using Emux.Bass;
 using Emux.GameBoy.Audio;
 using ManagedBass;
+using osu.Framework.Audio;
 using System;
 using System.Runtime.InteropServices;
 
 namespace osu.Game.Rulesets.Gamebosu.Audio
 {
-    //TODO: Move BASS stream to a class derived from AudioComponent
-    //TODO: Fix audio
-    public class BASSAudioChannelOutput : IAudioChannelOutput, IDisposable
+    //TODO: Fix audio weird noises.
+    public class BASSAudioChannelOutput : AdjustableAudioComponent, IAudioChannelOutput, IDisposable
     {
         private int bassChannel;
 
@@ -20,12 +20,15 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
         private CircularBuffer<float> buff;
 
         public BASSAudioChannelOutput()
+            : base()
         {
-            bassChannel = Bass.CreateStream(SampleRate, 4, BassFlags.Default, fetchBassData);
+            bassChannel = Bass.CreateStream(SampleRate, 2, BassFlags.Default | BassFlags.Float, fetchBassData);
             buff = new CircularBuffer<float>(64768);
-            Bass.ChannelSetAttribute(bassChannel, ChannelAttribute.Volume, 0.5f); //lock volume to 50%
-            Bass.ChannelPlay(bassChannel);
+
+            AggregateVolume.BindValueChanged(t => Bass.ChannelSetAttribute(bassChannel, ChannelAttribute.Volume, t.NewValue * 0.10), true);
         }
+
+        public bool Play() => Bass.ChannelPlay(bassChannel);
 
         public void BufferSoundSamples(Span<float> sampleData, int offset, int length)
         {
@@ -43,10 +46,12 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
             return Length;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Bass.ChannelStop(bassChannel);
             Bass.StreamFree(bassChannel);
+
+            base.Dispose();
         }
     }
 }
