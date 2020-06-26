@@ -22,7 +22,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             "You can delete ROM save data from the settings overlay, try searching for 'delete ROM save data'!",
             "Try pressing Page-up or Page-down to change the ROM emulation speed!",
             "You can customize the gameboy screen scale from the settings overlay, try searching for 'gameboy scale'!",
-            "You can open the ROM folder from the settings overlay, try searching for 'open rom folder'!"
+            "You can open the ROM folder from the settings overlay, try searching for 'open rom folder'!",
+            "You can enable audio playback of the gameboy speaker in the settings, but don't do for the time being. It currently sounds more like noise."
         };
 
         /// <summary>
