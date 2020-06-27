@@ -45,7 +45,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         [BackgroundDependencyLoader]
         private void load(OsuColour color)
         {
-            textFlow.AddIcon(FontAwesome.Solid.InfoCircle, t =>
+            textFlow.AddIcon(FontAwesome.Solid.Wrench, t =>
             {
                 t.Font = t.Font.With(size: 50);
             });
