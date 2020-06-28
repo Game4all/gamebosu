@@ -1,7 +1,6 @@
 <div align="center">
-<h1><code>gamebosu</code></h1>
+<img src="assets/banner.png" align="center"/>
 A ruleset that adds a playable gameboy to osu!lazer.
-<br/>
 </div>
 
 # **DISCLAIMER**
