@@ -7,12 +7,14 @@ using Emux.GameBoy.Input;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Bindables;
+using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Input.Bindings;
 using osu.Game.Rulesets.Gamebosu.Audio;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.IO;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
@@ -27,7 +29,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         private GameBoy gameBoy;
 
+        private IEnumerable<BASSAudioChannelOutput> audioChannels;
+
         private Bindable<double> clockRate;
+
+        private Bindable<bool> soundPlayback;
 
         public DrawableGameboy(ICartridge cart)
         {
@@ -71,9 +77,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
             if (!gameBoy.Cpu.Running)
                 gameBoy.Run();
-
-            foreach (var channel in gameBoy.Spu.Channels.Select(t => t.ChannelOutput).OfType<BASSAudioChannelOutput>())
-                channel.Play();
         }
 
         private GameBoyPadButton getFromAction(GamebosuAction action) => action switch
@@ -97,25 +100,26 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             gameBoy = new GameBoy(cartridge, clock, forceGBCMode);
             gameBoy.Gpu.VideoOutput = screen;
 
-            var isSoundEnabled = cfg.Get<bool>(GamebosuSetting.EnableSoundPlayback);
-
             foreach (var channel in gameBoy.Spu.Channels)
             {
-                if (isSoundEnabled)
-                {
-                    var Bchannel = new BASSAudioChannelOutput();
-                    channel.ChannelOutput = Bchannel;
-
-                    mng.AddItem(Bchannel);
-                    continue;
-                }
-
-                var Dchannel = new DummyAudioChannelOutput();
-                channel.ChannelOutput = Dchannel;
+                var Bchannel = new BASSAudioChannelOutput();
+                channel.ChannelOutput = Bchannel;
+                mng.AddItem(Bchannel);
             }
+
+            audioChannels = gameBoy.Spu.Channels.Select(t => t.ChannelOutput).OfType<BASSAudioChannelOutput>();
 
             clockRate = cfg.GetBindable<double>(GamebosuSetting.ClockRate);
             clock.Rate.BindTo(clockRate);
+
+            soundPlayback = cfg.GetBindable<bool>(GamebosuSetting.EnableSoundPlayback);
+            soundPlayback.BindValueChanged(t =>
+            {
+                if (t.NewValue)
+                    audioChannels.ForEach(ch => ch.Play());
+                else
+                    audioChannels.ForEach(ch => ch.Stop());
+            }, true);
         }
 
         protected override void Dispose(bool isDisposing)
@@ -125,7 +129,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             var mem = (gameBoy?.Cartridge as IFullyAccessibleCartridge)?.ExternalMemory;
             (mem as RAMMemory)?.Dispose();
 
-            foreach (var channel in gameBoy.Spu.Channels.Select(t => t.ChannelOutput).OfType<BASSAudioChannelOutput>())
+            foreach (var channel in audioChannels)
                 channel.Dispose();
 
             base.Dispose(isDisposing);

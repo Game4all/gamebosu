@@ -25,15 +25,14 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
             bassChannel = Bass.CreateStream(SampleRate, 2, BassFlags.Default | BassFlags.Float, fetchBassData);
             buff = new CircularBuffer<float>(64768);
 
-            AggregateVolume.BindValueChanged(t => Bass.ChannelSetAttribute(bassChannel, ChannelAttribute.Volume, t.NewValue * 0.10), true);
+            AggregateVolume.BindValueChanged(t => Bass.ChannelSetAttribute(bassChannel, ChannelAttribute.Volume, t.NewValue * 0.15), true);
         }
 
         public bool Play() => Bass.ChannelPlay(bassChannel);
 
-        public void BufferSoundSamples(Span<float> sampleData, int offset, int length)
-        {
-            buff.Enqueue(sampleData);
-        }
+        public bool Stop() => Bass.ChannelStop(bassChannel);
+
+        public void BufferSoundSamples(Span<float> sampleData, int offset, int length) => buff.Enqueue(sampleData);
 
         private int fetchBassData(int _Handle, IntPtr Buffer, int Length, IntPtr User)
         {
@@ -48,7 +47,7 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
 
         public override void Dispose()
         {
-            Bass.ChannelStop(bassChannel);
+            Stop();
             Bass.StreamFree(bassChannel);
 
             base.Dispose();
