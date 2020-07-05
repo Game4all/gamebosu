@@ -9,7 +9,6 @@ using osu.Framework.Platform;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Gamebosu.Configuration;
-using osuTK.Graphics;
 using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Configuration

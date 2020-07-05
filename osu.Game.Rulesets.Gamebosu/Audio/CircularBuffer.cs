@@ -4,7 +4,7 @@
 using System;
 
 namespace Emux.Bass
-{   
+{
     /// <summary>
     /// A Span<T> version of a fixed-size buffer, that should eventually become actually "circular".
     /// </summary>
