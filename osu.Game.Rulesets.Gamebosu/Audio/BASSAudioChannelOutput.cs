@@ -5,6 +5,7 @@ using Emux.Bass;
 using Emux.GameBoy.Audio;
 using ManagedBass;
 using osu.Framework.Audio;
+using osu.Framework.Bindables;
 using System;
 using System.Runtime.InteropServices;
 
@@ -19,13 +20,16 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
 
         private CircularBuffer<float> buff;
 
+        private readonly BindableDouble adjustmentBindable = new BindableDouble(0.08);
+
         public BASSAudioChannelOutput()
             : base()
         {
             bassChannel = Bass.CreateStream(SampleRate, 2, BassFlags.Default | BassFlags.Float, fetchBassData);
             buff = new CircularBuffer<float>(64768);
 
-            AggregateVolume.BindValueChanged(t => Bass.ChannelSetAttribute(bassChannel, ChannelAttribute.Volume, t.NewValue * 0.15), true);
+            AddAdjustment(AdjustableProperty.Volume, adjustmentBindable);
+            AggregateVolume.BindValueChanged(t => Bass.ChannelSetAttribute(bassChannel, ChannelAttribute.Volume, t.NewValue), true);
         }
 
         public bool Play() => Bass.ChannelPlay(bassChannel);
