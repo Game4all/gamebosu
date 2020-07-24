@@ -18,15 +18,8 @@ namespace osu.Game.Rulesets.Gamebosu.Replays
 
         protected override bool IsImportant(GamebosuReplayFrame frame) => frame.Actions.Any();
 
-        public override List<IInput> GetPendingInputs()
+        public override void CollectPendingInputs(List<IInput> inputs)
         {
-            return new List<IInput>
-            {
-                new ReplayState<GamebosuAction>
-                {
-                    PressedActions = CurrentFrame?.Actions ?? new List<GamebosuAction>(),
-                }
-            };
         }
     }
 }
