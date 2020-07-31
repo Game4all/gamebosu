@@ -7,6 +7,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Game.Rulesets.Gamebosu.Configuration;
+using osu.Game.Rulesets.Gamebosu.Online;
 using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay;
 
@@ -18,11 +19,17 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         private readonly Container container;
         private readonly ClockRateIndicator indicator;
 
+        private readonly ICartridge cartridge;
+
         private Bindable<bool> lockedClockRate;
         private Bindable<float> gameboyScale;
 
+        public override UserActivityGamebosu ScreenActivity => new UserActivityGamebosuPlaying(cartridge.GameTitle);
+
         public GameplayScreen(ICartridge cart)
         {
+            cartridge = cart;
+
             Children = new Drawable[]
             {
                 container = new Container
