@@ -6,19 +6,24 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
-using osu.Framework.Input.Bindings;
+using osu.Framework.Threading;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
+using osu.Game.Rulesets.Gamebosu.Configuration;
 using osuTK.Graphics;
 using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
 {
-    public class ClockRateIndicator : CompositeDrawable, IKeyBindingHandler<GamebosuAction>
+    public class ClockRateIndicator : VisibilityContainer
     {
         public readonly BindableDouble Rate = new BindableDouble();
 
         private readonly OsuSpriteText rate_text;
+
+        private ScheduledDelegate hideDelegate;
+
+        private Bindable<bool> lockClockRate;
 
         private const float icon_pos = 0.40f;
 
@@ -68,19 +73,29 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
             };
         }
 
-        [BackgroundDependencyLoader]
-        private void load()
+        [BackgroundDependencyLoader(true)]
+        private void load(GamebosuConfigManager config)
         {
-            Rate.BindValueChanged(updateText, true);
+            Rate.BindValueChanged(updateValue, true);
+
+            lockClockRate = config?.GetBindable<bool>(GamebosuSetting.LockClockRate);
+            lockClockRate?.BindValueChanged(e => State.Value = e.NewValue ? Visibility.Hidden : Visibility.Visible, true);
         }
 
-        private void updateText(ValueChangedEvent<double> e)
+        private void updateValue(ValueChangedEvent<double> e)
         {
+            if (Rate.Disabled)
+                return;
+
             rate_text.Text = $"{Math.Round(e.NewValue, 2, MidpointRounding.AwayFromZero)}x";
+            Show();
         }
 
-        private void setRate(double delta)
+        public void AdjustRate(double delta)
         {
+            if (Rate.Disabled)
+                return;
+
             try
             {
                 Rate.Value += delta;
@@ -90,25 +105,18 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
             }
         }
 
-        public bool OnPressed(GamebosuAction action)
+        private void scheduleHide()
         {
-            switch (action)
-            {
-                case GamebosuAction.ButtonIncrementClockRate:
-                    setRate(0.1);
-                    return true;
-
-                case GamebosuAction.ButtonDecrementClockRate:
-                    setRate(-0.1);
-                    return true;
-
-                default:
-                    return false;
-            }
+            hideDelegate?.Cancel();
+            this.Delay(2000).Schedule(Hide, out hideDelegate);
         }
 
-        public void OnReleased(GamebosuAction action)
+        protected override void PopIn()
         {
+            Content.FadeIn(300, Easing.OutQuint);
+            scheduleHide();
         }
+
+        protected override void PopOut() => Content.FadeOut(600, Easing.OutQuint);
     }
 }

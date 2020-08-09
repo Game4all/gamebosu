@@ -6,6 +6,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Screens;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.Online;
 using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
@@ -21,7 +22,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         private readonly ICartridge cartridge;
 
-        private Bindable<bool> lockedClockRate;
         private Bindable<float> gameboyScale;
 
         public override UserActivityGamebosu ScreenActivity => new UserActivityGamebosuPlaying(cartridge.GameTitle);
@@ -43,6 +43,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                         Origin = Anchor.Centre,
                     },
                 },
+                new ClockRateIndicatorControlReceptor
+                {
+                    AdjustAction = (f) => indicator.AdjustRate(f),
+                },
                 indicator = new ClockRateIndicator
                 {
                     Anchor = Anchor.BottomCentre,
@@ -56,9 +60,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         [BackgroundDependencyLoader]
         private void load(GamebosuConfigManager config)
         {
-            lockedClockRate = config.GetBindable<bool>(GamebosuSetting.LockClockRate);
-            lockedClockRate.BindValueChanged(e => indicator.FadeTo(!e.NewValue ? 1f : 0f, 400, Easing.OutQuint), true);
-
             gameboyScale = config.GetBindable<float>(GamebosuSetting.GameboyScale);
             gameboyScale.BindValueChanged(e => container.ScaleTo(e.NewValue, 400, Easing.OutQuint), true);
             config.BindWith(GamebosuSetting.ClockRate, indicator.Rate);

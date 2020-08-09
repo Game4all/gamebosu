@@ -29,6 +29,7 @@ namespace osu.Game.Rulesets.Gamebosu.Tests
 
             indic.Rate.BindTo(val);
 
+            AddStep("show", () => indic.Show());
             AddSliderStep("slider", 0.0, 10.0, 5.0, t => val.Value = t);
         }
     }
