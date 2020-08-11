@@ -34,7 +34,8 @@
       <InternalizeExcludeAssemblies Include="osu.Framework.dll" />
     </ItemGroup>
 
-    <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).Packed.dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />
+    <MakeDir Directories="$(WorkingDirectory)/packed/"></MakeDir>
+    <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(WorkingDirectory)/packed/$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />
     
   </Target>
 </Project>
