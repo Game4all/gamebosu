@@ -4,6 +4,7 @@
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osuTK;
 using osuTK.Graphics;
 
@@ -13,7 +14,7 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
     {
         protected override bool CanBeFlattened => true;
 
-        public RulesetIcon()
+        public RulesetIcon(TextureStore store)
         {
             AutoSizeAxes = Axes.Both;
             InternalChildren = new Drawable[]
@@ -23,16 +24,16 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Icon = FontAwesome.Regular.Circle,
-                    Size = new Vector2(40),
+                    Size = new Vector2(60),
                     Colour = Color4.White
                 },
-                new SpriteIcon
+                new Sprite
                 {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Icon = FontAwesome.Solid.Gamepad,
-                    Size = new Vector2(20),
-                    Colour = Color4.White
+                    Texture = store.Get("Textures/logo.png"),
+                    FillMode = FillMode.Fit,
+                    Size = new Vector2(40)
                 }
             };
         }

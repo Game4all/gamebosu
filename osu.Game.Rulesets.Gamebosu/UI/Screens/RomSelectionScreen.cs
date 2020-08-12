@@ -8,7 +8,6 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Screens;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
-using osu.Game.Rulesets.Gamebosu.Graphics;
 using osu.Game.Rulesets.Gamebosu.IO;
 using osu.Game.Rulesets.Gamebosu.Online;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
@@ -18,12 +17,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class RomSelectionScreen : GamebosuScreen
     {
-        private readonly RomSelector romSelector;
+        private RomSelector romSelector;
         private RomStore store;
 
         public override UserActivityGamebosu ScreenActivity => new UserActivityGamebosuChoosing();
 
-        public RomSelectionScreen()
+        [BackgroundDependencyLoader]
+        private void load(RomStore roms, DrawableGamebosuRuleset ruleset)
         {
             Child = new FillFlowContainer
             {
@@ -35,11 +35,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 Direction = FillDirection.Vertical,
                 Children = new Drawable[]
                 {
-                    new RulesetIcon
-                    {
-                        Anchor = Anchor.TopCentre,
-                        Origin = Anchor.TopCentre,
-                    },
+                    ruleset.Ruleset.CreateIcon()
+                    .With(t => t.Anchor = Anchor.TopCentre)
+                    .With(t => t.Origin = Anchor.TopCentre),
+
                     new OsuSpriteText
                     {
                         Anchor = Anchor.TopCentre,
@@ -55,11 +54,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                     },
                 }
             };
-        }
 
-        [BackgroundDependencyLoader]
-        private void load(RomStore roms)
-        {
             store = roms;
             romSelector.AvalaibleRoms = roms.GetAvailableResources();
         }

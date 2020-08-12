@@ -2,6 +2,7 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
 using osu.Game.Beatmaps;
 using osu.Game.Configuration;
@@ -16,7 +17,6 @@ using osu.Game.Rulesets.Gamebosu.UI.Configuration;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
-using osuTK;
 using System;
 using System.Collections.Generic;
 
@@ -60,9 +60,8 @@ namespace osu.Game.Rulesets.Gamebosu
             new KeyBinding(InputKey.BackSpace, GamebosuAction.ButtonStart),
         };
 
-        public override Drawable CreateIcon() => new RulesetIcon()
+        public override Drawable CreateIcon() => new RulesetIcon(new TextureStore(new TextureLoaderStore(CreateResourceStore()), false))
         {
-            Scale = new Vector2(0.5f),
             Anchor = Anchor.Centre,
             Origin = Anchor.Centre,
         };
