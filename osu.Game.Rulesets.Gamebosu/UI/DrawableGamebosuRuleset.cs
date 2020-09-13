@@ -24,6 +24,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI
         public DrawableGamebosuRuleset(GamebosuRuleset ruleset, IBeatmap beatmap, IReadOnlyList<Mod> mods = null)
             : base(ruleset, beatmap, mods)
         {
+            //should permit opening overlays while playing.
+            HasReplayLoaded.Value = true;
         }
 
         protected override Playfield CreatePlayfield() => new GamebosuPlayfield();
