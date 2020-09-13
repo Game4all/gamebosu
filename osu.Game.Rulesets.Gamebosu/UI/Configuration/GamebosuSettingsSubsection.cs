@@ -67,7 +67,17 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                         {
                             var saves = storage.GetStorageForDirectory("roms/saves");
                             var files = saves.GetFiles(".");
-                            files.ForEach(file => saves.Delete(file));
+                            try 
+                            {
+                                files.ForEach(file => saves.Delete(file));
+                            } 
+                            catch (Exception)
+                            {
+                                dialog.Push(new DeleteDataErrorDialog
+                                {
+                                    BodyText = $"Couldn't delete ROM save data (save data may be used by the currently loaded ROM). Try deleting save data from the main menu"
+                                });
+                            }
                         };
 
                         dialog.Push(new DeleteDataDialog(deleteAction));
