@@ -5,6 +5,7 @@ using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Gamebosu.Objects;
 using osu.Game.Rulesets.Objects;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace osu.Game.Rulesets.Gamebosu.Beatmaps
 {
@@ -17,7 +18,7 @@ namespace osu.Game.Rulesets.Gamebosu.Beatmaps
 
         public override bool CanConvert() => true;
 
-        protected override IEnumerable<GamebosuHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap)
+        protected override IEnumerable<GamebosuHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
             yield return new GamebosuHitObject
             {
