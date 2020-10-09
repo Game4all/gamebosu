@@ -36,22 +36,22 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 clockRate = new SettingsSlider<double>
                 {
                     LabelText = "Gameboy Clock rate",
-                    Bindable = config.GetBindable<double>(GamebosuSetting.ClockRate)
+                    Current = config.GetBindable<double>(GamebosuSetting.ClockRate)
                 },
                 new SettingsCheckbox
                 {
                     LabelText = "Lock gameboy clock rate",
-                    Bindable = lockClockRate
+                    Current = lockClockRate
                 },
                 new SettingsCheckbox
                 {
                     LabelText = "Prefer Gameboy Color mode when launching original gameboy ROMs",
-                    Bindable =  config.GetBindable<bool>(GamebosuSetting.PreferGBCMode)
+                    Current =  config.GetBindable<bool>(GamebosuSetting.PreferGBCMode)
                 },
                 new SettingsSlider<float>
                 {
                     LabelText = "Gameboy Scale",
-                    Bindable = config.GetBindable<float>(GamebosuSetting.GameboyScale)
+                    Current = config.GetBindable<float>(GamebosuSetting.GameboyScale)
                 },
                 new SettingsButton
                 {
@@ -86,11 +86,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 new SettingsCheckbox
                 {
                     LabelText = "Enable Sound Playback (VERY EXPERIMENTAL)",
-                    Bindable = config.GetBindable<bool>(GamebosuSetting.EnableSoundPlayback)
+                    Current = config.GetBindable<bool>(GamebosuSetting.EnableSoundPlayback)
                 }
             };
 
-            lockClockRate.BindValueChanged(e => clockRate.Bindable.Disabled = e.NewValue, true);
+            lockClockRate.BindValueChanged(e => clockRate.Current.Disabled = e.NewValue, true);
         }
     }
 }
