@@ -19,9 +19,5 @@ namespace osu.Game.Rulesets.Gamebosu.Objects.Drawables
         protected override void CheckForResult(bool userTriggered, double timeOffset)
         {
         }
-
-        protected override void UpdateStateTransforms(ArmedState state)
-        {
-        }
     }
 }

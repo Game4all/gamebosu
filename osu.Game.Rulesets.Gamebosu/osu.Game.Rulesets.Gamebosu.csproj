@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyTitle>osu.Game.Rulesets.Gamebosu</AssemblyTitle>
     <OutputType>Library</OutputType>
-    <Version>0.8.7-pre</Version>
+    <Version>0.8.8-pre</Version>
     <RootNamespace>osu.Game.Rulesets.Gamebosu</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
