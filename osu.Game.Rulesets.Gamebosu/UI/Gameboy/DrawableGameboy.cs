@@ -13,7 +13,6 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Input.Bindings;
 using osu.Game.Rulesets.Gamebosu.Audio;
 using osu.Game.Rulesets.Gamebosu.Configuration;
-using osu.Game.Rulesets.Gamebosu.IO;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -127,7 +126,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             gameBoy?.Terminate();
 
             var mem = (gameBoy?.Cartridge as IFullyAccessibleCartridge)?.ExternalMemory;
-            (mem as RAMMemory)?.Dispose();
+            mem?.Dispose();
 
             foreach (var channel in audioChannels)
                 channel.Dispose();

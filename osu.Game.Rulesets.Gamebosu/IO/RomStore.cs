@@ -48,7 +48,7 @@ namespace osu.Game.Rulesets.Gamebosu.IO
                         cart_stream.Read(cart_rom, 0, (int)cart_stream.Length);
 
                         var save_stream = savesStorage.GetStream(res_name + ".sav", FileAccess.ReadWrite, FileMode.OpenOrCreate);
-                        return new EmulatedCartridge(cart_rom, new RAMMemory(save_stream));
+                        return new EmulatedCartridge(cart_rom, new StreamedExternalMemory(save_stream));
                     }
                 }
                 catch (System.Exception e)
