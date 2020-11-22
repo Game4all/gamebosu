@@ -10,8 +10,8 @@ A ruleset that adds a playable gameboy to osu!lazer.
 This ruleset is still a _work in progress_ as there are still some features missing and there are bugs out. Prebuilt pre-releases will be provided along the developpement in the wait for an official release. Please _report any issues you are running into_ with this ruleset on the issue tracker of _this repository_.
 
 ## Screenshots
-| ![gameplay](assets/screenshot_gameplay.png)| ![rom selection](assets/screenshot_selection.png)
-|--| --|
+![rom selection](assets/screenshot_selection.png) | ![gameplay](assets/screenshot_gameplay.png)| ![gameplay2](assets/screenshot_gameplay2.png)
+|--| --| -- |
 
 # Installation 
 
@@ -29,7 +29,7 @@ Or you can alternatively build the ruleset yourself by issuing the following com
     git clone https://github.com/Game4all/gamebosu
     cd osu.Game.Rulesets.Gamebosu
     dotnet build -c:Release # make sure to build ruleset in release mode to create a single file assembly
-    # You should find the output assembly in osu.Game.Rulesets.Gamebosu/bin/Release/osu.Game.Rulesets.Gamebosu.Packed.dll   
+    # You should find the output assembly in osu.Game.Rulesets.Gamebosu/bin/Release/packed/osu.Game.Rulesets.Gamebosu.dll   
 ```
 
 For building this from an IDE, you should open the solution file with your prefered C# editor and hit `build` with the `Release` configuration (in order to create a single file assembly).
