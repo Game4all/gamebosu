@@ -18,8 +18,8 @@ This ruleset is still a _work in progress_ as there are still some features miss
 The ruleset consists of a single DLL file that you'll have to drop in the `rulesets` directory of your osu!lazer data directory.
 
 Prebuilt releases are available if you do not have an development environement setup in place:
-| [Releases](https://github.com/Game4all/gamebosu/releases) |
-|--------|
+| [Releases](https://github.com/Game4all/gamebosu/releases) | [Latest Release](https://github.com/Game4all/gamebosu/releases/latest)
+|--------|--------|
 
 Or you can alternatively build the ruleset yourself by issuing the following commands in your OS shell (_this assumes you've got the .NET Core SDK tools as well as git in your PATH_):
 
