@@ -6,9 +6,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Screens;
 using osu.Game.Rulesets.Gamebosu.Configuration;
-using osu.Game.Rulesets.Gamebosu.Online;
 using osu.Game.Rulesets.Gamebosu.UI.Gameboy;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay;
 
@@ -23,8 +21,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         private readonly ICartridge cartridge;
 
         private Bindable<float> gameboyScale;
-
-        public override UserActivityGamebosu ScreenActivity => new UserActivityGamebosuPlaying(cartridge.GameTitle);
 
         public GameplayScreen(ICartridge cart)
         {

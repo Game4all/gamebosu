@@ -4,15 +4,12 @@
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Screens;
-using osu.Game.Rulesets.Gamebosu.Online;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class GamebosuScreen : Container, IScreen
     {
         public override bool RemoveWhenNotAlive => false;
-
-        public virtual UserActivityGamebosu ScreenActivity => null;
 
         public GamebosuScreen()
         {

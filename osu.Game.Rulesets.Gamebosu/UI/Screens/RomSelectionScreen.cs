@@ -9,7 +9,6 @@ using osu.Framework.Screens;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Rulesets.Gamebosu.IO;
-using osu.Game.Rulesets.Gamebosu.Online;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
 using osuTK;
 
@@ -19,8 +18,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     {
         private RomSelector romSelector;
         private RomStore store;
-
-        public override UserActivityGamebosu ScreenActivity => new UserActivityGamebosuChoosing();
 
         [BackgroundDependencyLoader]
         private void load(RomStore roms, DrawableGamebosuRuleset ruleset)
