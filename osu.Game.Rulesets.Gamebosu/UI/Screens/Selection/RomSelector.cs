@@ -177,7 +177,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             getDrawableCardAtIndex(e.NewValue)?.FadeIn(2 * FADE_TIME, EASING);
         }
 
-        private SelectionCard getDrawableCardAtIndex(int index) => (AvailableRoms.Value.Count() < index || AvailableRoms.Value.Count() == 0) ? null : selectionContainer[index];
+        private SelectionCard getDrawableCardAtIndex(int index) => (selectionContainer.Count < index || selectionContainer.Count == 0) ? null : selectionContainer[index];
 
         public bool OnPressed(GamebosuAction action)
         {
