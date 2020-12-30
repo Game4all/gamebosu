@@ -26,6 +26,8 @@ namespace osu.Game.Rulesets.Gamebosu.IO
             ".GBC"
         };
 
+        private const string save_file_extension = ".sav";
+
         public RomStore(Storage storage)
         {
             this.storage = storage.GetStorageForDirectory("roms");
@@ -47,13 +49,13 @@ namespace osu.Game.Rulesets.Gamebosu.IO
                         var cart_rom = new byte[cart_stream.Length];
                         cart_stream.Read(cart_rom, 0, (int)cart_stream.Length);
 
-                        var save_stream = savesStorage.GetStream(res_name + ".sav", FileAccess.ReadWrite, FileMode.OpenOrCreate);
+                        var save_stream = savesStorage.GetStream(res_name + save_file_extension, FileAccess.ReadWrite, FileMode.OpenOrCreate);
                         return new EmulatedCartridge(cart_rom, new StreamedExternalMemory(save_stream));
                     }
                 }
                 catch (System.Exception e)
                 {
-                    Logger.LogPrint("Load of cartridge failed: " + e.ToString(), LoggingTarget.Runtime);
+                    Logger.Log("Load of cartridge failed: " + e.ToString(), LoggingTarget.Runtime);
                     continue;
                 }
             }
