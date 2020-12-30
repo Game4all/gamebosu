@@ -1,7 +1,6 @@
 ﻿// gamebosu! ruleset. Copyright Lucas A. aka Game4all. Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
-using Emux.GameBoy.Cartridge;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Sample;
@@ -10,68 +9,44 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
-using osu.Game.Graphics;
-using osu.Game.Graphics.Sprites;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
     public class RomSelector : CompositeDrawable, IKeyBindingHandler<GamebosuAction>
     {
-        private IEnumerable<string> avalaible_roms;
+        public const double FADE_TIME = 300;
+        public const Easing EASING = Easing.OutQuint;
 
-        public IEnumerable<string> AvalaibleRoms
+        private readonly Container<SelectionCard> selectionContainer;
+        private readonly SpriteIcon selectionLeft;
+        private readonly SpriteIcon selectionRight;
+        private readonly NoRomAvailableMessage noRomPopup;
+
+        private SampleChannel selectSample;
+        private SampleChannel confirmSelectSample;
+
+        private BindableInt selection = new BindableInt(0)
         {
-            set
-            {
-                if (value.Count() == 0)
-                    return;
-
-                avalaible_roms = value;
-
-                foreach (var item in avalaible_roms)
-                {
-                    selectionContainer.Add(new SelectionCard(item)
-                    {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                    });
-                }
-
-                selection = new BindableInt(0)
-                {
-                    MinValue = 0,
-                    MaxValue = ((avalaible_roms.Count() - 1) >= 0 ? (avalaible_roms.Count() - 1) : 0)
-                };
-
-                noRomContainer.Hide();
-                selectionContainer.Current.BindTo(selection);
-                selection.BindValueChanged(updateSelection, true);
-                selectionContainer.Current.TriggerChange();
-            }
-        }
-
-        public Action<EmulatedCartridge> Selected;
+            MinValue = 0,
+        };
 
         /// <summary>
         /// Called when the ROM has been selected.
         /// </summary>
         public Action<string> RomSelected;
 
-        private const double fade_time = 300;
-        private const Easing easing = Easing.OutQuint;
+        /// <summary>
+        /// The available roms for use.
+        /// Will update the selectable rom cards when updated.
+        /// </summary>
+        public readonly BindableList<string> AvailableRoms = new BindableList<string>(Enumerable.Empty<string>());
 
-        private readonly SelectionContainer selectionContainer;
-        private readonly SpriteIcon selectionLeft;
-        private readonly SpriteIcon selectionRight;
-        private readonly Container noRomContainer;
-
-        private SampleChannel selectSample;
-        private SampleChannel confirmSelectSample;
-
-        private BindableInt selection;
+        /// <summary>
+        /// Displays an error popup on the selected card indicating that the coresponding cartridge is unavailable.
+        /// </summary>
+        public void MarkUnavailable() => Scheduler.Add(() => getDrawableCardAtIndex(selection.Value)?.MarkUnavailable());
 
         public RomSelector()
         {
@@ -92,39 +67,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                         Height = 400,
                         Children = new Drawable[]
                         {
-                            noRomContainer = new Container
-                            {
-                                RelativeSizeAxes = Axes.Y,
-                                AutoSizeAxes = Axes.X,
-                                Anchor = Anchor.Centre,
-                                Origin = Anchor.Centre,
-                                Children = new Drawable[]
-                                {
-                                    new SpriteIcon
-                                    {
-                                        Icon = FontAwesome.Solid.SadCry,
-                                        RelativeSizeAxes = Axes.Y,
-                                        Anchor = Anchor.Centre,
-                                        Origin = Anchor.Centre,
-                                        Size = new osuTK.Vector2(120)
-                                    },
-                                    new OsuSpriteText
-                                    {
-                                        Anchor = Anchor.BottomCentre,
-                                        Origin = Anchor.BottomCentre,
-                                        Margin = new MarginPadding() { Bottom = 20 },
-                                        Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
-                                        Text = "Sadly there's no usable ROM avalaible ...",
-                                    },
-                                    new OsuSpriteText
-                                    {
-                                        Anchor = Anchor.BottomCentre,
-                                        Origin = Anchor.BottomCentre,
-                                        Font = OsuFont.GetFont(Typeface.Torus, 16, FontWeight.Regular),
-                                        Text = "Go grab some ROM files and put 'em in the roms folder",
-                                    }
-                                }
-                            },
+                            noRomPopup = new NoRomAvailableMessage(),
                             selectionLeft = new SpriteIcon
                             {
                                 Anchor = Anchor.Centre,
@@ -135,7 +78,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 Icon = FontAwesome.Solid.ChevronLeft,
                                 Alpha = 0,
                             },
-                            selectionContainer = new SelectionContainer
+                            selectionContainer = new Container<SelectionCard>
                             {
                                 Anchor = Anchor.Centre,
                                 Origin = Anchor.Centre,
@@ -157,53 +100,83 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             };
         }
 
-        public void MarkUnavalaible() => Scheduler.Add(() => selectionContainer.GetSelection(selection.Value)?.MarkUnavalaible());
-
         [BackgroundDependencyLoader]
         private void load(AudioManager audio)
         {
             selectSample = audio.Samples.Get("UI/generic-hover-soft");
             confirmSelectSample = audio.Samples.Get("SongSelect/confirm-selection");
+
+            selection.BindValueChanged(updateSelectedDrawableCard, true);
+            selection.BindValueChanged(updateSelection, true);
+
+            AvailableRoms.BindCollectionChanged((_, __) =>
+            {
+                noRomPopup.State.Value = AvailableRoms.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+
+                //todo: don't recreate all panels when updating the list, just the ones which were added / removed.
+                selectionContainer.Clear();
+                selectionContainer.AddRange(AvailableRoms.Select(rom => new SelectionCard(rom)
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Alpha = 0,
+                }));
+
+                selection.MaxValue = (AvailableRoms.Count - 1) >= 0 ? (AvailableRoms.Count - 1) : 0;
+                selection.TriggerChange();
+            }, true);
         }
 
+        /// <summary>
+        /// Updates the arrows from the selector, depending of whether there are other roms available.
+        /// </summary>
         private void updateSelection(ValueChangedEvent<int> selection)
         {
             selectSample?.Play();
 
-            selectionLeft.FadeIn(fade_time, easing);
-            selectionRight.FadeIn(fade_time, easing);
+            selectionLeft.FadeIn(FADE_TIME, EASING);
+            selectionRight.FadeIn(FADE_TIME, EASING);
 
             if (selection.NewValue == this.selection.MaxValue)
-                selectionRight.FadeOut(fade_time, easing);
+                selectionRight.FadeOut(FADE_TIME, EASING);
 
             if (selection.NewValue == 0)
-                selectionLeft.FadeOut(fade_time, easing);
+                selectionLeft.FadeOut(FADE_TIME, EASING);
         }
 
+        /// <summary>
+        /// Set the current selected rom card as the one at the given index.
+        /// </summary>
         private void setSelection(int idx)
         {
-            try
+            selection.Value += idx;
+
+            if (idx == 1)
             {
-                selection.Value += idx;
-                if (idx == 1)
-                {
-                    selectionRight
-                        .ScaleTo(1.5f, 150, Easing.OutQuint)
-                        .Then(0)
-                        .ScaleTo(1, 150, Easing.OutQuint);
-                }
-                else
-                {
-                    selectionLeft
-                        .ScaleTo(1.5f, 150, Easing.OutQuint)
-                        .Then(0)
-                        .ScaleTo(1, 150, Easing.OutQuint);
-                }
+                selectionRight
+                    .ScaleTo(1.5f, 150, Easing.OutQuint)
+                    .Then(0)
+                    .ScaleTo(1, 150, Easing.OutQuint);
             }
-            catch (Exception)
+            else
             {
+                selectionLeft
+                    .ScaleTo(1.5f, 150, Easing.OutQuint)
+                    .Then(0)
+                    .ScaleTo(1, 150, Easing.OutQuint);
             }
         }
+
+        /// <summary>
+        /// Updates the visibility of the currently selected drawable card.
+        /// </summary>
+        private void updateSelectedDrawableCard(ValueChangedEvent<int> e)
+        {
+            getDrawableCardAtIndex(e.OldValue)?.FadeOut(FADE_TIME, EASING);
+            getDrawableCardAtIndex(e.NewValue)?.FadeIn(2 * FADE_TIME, EASING);
+        }
+
+        private SelectionCard getDrawableCardAtIndex(int index) => (AvailableRoms.Count < index || AvailableRoms.Count == 0) ? null : selectionContainer[index];
 
         public bool OnPressed(GamebosuAction action)
         {
@@ -220,7 +193,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                 case GamebosuAction.ButtonA:
                 case GamebosuAction.ButtonStart:
                 case GamebosuAction.ButtonSelect:
-                    var rom = avalaible_roms?.ElementAtOrDefault(selection.Value);
+                    var rom = AvailableRoms.ElementAtOrDefault(selection.Value);
 
                     if (rom == null)
                         goto default;

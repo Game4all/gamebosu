@@ -53,14 +53,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             };
 
             store = roms;
-            romSelector.AvalaibleRoms = roms.GetAvailableResources();
+            romSelector.AvailableRoms.AddRange(roms.GetAvailableResources());
         }
 
         private void loadRom(string romName)
         {
             if (romName == null)
             {
-                romSelector.MarkUnavalaible();
+                romSelector.MarkUnavailable();
                 return;
             }
 
@@ -69,7 +69,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 if (t.Result != null)
                     PushGameplay(t.Result);
                 else
-                    romSelector.MarkUnavalaible();
+                    romSelector.MarkUnavailable();
             });
         }
 

@@ -37,12 +37,13 @@ namespace osu.Game.Rulesets.Gamebosu.Tests
                     "yes.gba",
                 };
 
-                romSelector.AvalaibleRoms = roms;
+                romSelector.AvailableRoms.AddRange(roms);
             });
 
             AddStep("select next rom", () => romSelector.OnPressed(GamebosuAction.DPadRight));
             AddStep("go back to previous rom", () => romSelector.OnPressed(GamebosuAction.DPadLeft));
-            AddStep("show rom as unavalaible", () => romSelector.MarkUnavalaible());
+            AddStep("show rom as unavalaible", () => romSelector.MarkUnavailable());
+            AddStep("clear roms", () => romSelector.AvailableRoms.Clear());
         }
 
         [Test]

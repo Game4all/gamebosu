@@ -126,7 +126,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             cartridge.Texture = textures?.Get("cartridge");
         }
 
-        public void MarkUnavalaible()
+        public void MarkUnavailable()
         {
             loadFailedIcon
                 .FadeIn(250, Easing.In)
