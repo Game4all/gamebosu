@@ -10,6 +10,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
@@ -41,7 +42,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         /// The available roms for use.
         /// Will update the selectable rom cards when updated.
         /// </summary>
-        public readonly BindableList<string> AvailableRoms = new BindableList<string>(Enumerable.Empty<string>());
+        public readonly Bindable<IEnumerable<string>> AvailableRoms = new Bindable<IEnumerable<string>>(Enumerable.Empty<string>());
 
         /// <summary>
         /// Displays an error popup on the selected card indicating that the coresponding cartridge is unavailable.
@@ -106,25 +107,25 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             selectSample = audio.Samples.Get("UI/generic-hover-soft");
             confirmSelectSample = audio.Samples.Get("SongSelect/confirm-selection");
 
-            selection.BindValueChanged(updateSelectedDrawableCard, true);
             selection.BindValueChanged(updateSelection, true);
 
-            AvailableRoms.BindCollectionChanged((_, __) =>
+            AvailableRoms.BindValueChanged(roms =>
             {
-                noRomPopup.State.Value = AvailableRoms.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+                noRomPopup.State.Value = roms.NewValue.Count() > 0 ? Visibility.Hidden : Visibility.Visible;
 
-                //todo: don't recreate all panels when updating the list, just the ones which were added / removed.
                 selectionContainer.Clear();
-                selectionContainer.AddRange(AvailableRoms.Select(rom => new SelectionCard(rom)
+                selectionContainer.AddRange(roms.NewValue.Select(rom => new SelectionCard(rom)
                 {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Alpha = 0,
                 }));
 
-                selection.MaxValue = (AvailableRoms.Count - 1) >= 0 ? (AvailableRoms.Count - 1) : 0;
+                selection.MaxValue = (roms.NewValue.Count() - 1) > 0 ? (roms.NewValue.Count() - 1) : 0;
                 selection.TriggerChange();
             }, true);
+
+            selection.BindValueChanged(updateSelectedDrawableCard, true);
         }
 
         /// <summary>
@@ -176,7 +177,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             getDrawableCardAtIndex(e.NewValue)?.FadeIn(2 * FADE_TIME, EASING);
         }
 
-        private SelectionCard getDrawableCardAtIndex(int index) => (AvailableRoms.Count < index || AvailableRoms.Count == 0) ? null : selectionContainer[index];
+        private SelectionCard getDrawableCardAtIndex(int index) => (AvailableRoms.Value.Count() < index || AvailableRoms.Value.Count() == 0) ? null : selectionContainer[index];
 
         public bool OnPressed(GamebosuAction action)
         {
@@ -193,7 +194,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                 case GamebosuAction.ButtonA:
                 case GamebosuAction.ButtonStart:
                 case GamebosuAction.ButtonSelect:
-                    var rom = AvailableRoms.ElementAtOrDefault(selection.Value);
+                    var rom = AvailableRoms.Value.ElementAtOrDefault(selection.Value);
 
                     if (rom == null)
                         goto default;

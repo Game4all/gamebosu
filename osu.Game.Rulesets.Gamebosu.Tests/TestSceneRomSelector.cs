@@ -4,6 +4,7 @@
 using NUnit.Framework;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
 using osu.Game.Tests.Visual;
+using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests
 {
@@ -37,13 +38,13 @@ namespace osu.Game.Rulesets.Gamebosu.Tests
                     "yes.gba",
                 };
 
-                romSelector.AvailableRoms.AddRange(roms);
+                romSelector.AvailableRoms.Value = roms;
             });
 
             AddStep("select next rom", () => romSelector.OnPressed(GamebosuAction.DPadRight));
             AddStep("go back to previous rom", () => romSelector.OnPressed(GamebosuAction.DPadLeft));
             AddStep("show rom as unavalaible", () => romSelector.MarkUnavailable());
-            AddStep("clear roms", () => romSelector.AvailableRoms.Clear());
+            AddStep("clear roms", () => romSelector.AvailableRoms.Value = Enumerable.Empty<string>());
         }
 
         [Test]

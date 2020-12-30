@@ -43,17 +43,17 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                         Text = "Game selection",
                         Font = OsuFont.GetFont(Typeface.Torus, 32, FontWeight.Bold)
                     },
-                    romSelector = new RomSelector()
+                    romSelector = new RomSelector
                     {
                         RelativeSizeAxes = Axes.X,
                         Height = 300,
-                        RomSelected = loadRom
+                        RomSelected = loadRom,
+                        AvailableRoms = { Value = roms.GetAvailableResources() }
                     },
                 }
             };
 
             store = roms;
-            romSelector.AvailableRoms.AddRange(roms.GetAvailableResources());
         }
 
         private void loadRom(string romName)
