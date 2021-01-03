@@ -14,13 +14,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         private const int sprite_size = 120;
         private const int text_padding = 20;
 
+        protected override bool StartHidden => true;
+
         public NoRomAvailableMessage()
         {
             RelativeSizeAxes = Axes.Y;
             AutoSizeAxes = Axes.X;
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
-            Alpha = 0;
 
             Children = new Drawable[]
             {
