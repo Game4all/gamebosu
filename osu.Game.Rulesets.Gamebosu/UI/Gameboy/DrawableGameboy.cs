@@ -124,9 +124,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         protected override void Dispose(bool isDisposing)
         {
             gameBoy?.Terminate();
-
-            var mem = (gameBoy?.Cartridge as IFullyAccessibleCartridge)?.ExternalMemory;
-            mem?.Dispose();
+            gameBoy?.Dispose();
 
             foreach (var channel in audioChannels)
                 channel.Dispose();
