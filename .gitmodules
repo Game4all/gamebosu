@@ -1,3 +1,4 @@
 [submodule "Emux"]
 	path = Emux
-	url = https://github.com/Washi1337/Emux
+	url = https://github.com/Game4all/Emux
+	branch = handle-game-crash
