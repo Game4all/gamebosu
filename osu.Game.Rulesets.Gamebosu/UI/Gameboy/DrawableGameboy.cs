@@ -26,6 +26,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         private readonly DrawableGameboyScreen screen;
 
+        private readonly CrashScreenCover crashScreenCover;
+
         private GameBoy gameBoy;
 
         private IEnumerable<BASSAudioChannelOutput> audioChannels;
@@ -50,6 +52,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
                     Size = new osuTK.Vector2(160, 144),
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre
+                },
+                crashScreenCover = new CrashScreenCover
+                {
+                    Alpha = 0
                 }
             };
         }
@@ -98,6 +104,15 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
             gameBoy = new GameBoy(cartridge, clock, forceGBCMode);
             gameBoy.Gpu.VideoOutput = screen;
+
+            gameBoy.Terminated += (_, e) =>
+            {
+                if (e.Crashed)
+                {
+                    screen.Clear();
+                    crashScreenCover.FadeIn(300, Easing.OutQuint);
+                }
+            };
 
             foreach (var channel in gameBoy.Spu.Channels)
             {
