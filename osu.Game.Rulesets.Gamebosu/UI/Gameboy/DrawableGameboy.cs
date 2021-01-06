@@ -11,11 +11,11 @@ using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Input.Bindings;
+using osu.Framework.Logging;
 using osu.Game.Rulesets.Gamebosu.Audio;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using System.Collections.Generic;
 using System.Linq;
-using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
