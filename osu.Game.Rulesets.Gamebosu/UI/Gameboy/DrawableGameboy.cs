@@ -15,6 +15,7 @@ using osu.Game.Rulesets.Gamebosu.Audio;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using System.Collections.Generic;
 using System.Linq;
+using osu.Framework.Logging;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
@@ -111,6 +112,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
                 {
                     screen.Clear();
                     crashScreenCover.FadeIn(300, Easing.OutQuint);
+                    Logger.Log($"Emulation crashed with exception: {e.Exception}", LoggingTarget.Runtime);
                 }
             };
 
