@@ -110,8 +110,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             {
                 if (e.Crashed)
                 {
-                    screen.Clear();
-                    crashScreenCover.FadeIn(300, Easing.OutQuint);
+                    Schedule(() =>
+                    {
+                        screen.Clear();
+                        crashScreenCover.FadeIn(300, Easing.OutQuint);
+                    });
                     Logger.Log($"Emulation crashed with exception: {e.Exception}", LoggingTarget.Runtime);
                 }
             };
