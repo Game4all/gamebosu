@@ -104,14 +104,25 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                 Origin = Anchor.TopLeft,
                                 Width = 300,
                                 RelativeSizeAxes = Axes.Y,
-                                Height = 0.10f,
+                                Masking = true,
+                                CornerRadius = 15,
+                                Height = 0.15f,
                                 Margin = new MarginPadding { Horizontal =  10, Vertical = 10 },
-                                Child = romNameText = new ScrollingSpriteText
+                                Children = new Drawable[]
                                 {
-                                    Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
-                                    Anchor = Anchor.Centre,
-                                    Origin = Anchor.Centre,
-                                    Text = romName.Replace(RomStore.RECOGNIZED_EXTENSIONS.Where(ext => romName.Contains(ext)).First(), "")
+                                    new Box
+                                    {
+                                        RelativeSizeAxes = Axes.Both,
+                                        Colour = Color4.Black.Opacity(0.6f),
+                                    },
+                                    romNameText = new ScrollingSpriteText
+                                    {
+                                        Margin = new MarginPadding { Horizontal = 5 },
+                                        Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
+                                        Anchor = Anchor.Centre,
+                                        Origin = Anchor.Centre,
+                                        Text = romName.Replace(RomStore.RECOGNIZED_EXTENSIONS.Where(ext => romName.Contains(ext)).First(), "")
+                                    },
                                 }
                             }
                         }
