@@ -27,9 +27,10 @@ Or you can alternatively build the ruleset yourself by issuing the following com
 
 ```bash
     git clone https://github.com/Game4all/gamebosu
+    cd gamebosu
     cd osu.Game.Rulesets.Gamebosu
     dotnet build -c:Release # make sure to build ruleset in release mode to create a single file assembly
-    # You should find the output assembly in osu.Game.Rulesets.Gamebosu/bin/Release/packed/osu.Game.Rulesets.Gamebosu.dll   
+    # You should find the compiled and packed ruleset assembly in the output directory at path bin/Release/netstandard2.1/osu.Game.Rulesets.Gamebosu.dll 
 ```
 
 For building this from an IDE, you should open the solution file with your prefered C# editor and hit `build` with the `Release` configuration (in order to create a single file assembly).
