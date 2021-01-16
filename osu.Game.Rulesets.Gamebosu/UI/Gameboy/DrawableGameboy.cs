@@ -143,7 +143,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         protected override void Dispose(bool isDisposing)
         {
-            gameBoy?.Terminate();
             gameBoy?.Dispose();
 
             foreach (var channel in audioChannels)
