@@ -43,7 +43,7 @@ public sealed class UploadRelease : FrostingTask<Context>
 
             context.Information($"Release {context.ReleaseVersion} was created sucessfully!");
 
-            var file = File.OpenRead(Context.RULESET_OUTPUT_PATH);
+            var file = File.OpenRead(context.RulesetOutputPath);
 
             context.Information("Uploading asset .....");
 

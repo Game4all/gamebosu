@@ -5,7 +5,13 @@ using System.IO;
 
 public class Context : FrostingContext
 {
-    public Context(ICakeContext context) 
+    private const string ruleset_project_name = "osu.Game.Rulesets.Gamebosu";
+
+    public readonly string ReleaseVersion;
+
+    public readonly string ReleaseBodyText;
+
+    public Context(ICakeContext context)
         : base(context)
     {
         var date = DateTime.Now;
@@ -13,11 +19,9 @@ public class Context : FrostingContext
         ReleaseBodyText = File.ReadAllText("ReleaseHeader.md");
     }
 
-    public readonly string ReleaseVersion;
+    private string ruleset_project_csproj_path => Path.Combine("..\\", ruleset_project_name, ruleset_project_name + ".csproj");
 
-    public readonly string ReleaseBodyText;
+    public string RulesetProjectPath => Path.Combine(".\\", ruleset_project_name);
 
-    public const string RULESET_PROJECT_PATH = "./osu.Game.Rulesets.Gamebosu";
-
-    public const string RULESET_OUTPUT_PATH = RULESET_PROJECT_PATH + "/bin/Release/netstandard2.1/osu.Game.Rulesets.Gamebosu.dll";
+    public string RulesetOutputPath => Path.Combine(RulesetProjectPath, "bin/Release/netstandard2.1/osu.Game.Rulesets.Gamebosu.dll");
 }

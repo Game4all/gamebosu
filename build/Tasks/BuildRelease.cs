@@ -10,14 +10,14 @@ public sealed class BuildRelease : FrostingTask<Context>
     {
         context.Information("Preparing for building ...");
 
-        context.DotNetCoreClean(Context.RULESET_PROJECT_PATH);
+        context.DotNetCoreClean(context.RulesetProjectPath);
 
         context.Information($"Building release version {context.ReleaseVersion}");
 
         var settings = new DotNetCoreMSBuildSettings();
         settings.SetConfiguration("Release");
         settings.SetVersion(context.ReleaseVersion);
-        context.DotNetCoreMSBuild(Context.RULESET_PROJECT_PATH, settings);
+        context.DotNetCoreMSBuild(context.RulesetProjectPath, settings);
 
         context.Information("Release built sucessfully");
     }
