@@ -25,8 +25,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         private readonly SpriteIcon selectionRight;
         private readonly NoRomAvailableMessage noRomPopup;
 
-        private SampleChannel selectSample;
-        private SampleChannel confirmSelectSample;
+        private Sample selectSample;
+        private Sample confirmSelectSample;
 
         private BindableInt selection = new BindableInt(0)
         {
@@ -105,7 +105,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         private void load(AudioManager audio)
         {
             selectSample = audio.Samples.Get("UI/generic-hover-soft");
-            confirmSelectSample = audio.Samples.Get("SongSelect/confirm-selection");
+            confirmSelectSample = audio.Samples.Get("UI/notification-pop-in");
 
             selection.BindValueChanged(updateSelection, true);
 
