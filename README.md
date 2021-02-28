@@ -7,7 +7,7 @@ A ruleset that adds a playable gameboy to osu!lazer.
 
 # **DISCLAIMER**
 
-This ruleset is still a _work in progress_ as there are still some features missing and there are bugs out. Prebuilt pre-releases will be provided along the developpement in the wait for an official release. Please _report any issues you are running into_ with this ruleset on the issue tracker of _this repository_.
+This ruleset isn't a serious ruleset and doesn't serve any other purpose than showing the capabilities of the game framework and being cool, and of course useless. Now you're warned ...
 
 ## Screenshots
 ![rom selection](assets/screenshot_selection.png) | ![gameplay](assets/screenshot_gameplay.png)| ![gameplay2](assets/screenshot_gameplay2.png)
