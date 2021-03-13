@@ -49,12 +49,12 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
             return Length;
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
             Stop();
             Bass.StreamFree(bassChannel);
 
-            base.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
