@@ -14,7 +14,7 @@
     <ProjectReference Include="..\Emux\Emux.GameBoy\Emux.GameBoy.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="Fody" Version="6.4.0" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.5.0" PrivateAssets="All" />
     <PackageReference Include="ILMerge.Fody" Version="1.16.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
