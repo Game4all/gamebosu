@@ -15,11 +15,11 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
 
         protected override void InitialiseDefaults()
         {
-            Set(GamebosuSetting.LockClockRate, false);
-            Set(GamebosuSetting.ClockRate, 1, 0.1, 5, 0.1);
-            Set(GamebosuSetting.PreferGBCMode, true);
-            Set(GamebosuSetting.GameboyScale, 2f, 1f, 4.5f, 0.1f);
-            Set(GamebosuSetting.EnableSoundPlayback, false); //Disable the audio playback by default since it is very experimental.
+            SetDefault(GamebosuSetting.LockClockRate, false);
+            SetDefault(GamebosuSetting.ClockRate, 1, 0.1, 5, 0.1);
+            SetDefault(GamebosuSetting.PreferGBCMode, true);
+            SetDefault(GamebosuSetting.GameboyScale, 2f, 1f, 4.5f, 0.1f);
+            SetDefault(GamebosuSetting.EnableSoundPlayback, false); //Disable the audio playback by default since it is very experimental.
             base.InitialiseDefaults();
         }
     }
