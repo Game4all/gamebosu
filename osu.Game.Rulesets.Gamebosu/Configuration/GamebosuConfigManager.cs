@@ -20,6 +20,7 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
             SetDefault(GamebosuSetting.PreferGBCMode, true);
             SetDefault(GamebosuSetting.GameboyScale, 2f, 1f, 4.5f, 0.1f);
             SetDefault(GamebosuSetting.EnableSoundPlayback, false); //Disable the audio playback by default since it is very experimental.
+            SetDefault(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer, false);
             base.InitialiseDefaults();
         }
     }
@@ -31,5 +32,6 @@ namespace osu.Game.Rulesets.Gamebosu.Configuration
         GameboyScale,
         PreferGBCMode,
         EnableSoundPlayback,
+        DisableDisplayingThatAnnoyingDisclaimer,
     }
 }

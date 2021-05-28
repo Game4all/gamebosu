@@ -3,7 +3,7 @@
 
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
-using osu.Framework.Screens;
+using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.UI.Screens;
 using osu.Game.Rulesets.UI;
 
@@ -13,6 +13,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI
     public class GamebosuPlayfield : Playfield
     {
         private GamebosuScreenStack stack;
+
+        [Resolved]
+        private GamebosuConfigManager gamebosuConfig { get; set; }
 
         [BackgroundDependencyLoader]
         private void load()
@@ -24,12 +27,22 @@ namespace osu.Game.Rulesets.Gamebosu.UI
             });
         }
 
+        private void displaySelection() => stack.Push(new RomSelectionScreen());
+
         protected override void LoadComplete()
         {
-            stack?.Push(new DisclaimerScreen
+            if (!gamebosuConfig.Get<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer))
             {
-                Complete = (sc) => sc.Push(new RomSelectionScreen())
-            });
+                stack.Push(new DisclaimerScreen
+                {
+                    Complete = displaySelection
+                });
+            }
+            else
+            {
+                displaySelection();
+            }
+
             base.LoadComplete();
         }
     }

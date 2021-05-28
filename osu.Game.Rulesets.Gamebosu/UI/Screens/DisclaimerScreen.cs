@@ -23,13 +23,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             "Try pressing Page-up or Page-down to change the ROM emulation speed!",
             "You can customize the gameboy screen scale from the settings overlay, try searching for 'gameboy scale'!",
             "You can open the ROM folder from the settings overlay, try searching for 'open rom folder'!",
-            "You can enable audio playback of the gameboy speaker in the settings, but don't do for the time being. It currently sounds more like noise."
+            "You can enable audio playback of the gameboy speaker in the settings, but don't do for the time being. It currently sounds more like noise.",
+            "You can disable this disclaimer in the settings, try searching for 'disable that annoying startup disclaimer'!"
         };
 
         /// <summary>
         /// Called when the disclaimer finished displaying.
         /// </summary>
-        public Action<GamebosuScreen> Complete;
+        public Action Complete;
 
         public DisclaimerScreen()
         {
@@ -94,7 +95,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             Content.ScaleTo(0.25f, 300, Easing.OutQuint)
                    .FadeOut(300, Easing.Out)
-                   .OnComplete(t => Complete?.Invoke(this));
+                   .OnComplete(t => Complete?.Invoke());
         }
 
         public void OnReleased(GamebosuAction action)

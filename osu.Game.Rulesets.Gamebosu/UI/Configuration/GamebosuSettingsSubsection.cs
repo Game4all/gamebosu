@@ -87,6 +87,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 {
                     LabelText = "Enable Sound Playback (VERY EXPERIMENTAL)",
                     Current = config.GetBindable<bool>(GamebosuSetting.EnableSoundPlayback)
+                },
+                new SettingsCheckbox
+                {
+                    LabelText = "Disable that annoying disclaimer when launching gamebosu!",
+                    Current = config.GetBindable<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer)
                 }
             };
 
