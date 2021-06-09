@@ -6,6 +6,7 @@ using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Difficulty.Preprocessing;
 using osu.Game.Rulesets.Difficulty.Skills;
 using osu.Game.Rulesets.Mods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,6 @@ namespace osu.Game.Rulesets.Gamebosu
 
         protected override IEnumerable<DifficultyHitObject> CreateDifficultyHitObjects(IBeatmap beatmap, double clockRate) => Enumerable.Empty<DifficultyHitObject>();
 
-        protected override Skill[] CreateSkills(IBeatmap beatmap, Mod[] mods) => new Skill[0];
+        protected override Skill[] CreateSkills(IBeatmap beatmap, Mod[] mods, double clockRate) => Array.Empty<Skill>();
     }
 }
