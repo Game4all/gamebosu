@@ -4,11 +4,12 @@ using Cake.Frosting;
 using Cake.Common.Tools.DotNetCore.MSBuild;
 
 [TaskName("BuildRelease")]
+[Dependency(typeof(RestoreProject))]
 public sealed class BuildRelease : FrostingTask<Context>
 {
     public override void Run(Context context)
     {
-        context.Information("Preparing for building ...");
+        context.Information("Cleaning previous build artifacts ...");
 
         context.DotNetCoreClean(context.RulesetProjectPath);
 

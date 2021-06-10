@@ -9,6 +9,7 @@ using Octokit;
 
 [TaskName("UploadRelease")]
 [Dependency(typeof(BuildRelease))]
+[Dependency(typeof(FetchLazerVersion))]
 public sealed class UploadRelease : FrostingTask<Context>
 {
     public override void Run(Context context)
@@ -34,7 +35,8 @@ public sealed class UploadRelease : FrostingTask<Context>
             var release_data = new NewRelease(context.ReleaseVersion)
             {
                 Name = $"{context.ReleaseVersion} release",
-                Body = context.ReleaseBodyText,
+                Body = context.ReleaseBodyText.Replace("{RELEASE_VERSION}", context.ReleaseVersion)
+                                              .Replace("{LAZER_VERSION}", context.RequiredLazerVersion),
             };
 
             context.Information("Creating release ....");
