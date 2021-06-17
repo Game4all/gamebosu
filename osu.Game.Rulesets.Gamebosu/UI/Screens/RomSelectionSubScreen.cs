@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class RomSelectionScreen : GamebosuScreen
+    public class RomSelectionSubScreen : GamebosuSubScreen
     {
         private RomSelector romSelector;
         private RomStore store;
@@ -70,7 +70,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             store.GetAsync(romName).ContinueWith(t =>
             {
                 if (t.Result != null)
-                    this.Push(new GameplayScreen(t.Result));
+                    this.Push(new GameplaySubScreen(t.Result));
                 else
                     romSelector.MarkUnavailable();
             });

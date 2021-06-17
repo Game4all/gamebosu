@@ -7,11 +7,11 @@ using osu.Framework.Screens;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class GamebosuScreen : Container, IScreen
+    public class GamebosuSubScreen : Container, IScreen
     {
         public override bool RemoveWhenNotAlive => false;
 
-        public GamebosuScreen()
+        public GamebosuSubScreen()
         {
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;

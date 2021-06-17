@@ -27,13 +27,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI
             });
         }
 
-        private void displaySelection() => stack.Push(new RomSelectionScreen());
+        private void displaySelection() => stack.Push(new RomSelectionSubScreen());
 
         protected override void LoadComplete()
         {
             if (!gamebosuConfig.Get<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer))
             {
-                stack.Push(new DisclaimerScreen
+                stack.Push(new DisclaimerSubScreen
                 {
                     Complete = displaySelection
                 });

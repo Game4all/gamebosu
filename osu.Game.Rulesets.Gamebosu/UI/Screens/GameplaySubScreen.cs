@@ -12,7 +12,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class GameplayScreen : GamebosuScreen
+    public class GameplaySubScreen : GamebosuSubScreen
     {
         private readonly DrawableGameboy gameboy;
         private readonly Container container;
@@ -22,7 +22,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         private Bindable<float> gameboyScale;
 
-        public GameplayScreen(ICartridge cart)
+        public GameplaySubScreen(ICartridge cart)
         {
             cartridge = cart;
 

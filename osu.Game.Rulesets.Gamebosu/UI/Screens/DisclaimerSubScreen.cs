@@ -13,7 +13,7 @@ using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class DisclaimerScreen : GamebosuScreen, IKeyBindingHandler<GamebosuAction>
+    public class DisclaimerSubScreen : GamebosuSubScreen, IKeyBindingHandler<GamebosuAction>
     {
         private OsuTextFlowContainer textFlow;
 
@@ -32,7 +32,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         /// </summary>
         public Action Complete;
 
-        public DisclaimerScreen()
+        public DisclaimerSubScreen()
         {
             Child = textFlow = new OsuTextFlowContainer()
             {
