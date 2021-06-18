@@ -6,7 +6,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
 using osu.Game.Tests.Visual;
 using System.Linq;
 
-namespace osu.Game.Rulesets.Gamebosu.Tests
+namespace osu.Game.Rulesets.Gamebosu.Tests.Screens.Selection
 {
     public class TestSceneRomSelector : OsuTestScene
     {
