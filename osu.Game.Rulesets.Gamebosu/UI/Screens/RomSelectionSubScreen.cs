@@ -22,8 +22,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         private ScheduledDelegate romListUpdateDelegate;
 
-        [BackgroundDependencyLoader]
-        private void load(RomStore roms, DrawableGamebosuRuleset ruleset)
+        [BackgroundDependencyLoader(true)]
+        private void load(RomStore roms, DrawableGamebosuRuleset drawableRuleset)
         {
             Child = new FillFlowContainer
             {
@@ -35,7 +35,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 Direction = FillDirection.Vertical,
                 Children = new Drawable[]
                 {
-                    ruleset.Ruleset.CreateIcon()
+                    (drawableRuleset?.Ruleset ?? new GamebosuRuleset()).CreateIcon()
                     .With(t => t.Anchor = Anchor.TopCentre)
                     .With(t => t.Origin = Anchor.TopCentre),
 
