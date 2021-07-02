@@ -3,6 +3,7 @@
 
 using osu.Framework.Allocation;
 using osu.Framework.Platform;
+using osu.Framework.Screens;
 using osu.Game.Configuration;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.IO;
@@ -11,18 +12,33 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class GamebosuMainScreen : ScreenWithCyclingBeatmapBackground
     {
+        private GamebosuScreenStack screenStack;
+
+        [Cached]
+        private GamebosuConfigManager configManager { get; set; } 
+
+        [Cached]
+        private RomStore romStore { get; set; }
+
         public GamebosuMainScreen()
         {
         }
-
-        protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
+        
+        [BackgroundDependencyLoader]
+        private void load(SettingsStore store, Storage storage)
         {
-            var deps = new DependencyContainer(base.CreateChildDependencies(parent));
+            configManager = new GamebosuConfigManager(store, new GamebosuRuleset().RulesetInfo);
+            romStore = new RomStore(storage);
+            InternalChild = screenStack = new GamebosuScreenStack();
+        }
 
-            deps.Cache(new RomStore(parent.Get<Storage>()));
-            deps.Cache(new GamebosuConfigManager(parent.Get<SettingsStore>(), new GamebosuRuleset().RulesetInfo));
-
-            return deps;
+        public override void OnEntering(IScreen last)
+        {
+            screenStack.Push(new DisclaimerSubScreen
+            {
+                Complete = () => screenStack.Push(new RomSelectionSubScreen())
+            });
+            base.OnEntering(last);
         }
     }
 }
