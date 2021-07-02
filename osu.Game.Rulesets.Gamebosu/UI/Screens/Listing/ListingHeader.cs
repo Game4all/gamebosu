@@ -16,7 +16,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
     public class ListingHeader : Container
     {
-        private const float height = 80;
+        public const float HEIGHT = 80;
 
         private const float spacing = 6;
 
@@ -26,7 +26,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
         public ListingHeader()
         {
             RelativeSizeAxes = Axes.X;
-            Height = height;
+            Height = HEIGHT;
 
             Children = new Drawable[]
             {
