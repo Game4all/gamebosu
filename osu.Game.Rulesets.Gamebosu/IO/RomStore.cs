@@ -14,7 +14,10 @@ namespace osu.Game.Rulesets.Gamebosu.IO
 {
     public class RomStore : ResourceStore<EmulatedCartridge>
     {
-        private readonly Storage storage;
+        /// <summary>
+        /// The rom storage.
+        /// </summary>
+        public Storage Storage { get; }
 
         private readonly Storage savesStorage;
 
@@ -30,8 +33,8 @@ namespace osu.Game.Rulesets.Gamebosu.IO
 
         public RomStore(Storage storage)
         {
-            this.storage = storage.GetStorageForDirectory("roms");
-            savesStorage = this.storage.GetStorageForDirectory("saves");
+            Storage = storage.GetStorageForDirectory("roms");
+            savesStorage = this.Storage.GetStorageForDirectory("saves");
 
             foreach (var ext in RECOGNIZED_EXTENSIONS)
                 AddExtension(ext);
@@ -43,9 +46,9 @@ namespace osu.Game.Rulesets.Gamebosu.IO
             {
                 try
                 {
-                    if (storage.Exists(res_name))
+                    if (Storage.Exists(res_name))
                     {
-                        var cart_stream = storage.GetStream(res_name);
+                        var cart_stream = Storage.GetStream(res_name);
                         var cart_rom = new byte[cart_stream.Length];
                         cart_stream.Read(cart_rom, 0, (int)cart_stream.Length);
 
@@ -65,7 +68,7 @@ namespace osu.Game.Rulesets.Gamebosu.IO
 
         public override Task<EmulatedCartridge> GetAsync(string name) => Task.Run(() => Get(name));
 
-        public override IEnumerable<string> GetAvailableResources() => storage.GetFiles(".")
+        public override IEnumerable<string> GetAvailableResources() => Storage.GetFiles(".")
                                                                                .ExcludeSystemFileNames()
                                                                                .Where(file => RECOGNIZED_EXTENSIONS.Any(ext => Path.GetExtension(file)?.Equals(ext, System.StringComparison.Ordinal) ?? false));
     }

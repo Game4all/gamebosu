@@ -14,12 +14,18 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens.Listing;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
+    [Cached]
     public class ListingSubScreen : GamebosuSubScreen
     {
         private readonly RomListing listing;
 
+        private readonly RomImportHandler romImportHandler;
+
         [Resolved]
         private RomStore roms { get; set; }
+
+        [Resolved(CanBeNull = true)]
+        private OsuGame game { get; set; }
 
         private ScheduledDelegate refreshDelegate;
 
@@ -37,6 +43,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 RelativeSizeAxes = Axes.Both,
                 Children = new Drawable[]
                 {
+                    romImportHandler = new RomImportHandler(),
                     new Box
                     {
                         RelativeSizeAxes = Axes.Both,
@@ -55,7 +62,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         /// <summary>
         /// Triggers a refresh of the rom listing.
         /// </summary>
-        protected void Refresh()
+        public void Refresh()
         {
             refreshDelegate?.Cancel();
             listing.AvailableRoms = roms.GetAvailableResources();
@@ -64,7 +71,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         public override void OnEntering(IScreen last)
         {
+            game?.RegisterImportHandler(romImportHandler);
             Refresh();
+        }
+
+        public override bool OnExiting(IScreen next)
+        {
+            game.UnregisterImportHandler(romImportHandler);
+            return base.OnExiting(next);
         }
     }
 }
