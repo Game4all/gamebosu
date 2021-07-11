@@ -32,7 +32,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
             foreach (var task in tasks)
             {
                 var file = new FileInfo(task.Path);
-                file.CopyTo(store.Storage.GetFullPath(file.Name));
+                if (!File.Exists(store.Storage.GetFullPath(file.Name)))
+                    file.CopyTo(store.Storage.GetFullPath(file.Name));
             }
 
             Schedule(listing.Refresh);
