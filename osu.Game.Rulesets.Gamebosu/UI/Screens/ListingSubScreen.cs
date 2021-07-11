@@ -13,12 +13,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class ListingSubScreen : GamebosuSubScreen
     {
+        private readonly RomListing listing;
+
         public ListingSubScreen()
         {
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
             RelativeSizeAxes = Axes.Both;
-            Padding = new MarginPadding { Horizontal = -80 };
 
             var backgroundColour = Color4Extensions.FromHex(@"3e3a44");
 
@@ -32,6 +33,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                     {
                         RelativeSizeAxes = Axes.Both,
                         Colour = backgroundColour,
+                    },
+                    listing = new RomListing
+                    {
+                        RelativeSizeAxes = Axes.Both,
+                        Padding = new MarginPadding { Top = ListingHeader.HEIGHT },
                     },
                     new ListingHeader()
                 }

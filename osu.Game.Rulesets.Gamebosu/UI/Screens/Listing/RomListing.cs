@@ -42,12 +42,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
                 Children = new Drawable[]
                 {
                     romNotFound = new NoRomAvailablePopup(),
-                    scrollContainer = new OsuScrollContainer
+                    scrollContainer = new OsuScrollContainer(Direction.Vertical)
                     {
                         RelativeSizeAxes = Axes.Both,
                         Child = fillFlowContainer = new FillFlowContainer
                         {
-                            RelativeSizeAxes = Axes.Both,
+                            RelativeSizeAxes = Axes.X,
+                            AutoSizeAxes = Axes.Y,
+                            Padding = new MarginPadding { Horizontal = 15 },
                             Spacing = new osuTK.Vector2(15, 0),
                         }
                     },                    
@@ -68,7 +70,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
             roms.NewValue.ForEach(each => fillFlowContainer.Add(new ListingPanel(each)
             {
                 Action = () => RomSelected(each),
-                Margin = new MarginPadding {  Top = 5 }
+                Margin = new MarginPadding { Top = 5 }
             }));
         }
 

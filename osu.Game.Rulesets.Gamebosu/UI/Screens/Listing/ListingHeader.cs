@@ -27,6 +27,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
         {
             RelativeSizeAxes = Axes.X;
             Height = HEIGHT;
+            Padding = new MarginPadding { Left = -WaveOverlayContainer.WIDTH_PADDING };
 
             Children = new Drawable[]
             {

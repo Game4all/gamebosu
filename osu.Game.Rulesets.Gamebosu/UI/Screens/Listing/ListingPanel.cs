@@ -9,16 +9,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
     public class ListingPanel : OsuClickableContainer
     {
-        private readonly string romName;
-
         public ListingPanel(string romName) 
             : base(HoverSampleSet.Button)
         {
-            //AutoSizeAxes = Framework.Graphics.Axes.X;
-            //Height = 400;
-
-            //this.romName = romName;
-            //Child = new SelectionCard(romName);
+            AutoSizeAxes = Framework.Graphics.Axes.X;
+            Height = 380;
+            Child = new SelectionCard(romName);
         }
     }
 }
