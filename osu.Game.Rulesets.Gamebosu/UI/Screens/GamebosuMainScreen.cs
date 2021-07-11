@@ -13,30 +13,28 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     public class GamebosuMainScreen : ScreenWithCyclingBeatmapBackground
     {
         private GamebosuScreenStack screenStack;
-
-        [Cached]
-        private GamebosuConfigManager configManager { get; set; } 
-
-        [Cached]
-        private RomStore romStore { get; set; }
-
-        public GamebosuMainScreen()
-        {
-        }
         
         [BackgroundDependencyLoader]
-        private void load(SettingsStore store, Storage storage)
+        private void load()
         {
-            configManager = new GamebosuConfigManager(store, new GamebosuRuleset().RulesetInfo);
-            romStore = new RomStore(storage);
             InternalChild = screenStack = new GamebosuScreenStack();
+        }
+
+        protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
+        {
+            var container = new DependencyContainer(parent);
+
+            container.Cache(new GamebosuConfigManager(container.Get<SettingsStore>(), new GamebosuRuleset().RulesetInfo));
+            container.Cache(new RomStore(container.Get<Storage>()));
+
+            return container;
         }
 
         public override void OnEntering(IScreen last)
         {
             screenStack.Push(new DisclaimerSubScreen
             {
-                Complete = () => screenStack.Push(new RomSelectionSubScreen())
+                Complete = () => screenStack.Push(new ListingSubScreen())
             });
             base.OnEntering(last);
         }
