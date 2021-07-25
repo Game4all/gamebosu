@@ -4,7 +4,6 @@
 using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Screens;
 using osu.Framework.Threading;
@@ -20,6 +19,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         private readonly RomListing listing;
 
         private readonly RomImportHandler romImportHandler;
+
+        private readonly WaveContainer waveContainer;
 
         [Resolved]
         private RomStore roms { get; set; }
@@ -37,9 +38,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
             var backgroundColour = Color4Extensions.FromHex(@"3e3a44");
 
-            InternalChild = new WaveContainer
+            InternalChild = waveContainer = new WaveContainer
             {
-                State = { Value = Visibility.Visible },
                 RelativeSizeAxes = Axes.Both,
                 Children = new Drawable[]
                 {
@@ -52,6 +52,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                     listing = new RomListing
                     {
                         RelativeSizeAxes = Axes.Both,
+                        RomSelected = Prepare,
                         Padding = new MarginPadding { Top = ListingHeader.HEIGHT },
                     },
                     new ListingHeader()
@@ -69,15 +70,37 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             refreshDelegate = Scheduler.AddDelayed(Refresh, 2500);
         }
 
+        protected void Prepare(string clicked)
+        {
+            roms.GetAsync(clicked).ContinueWith(rom => 
+            {
+                Schedule(() => this.Push(new GameplaySubScreen(rom.Result)));
+            });
+        }
+
         public override void OnEntering(IScreen last)
         {
             game?.RegisterImportHandler(romImportHandler);
+            waveContainer.Show();
             Refresh();
+        }
+
+        public override void OnSuspending(IScreen next)
+        {
+            waveContainer.Hide();
+            base.OnSuspending(next);
+        }
+
+        public override void OnResuming(IScreen last)
+        {
+            waveContainer.Show();
+            base.OnResuming(last);
         }
 
         public override bool OnExiting(IScreen next)
         {
             game.UnregisterImportHandler(romImportHandler);
+            waveContainer.Hide();
             return base.OnExiting(next);
         }
     }

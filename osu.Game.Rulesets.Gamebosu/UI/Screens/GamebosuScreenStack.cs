@@ -8,7 +8,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     public class GamebosuScreenStack : ScreenStack
     {
         public GamebosuScreenStack()
-            : base(false)
+            : base(true)
         {
             RelativeSizeAxes = Framework.Graphics.Axes.Both;
         }

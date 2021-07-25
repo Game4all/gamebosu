@@ -18,7 +18,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             RelativeSizeAxes = Axes.Both;
         }
 
-        public bool ValidForResume { get; set; } = false;
+        public bool ValidForResume { get; set; } = true;
         public bool ValidForPush { get; set; } = true;
 
         public virtual void OnEntering(IScreen last)
@@ -31,6 +31,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         public virtual bool OnExiting(IScreen next)
         {
+            Content
+                .ScaleTo(1)
+                .ScaleTo(0.5f, 500, Easing.OutQuint)
+                .FadeOutFromOne(500, Easing.OutQuint);
+
             return false;
         }
 

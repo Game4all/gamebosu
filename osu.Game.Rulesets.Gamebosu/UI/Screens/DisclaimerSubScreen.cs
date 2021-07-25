@@ -41,6 +41,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 Anchor = Anchor.Centre,
                 TextAnchor = Anchor.Centre,
             };
+
+            ValidForResume = false;
         }
 
         [BackgroundDependencyLoader]

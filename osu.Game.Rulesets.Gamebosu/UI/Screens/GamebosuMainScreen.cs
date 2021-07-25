@@ -36,7 +36,19 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             {
                 Complete = () => screenStack.Push(new ListingSubScreen())
             });
+
             base.OnEntering(last);
+        }
+
+        public override bool OnExiting(IScreen next)
+        {
+            if (screenStack.CurrentScreen is GameplaySubScreen)
+            {
+                screenStack.Exit();
+                return true;
+            }
+          
+            return base.OnExiting(next);
         }
     }
 }

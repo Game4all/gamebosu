@@ -6,9 +6,12 @@ using osu.Framework.Bindables;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Platform;
+using osu.Framework.Screens;
+using osu.Game.Graphics;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Gamebosu.Configuration;
+using osu.Game.Rulesets.Gamebosu.UI.Screens;
 using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
@@ -26,7 +29,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         protected override string Header => "gamebosu!";
 
         [BackgroundDependencyLoader]
-        private void load(Storage storage, DialogOverlay dialog)
+        private void load(Storage storage, DialogOverlay dialog, OsuGame game)
         {
             var config = Config as GamebosuConfigManager;
             lockClockRate = config.GetBindable<bool>(GamebosuSetting.LockClockRate);
@@ -92,10 +95,27 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 {
                     LabelText = "Disable that annoying disclaimer when launching gamebosu!",
                     Current = config.GetBindable<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer)
-                }
+                },
+                new WIPSettingsButton
+                {
+                    Text = "Open ROM listing (WIP)",
+                    Action = () => game?.PerformFromScreen(scr => scr.Push(new GamebosuMainScreen()))
+                },
             };
 
             lockClockRate.BindValueChanged(e => clockRate.Current.Disabled = e.NewValue, true);
+        }
+
+        private class WIPSettingsButton : SettingsButton
+        {
+            [BackgroundDependencyLoader]
+            private void load(OsuColour colours)
+            {
+                BackgroundColour = colours.Yellow;
+
+                Triangles.ColourDark = colours.YellowDark;
+                Triangles.ColourLight = colours.YellowLight;
+            }
         }
     }
 }
