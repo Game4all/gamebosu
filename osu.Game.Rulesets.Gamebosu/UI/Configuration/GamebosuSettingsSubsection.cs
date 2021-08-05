@@ -5,6 +5,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
+using osu.Framework.Localisation;
 using osu.Framework.Platform;
 using osu.Framework.Screens;
 using osu.Game.Graphics;
@@ -26,7 +27,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         {
         }
 
-        protected override string Header => "gamebosu!";
+        protected override LocalisableString Header => "gamebosu!";
 
         [BackgroundDependencyLoader]
         private void load(Storage storage, DialogOverlay dialog, OsuGame game)
