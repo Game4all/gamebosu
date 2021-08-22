@@ -22,9 +22,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         private SettingsSlider<double> clockRate;
         private Bindable<bool> lockClockRate;
 
-        private readonly Ruleset ruleset;
+        private readonly GamebosuRuleset ruleset;
 
-        public GamebosuSettingsSubsection(Ruleset ruleset)
+        public GamebosuSettingsSubsection(GamebosuRuleset ruleset)
             : base(ruleset)
         {
             this.ruleset = ruleset;

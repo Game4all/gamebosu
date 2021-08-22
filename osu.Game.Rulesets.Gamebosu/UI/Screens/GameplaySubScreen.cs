@@ -14,9 +14,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class GameplaySubScreen : GamebosuSubScreen
     {
-        private readonly DrawableGameboy gameboy;
-        private readonly Container container;
-        private readonly ClockRateIndicator indicator;
+        private DrawableGameboy gameboy;
+        private Container container;
+        private ClockRateIndicator indicator;
 
         private readonly ICartridge cartridge;
 
@@ -25,37 +25,41 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         public GameplaySubScreen(ICartridge cart)
         {
             cartridge = cart;
-
-            Children = new Drawable[]
-            {
-                container = new Container
-                {
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                    AutoSizeAxes = Axes.Both,
-                    Child = gameboy = new DrawableGameboy(cart)
-                    {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                    },
-                },
-                new ClockRateIndicatorControlReceptor
-                {
-                    AdjustAction = (f) => indicator.AdjustRate(f),
-                },
-                indicator = new ClockRateIndicator
-                {
-                    Anchor = Anchor.BottomCentre,
-                    Origin = Anchor.BottomCentre,
-                    Margin = new MarginPadding { Bottom = 20 },
-                    Alpha = 0,
-                }
-            };
         }
 
         [BackgroundDependencyLoader]
-        private void load(GamebosuConfigManager config)
+        private void load(GamebosuConfigManager config, GamebosuRuleset ruleset)
         {
+            Child = new GamebosuInputManager(ruleset.RulesetInfo)
+            {
+                RelativeSizeAxes = Axes.Both,
+                Children = new Drawable[]
+                {
+                    container = new Container
+                    {
+                        Anchor = Anchor.Centre,
+                        Origin = Anchor.Centre,
+                        AutoSizeAxes = Axes.Both,
+                        Child = gameboy = new DrawableGameboy(cartridge)
+                        {
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre,
+                        },
+                    },
+                    new ClockRateIndicatorControlReceptor
+                    {
+                        AdjustAction = (f) => indicator.AdjustRate(f),
+                    },
+                    indicator = new ClockRateIndicator
+                    {
+                        Anchor = Anchor.BottomCentre,
+                        Origin = Anchor.BottomCentre,
+                        Margin = new MarginPadding { Bottom = 20 },
+                        Alpha = 0,
+                    }
+                }
+            };
+
             gameboyScale = config.GetBindable<float>(GamebosuSetting.GameboyScale);
             gameboyScale.BindValueChanged(e => container.ScaleTo(e.NewValue, 400, Easing.OutQuint), true);
             config.BindWith(GamebosuSetting.ClockRate, indicator.Rate);

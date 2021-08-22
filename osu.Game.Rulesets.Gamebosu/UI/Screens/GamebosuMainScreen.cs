@@ -12,9 +12,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     {
         private readonly GamebosuScreenStack screenStack;
 
-        private readonly Ruleset ruleset;
+        private readonly GamebosuRuleset ruleset;
 
-        public GamebosuMainScreen(Ruleset ruleset)
+        public GamebosuMainScreen(GamebosuRuleset ruleset)
         {
             this.ruleset = ruleset;
             InternalChild = screenStack = new GamebosuScreenStack();
@@ -24,6 +24,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             var container = new DependencyContainer(parent);
 
+            container.Cache(ruleset);
             container.Cache(container.Get<RulesetConfigCache>().GetConfigFor(ruleset));
             container.Cache(new RomStore(container.Get<Storage>()));
 
