@@ -5,6 +5,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Platform;
 using osu.Framework.Screens;
+using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.IO;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
@@ -14,6 +15,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         private readonly GamebosuScreenStack screenStack;
 
         private readonly GamebosuRuleset ruleset;
+
+        private GamebosuConfigManager config;
 
         public GamebosuMainScreen(GamebosuRuleset ruleset)
         {
@@ -26,7 +29,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             var container = new DependencyContainer(parent);
 
             container.Cache(ruleset);
-            container.Cache(container.Get<RulesetConfigCache>().GetConfigFor(ruleset));
+            container.Cache(config = (GamebosuConfigManager)container.Get<RulesetConfigCache>().GetConfigFor(ruleset));
 
             container.Get<TextureStore>().AddStore(new TextureLoaderStore(ruleset.CreateResourceStore()));
 
@@ -37,10 +40,11 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         public override void OnEntering(IScreen last)
         {
-            screenStack.Push(new DisclaimerSubScreen
+            var displayDisclaimer = !config.Get<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer);
+            screenStack.Push(displayDisclaimer ? new DisclaimerSubScreen
             {
                 Complete = () => screenStack.Push(new ListingSubScreen())
-            });
+            } : (GamebosuSubScreen)new ListingSubScreen());
 
             base.OnEntering(last);
         }
