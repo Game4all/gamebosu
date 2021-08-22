@@ -134,7 +134,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
         [BackgroundDependencyLoader]
         private void load(TextureStore textures)
         {
-            cartridge.Texture = textures?.Get("cartridge");
+            cartridge.Texture = textures?.Get("Textures/cartridge");
         }
 
         public void MarkUnavailable()

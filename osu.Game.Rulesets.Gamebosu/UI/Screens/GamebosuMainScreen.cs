@@ -2,6 +2,7 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Platform;
 using osu.Framework.Screens;
 using osu.Game.Rulesets.Gamebosu.IO;
@@ -26,6 +27,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
             container.Cache(ruleset);
             container.Cache(container.Get<RulesetConfigCache>().GetConfigFor(ruleset));
+
+            container.Get<TextureStore>().AddStore(new TextureLoaderStore(ruleset.CreateResourceStore()));
+
             container.Cache(new RomStore(container.Get<Storage>()));
 
             return container;
@@ -48,7 +52,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 screenStack.Exit();
                 return true;
             }
-          
+
             return base.OnExiting(next);
         }
     }
