@@ -22,9 +22,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         private SettingsSlider<double> clockRate;
         private Bindable<bool> lockClockRate;
 
+        private readonly Ruleset ruleset;
+
         public GamebosuSettingsSubsection(Ruleset ruleset)
             : base(ruleset)
         {
+            this.ruleset = ruleset;
         }
 
         protected override LocalisableString Header => "gamebosu!";
@@ -100,7 +103,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 new WIPSettingsButton
                 {
                     Text = "Open ROM listing (WIP)",
-                    Action = () => game?.PerformFromScreen(scr => scr.Push(new GamebosuMainScreen()))
+                    Action = () => game?.PerformFromScreen(scr => scr.Push(new GamebosuMainScreen(ruleset)))
                 },
             };
 

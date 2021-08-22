@@ -4,19 +4,19 @@
 using osu.Framework.Allocation;
 using osu.Framework.Platform;
 using osu.Framework.Screens;
-using osu.Game.Configuration;
-using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.IO;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class GamebosuMainScreen : ScreenWithCyclingBeatmapBackground
     {
-        private GamebosuScreenStack screenStack;
-        
-        [BackgroundDependencyLoader]
-        private void load()
+        private readonly GamebosuScreenStack screenStack;
+
+        private readonly Ruleset ruleset;
+
+        public GamebosuMainScreen(Ruleset ruleset)
         {
+            this.ruleset = ruleset;
             InternalChild = screenStack = new GamebosuScreenStack();
         }
 
@@ -24,7 +24,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         {
             var container = new DependencyContainer(parent);
 
-            container.Cache(new GamebosuConfigManager(container.Get<SettingsStore>(), new GamebosuRuleset().RulesetInfo));
+            container.Cache(container.Get<RulesetConfigCache>().GetConfigFor(ruleset));
             container.Cache(new RomStore(container.Get<Storage>()));
 
             return container;
