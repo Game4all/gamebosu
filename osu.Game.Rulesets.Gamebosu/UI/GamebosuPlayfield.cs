@@ -2,6 +2,8 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
+using osu.Framework.Graphics;
+using osu.Game.Rulesets.Gamebosu.UI.Screens;
 using osu.Game.Rulesets.UI;
 
 namespace osu.Game.Rulesets.Gamebosu.UI
@@ -12,7 +14,16 @@ namespace osu.Game.Rulesets.Gamebosu.UI
         [BackgroundDependencyLoader]
         private void load()
         {
-            AddInternal(HitObjectContainer);
+            AddRangeInternal(new Drawable[] 
+            { 
+                HitObjectContainer,
+                new MovingNotice
+                {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Size = new osuTK.Vector2(512, 256)
+                }
+            });
         }
     }
 }
