@@ -20,7 +20,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         public MovingNotice()
         {
             Masking = true;
-            CornerRadius = 15;
+            CornerRadius = 16;
 
             Children = new Drawable[]
             {

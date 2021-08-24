@@ -2,13 +2,17 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Screens;
 using osu.Framework.Utils;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Containers;
+using osuTK.Graphics;
 using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
@@ -34,12 +38,37 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         public DisclaimerSubScreen()
         {
-            Child = textFlow = new OsuTextFlowContainer()
+            Child = textFlow = new OsuTextFlowContainer
             {
                 RelativeSizeAxes = Axes.Both,
                 Origin = Anchor.Centre,
                 Anchor = Anchor.Centre,
                 TextAnchor = Anchor.Centre,
+            };
+
+            Child = new Container
+            {
+                AutoSizeAxes = Axes.Both,
+                Origin = Anchor.Centre,
+                Anchor = Anchor.Centre,
+                Masking = true,
+                CornerRadius = 16,
+                Children = new Drawable[]
+                {
+                    new Box
+                    {
+                        RelativeSizeAxes = Axes.Both,
+                        Colour = Color4.Gray.Opacity(0.4f)
+                    },
+                    textFlow = new OsuTextFlowContainer
+                    {
+                        Margin = new MarginPadding(16),
+                        AutoSizeAxes = Axes.Both,
+                        Origin = Anchor.Centre,
+                        Anchor = Anchor.Centre,
+                        TextAnchor = Anchor.Centre,
+                    }
+                }
             };
 
             ValidForResume = false;
