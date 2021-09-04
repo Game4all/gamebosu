@@ -23,7 +23,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         [BackgroundDependencyLoader]
         private void load(TextureStore textures)
         {
-            Texture = textures.Get("emu_crash");
+            Texture = textures.Get("Textures/emu_crash");
         }
     }
 }
