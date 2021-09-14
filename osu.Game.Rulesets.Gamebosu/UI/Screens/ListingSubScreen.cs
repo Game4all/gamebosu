@@ -72,9 +72,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         protected void Prepare(string clicked)
         {
-            roms.GetAsync(clicked).ContinueWith(rom => 
+            roms.GetAsync(clicked).ContinueWith(rom =>
             {
-                Schedule(() => this.Push(new GameplaySubScreen(rom.Result)));
+                Schedule(() =>
+                {
+                    waveContainer.Hide();
+                    Scheduler.AddDelayed(() => this.Push(new GameplaySubScreen(rom.Result)), 500);
+                });
             });
         }
 
