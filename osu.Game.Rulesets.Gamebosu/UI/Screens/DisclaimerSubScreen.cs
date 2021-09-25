@@ -113,7 +113,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         public bool OnPressed(GamebosuAction action)
         {
-            if (action >= GamebosuAction.ButtonA)
+            if (action >= GamebosuAction.ButtonA && GamebosuAction.ButtonIncrementClockRate > action)
             {
                 Scheduler.CancelDelayedTasks();
                 schedulePush();
