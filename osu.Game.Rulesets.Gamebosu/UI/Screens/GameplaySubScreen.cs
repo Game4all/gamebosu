@@ -28,35 +28,31 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         }
 
         [BackgroundDependencyLoader]
-        private void load(GamebosuConfigManager config, GamebosuRuleset ruleset)
+        private void load(GamebosuConfigManager config)
         {
-            Child = new GamebosuInputManager(ruleset.RulesetInfo)
+            Children = new Drawable[]
             {
-                RelativeSizeAxes = Axes.Both,
-                Children = new Drawable[]
+                container = new Container
                 {
-                    container = new Container
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    AutoSizeAxes = Axes.Both,
+                    Child = gameboy = new DrawableGameboy(cartridge)
                     {
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
-                        AutoSizeAxes = Axes.Both,
-                        Child = gameboy = new DrawableGameboy(cartridge)
-                        {
-                            Anchor = Anchor.Centre,
-                            Origin = Anchor.Centre,
-                        },
                     },
-                    new ClockRateIndicatorControlReceptor
-                    {
-                        AdjustAction = (f) => indicator.AdjustRate(f),
-                    },
-                    indicator = new ClockRateIndicator
-                    {
-                        Anchor = Anchor.BottomCentre,
-                        Origin = Anchor.BottomCentre,
-                        Margin = new MarginPadding { Bottom = 20 },
-                        Alpha = 0,
-                    }
+                },
+                new ClockRateIndicatorControlReceptor
+                {
+                    AdjustAction = (f) => indicator.AdjustRate(f),
+                },
+                indicator = new ClockRateIndicator
+                {
+                    Anchor = Anchor.BottomCentre,
+                    Origin = Anchor.BottomCentre,
+                    Margin = new MarginPadding { Bottom = 20 },
+                    Alpha = 0,
                 }
             };
 

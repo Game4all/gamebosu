@@ -21,7 +21,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         public GamebosuMainScreen(GamebosuRuleset ruleset)
         {
             this.ruleset = ruleset;
-            InternalChild = screenStack = new GamebosuScreenStack();
+            InternalChild = new GamebosuInputManager(ruleset.RulesetInfo)
+            {
+                Child = screenStack = new GamebosuScreenStack()
+            };
         }
 
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)

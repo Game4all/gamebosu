@@ -114,7 +114,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         public bool OnPressed(KeyBindingPressEvent<GamebosuAction> action)
         {
-            if (action.Action >= GamebosuAction.ButtonA)
+            if (action.Action >= GamebosuAction.ButtonA && GamebosuAction.ButtonIncrementClockRate > action.Action)
             {
                 Scheduler.CancelDelayedTasks();
                 schedulePush();
