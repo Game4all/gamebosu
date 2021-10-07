@@ -11,6 +11,7 @@ using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Input.Bindings;
+using osu.Framework.Input.Events;
 using osu.Framework.Logging;
 using osu.Game.Rulesets.Gamebosu.Audio;
 using osu.Game.Rulesets.Gamebosu.Configuration;
@@ -61,20 +62,20 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             };
         }
 
-        public bool OnPressed(GamebosuAction action)
+        public bool OnPressed(KeyBindingPressEvent<GamebosuAction> action)
         {
             if (gameBoy == null) return false;
 
-            gameBoy.KeyPad.PressedButtons |= getFromAction(action);
+            gameBoy.KeyPad.PressedButtons |= getFromAction(action.Action);
 
             return true;
         }
 
-        public void OnReleased(GamebosuAction action)
+        public void OnReleased(KeyBindingReleaseEvent<GamebosuAction> action)
         {
             if (gameBoy == null) return;
 
-            gameBoy.KeyPad.PressedButtons &= ~getFromAction(action);
+            gameBoy.KeyPad.PressedButtons &= ~getFromAction(action.Action);
         }
 
         public void Start()

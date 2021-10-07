@@ -1,5 +1,6 @@
 ﻿using osu.Framework.Graphics;
 using osu.Framework.Input.Bindings;
+using osu.Framework.Input.Events;
 using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
@@ -12,9 +13,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
     {
         public Action<double> AdjustAction;
 
-        public bool OnPressed(GamebosuAction action)
+        public bool OnPressed(KeyBindingPressEvent<GamebosuAction> action)
         {
-            switch (action)
+            switch (action.Action)
             {
                 case GamebosuAction.ButtonIncrementClockRate:
                     AdjustAction(0.1);
@@ -29,7 +30,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
             }
         }
 
-        public void OnReleased(GamebosuAction action)
+        public void OnReleased(KeyBindingReleaseEvent<GamebosuAction> action)
         {
         }
     }

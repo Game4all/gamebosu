@@ -18,15 +18,7 @@ namespace osu.Game.Rulesets.Gamebosu.Tests
             OsuGame game = new OsuGame();
             game.SetHost(host);
 
-            Children = new Drawable[]
-            {
-                new Box
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    Colour = Color4.Black,
-                },
-                game
-            };
+            AddGame(game);
         }
     }
 }

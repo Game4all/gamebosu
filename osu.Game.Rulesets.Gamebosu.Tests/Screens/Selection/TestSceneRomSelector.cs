@@ -2,6 +2,7 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using NUnit.Framework;
+using osu.Framework.Input.Events;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
 using osu.Game.Tests.Visual;
 using System.Linq;
@@ -41,8 +42,8 @@ namespace osu.Game.Rulesets.Gamebosu.Tests.Screens.Selection
                 romSelector.AvailableRoms.Value = roms;
             });
 
-            AddStep("select next rom", () => romSelector.OnPressed(GamebosuAction.DPadRight));
-            AddStep("go back to previous rom", () => romSelector.OnPressed(GamebosuAction.DPadLeft));
+            AddStep("select next rom", () => romSelector.OnPressed(new KeyBindingPressEvent<GamebosuAction>(new Framework.Input.States.InputState(), GamebosuAction.DPadRight)));
+            AddStep("go back to previous rom", () => romSelector.OnPressed(new KeyBindingPressEvent<GamebosuAction>(new Framework.Input.States.InputState(), GamebosuAction.DPadLeft)));
             AddStep("show rom as unavalaible", () => romSelector.MarkUnavailable());
             AddStep("clear roms", () => romSelector.AvailableRoms.Value = Enumerable.Empty<string>());
         }

@@ -8,6 +8,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
+using osu.Framework.Input.Events;
 using osu.Framework.Screens;
 using osu.Framework.Utils;
 using osu.Game.Graphics;
@@ -111,9 +112,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             Scheduler.AddDelayed(schedulePush, 5000);
         }
 
-        public bool OnPressed(GamebosuAction action)
+        public bool OnPressed(KeyBindingPressEvent<GamebosuAction> action)
         {
-            if (action >= GamebosuAction.ButtonA)
+            if (action.Action >= GamebosuAction.ButtonA)
             {
                 Scheduler.CancelDelayedTasks();
                 schedulePush();
@@ -129,7 +130,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                    .OnComplete(t => Complete?.Invoke());
         }
 
-        public void OnReleased(GamebosuAction action)
+        public void OnReleased(KeyBindingReleaseEvent<GamebosuAction> action)
         {
         }
     }

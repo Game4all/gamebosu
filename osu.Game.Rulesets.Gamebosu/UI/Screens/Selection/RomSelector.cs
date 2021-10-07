@@ -9,6 +9,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
+using osu.Framework.Input.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -179,9 +180,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 
         private SelectionCard getDrawableCardAtIndex(int index) => (selectionContainer.Count < index || selectionContainer.Count == 0) ? null : selectionContainer[index];
 
-        public bool OnPressed(GamebosuAction action)
+        public bool OnPressed(KeyBindingPressEvent<GamebosuAction> action)
         {
-            switch (action)
+            switch (action.Action)
             {
                 case GamebosuAction.DPadRight:
                     setSelection(1);
@@ -210,7 +211,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
             return true;
         }
 
-        public void OnReleased(GamebosuAction action)
+        public void OnReleased(KeyBindingReleaseEvent<GamebosuAction> action)
         {
         }
     }
