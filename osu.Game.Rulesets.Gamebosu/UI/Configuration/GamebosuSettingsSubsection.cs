@@ -116,9 +116,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
             private void load(OsuColour colours)
             {
                 BackgroundColour = colours.Yellow;
-
-                Triangles.ColourDark = colours.YellowDark;
-                Triangles.ColourLight = colours.YellowLight;
             }
         }
     }
