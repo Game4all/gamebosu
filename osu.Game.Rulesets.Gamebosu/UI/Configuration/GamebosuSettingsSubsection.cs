@@ -63,7 +63,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 new SettingsButton
                 {
                     Text = "Open ROMs folder",
-                    Action = () => storage.GetStorageForDirectory("roms")?.OpenInNativeExplorer()
+                    Action = () => storage.GetStorageForDirectory("roms")?.PresentExternally()
                 },
                 new DangerousSettingsButton
                 {
