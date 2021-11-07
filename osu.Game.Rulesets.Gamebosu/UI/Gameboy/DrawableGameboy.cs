@@ -32,7 +32,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         private GameBoy gameBoy;
 
-        private IEnumerable<BASSAudioChannelOutput> audioChannels;
+        private IEnumerable<BassAudioChannelOutput> audioChannels;
 
         private Bindable<double> clockRate;
 
@@ -102,9 +102,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         [BackgroundDependencyLoader]
         private void load(GamebosuConfigManager cfg, AudioManager mng)
         {
-            var forceGBCMode = cartridge.GameBoyColorFlag == GameBoyColorFlag.GameBoyColorOnly ? true : cfg.Get<bool>(GamebosuSetting.PreferGBCMode);
+            var forceGbcMode = cartridge.GameBoyColorFlag == GameBoyColorFlag.GameBoyColorOnly ? true : cfg.Get<bool>(GamebosuSetting.PreferGBCMode);
 
-            gameBoy = new GameBoy(cartridge, clock, forceGBCMode);
+            gameBoy = new GameBoy(cartridge, clock, forceGbcMode);
             gameBoy.Gpu.VideoOutput = screen;
 
             gameBoy.Terminated += (_, e) =>
@@ -122,12 +122,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
             foreach (var channel in gameBoy.Spu.Channels)
             {
-                var Bchannel = new BASSAudioChannelOutput();
-                channel.ChannelOutput = Bchannel;
-                mng.AddItem(Bchannel);
+                var bchannel = new BassAudioChannelOutput();
+                channel.ChannelOutput = bchannel;
+                mng.AddItem(bchannel);
             }
 
-            audioChannels = gameBoy.Spu.Channels.Select(t => t.ChannelOutput).OfType<BASSAudioChannelOutput>();
+            audioChannels = gameBoy.Spu.Channels.Select(t => t.ChannelOutput).OfType<BassAudioChannelOutput>();
 
             clockRate = cfg.GetBindable<double>(GamebosuSetting.ClockRate);
             clock.Rate.BindTo(clockRate);

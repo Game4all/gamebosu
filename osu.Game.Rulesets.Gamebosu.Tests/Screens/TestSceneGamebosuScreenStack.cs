@@ -2,7 +2,6 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Allocation;
-using osu.Framework.Graphics;
 using osu.Framework.Testing;
 using osu.Game.Configuration;
 using osu.Game.Rulesets.Gamebosu.Configuration;
@@ -18,13 +17,13 @@ namespace osu.Game.Rulesets.Gamebosu.Tests.Screens
 
         protected GamebosuScreenStack Stack { get; private set; }
 
-        public TestSceneGamebosuScreenStack()
+        protected TestSceneGamebosuScreenStack()
         {
             Child = Stack = new GamebosuScreenStack();
         }
 
         [SetUpSteps]
-        public virtual void SetUpSteps() 
+        public virtual void SetUpSteps()
         {
             AddStep("create screen", () => Stack.Push(CreateSubScreen()));
         }

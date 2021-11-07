@@ -23,7 +23,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
         [Resolved]
         private RomStore store { get; set; }
 
-        public IEnumerable<string> HandledExtensions => RomStore.RECOGNIZED_EXTENSIONS;
+        public IEnumerable<string> HandledExtensions => RomStore.RecognizedExtensions;
 
         public Task Import(params string[] paths) => Import(paths.Select(path => new ImportTask(path)).ToArray());
 

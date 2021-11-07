@@ -1,7 +1,6 @@
 ﻿// gamebosu! ruleset. Copyright Lucas ARRIESSE aka Game4all. Licensed under GPLv3.
 // See LICENSE at root of repo for more information on licensing.
 
-using Emux.Bass;
 using Emux.GameBoy.Audio;
 using ManagedBass;
 using osu.Framework.Audio;
@@ -12,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace osu.Game.Rulesets.Gamebosu.Audio
 {
     //TODO: Fix audio weird noises.
-    public class BASSAudioChannelOutput : AdjustableAudioComponent, IAudioChannelOutput, IDisposable
+    public class BassAudioChannelOutput : AdjustableAudioComponent, IAudioChannelOutput, IDisposable
     {
         private int bassChannel;
 
@@ -22,8 +21,7 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
 
         private readonly BindableDouble adjustmentBindable = new BindableDouble(0.08);
 
-        public BASSAudioChannelOutput()
-            : base()
+        public BassAudioChannelOutput()
         {
             bassChannel = Bass.CreateStream(SampleRate, 2, BassFlags.Default | BassFlags.Float, fetchBassData);
             buff = new CircularBuffer<float>(64768);
@@ -38,15 +36,15 @@ namespace osu.Game.Rulesets.Gamebosu.Audio
 
         public void BufferSoundSamples(Span<float> sampleData, int offset, int length) => buff.Enqueue(sampleData);
 
-        private int fetchBassData(int _Handle, IntPtr Buffer, int Length, IntPtr User)
+        private int fetchBassData(int handle, IntPtr buffer, int bufferLength, IntPtr user)
         {
-            var length = Length / sizeof(float);
+            var length = bufferLength / sizeof(float);
             var sData = new float[length];
 
             buff.Dequeue(sData.AsSpan());
-            Marshal.Copy(sData, 0, Buffer, length);
+            Marshal.Copy(sData, 0, buffer, length);
 
-            return Length;
+            return bufferLength;
         }
 
         protected override void Dispose(bool disposing)

@@ -11,8 +11,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
     public class NoRomAvailablePopup : VisibilityContainer
     {
-        private const double FADE_TIME = 300;
-        private const Easing EASING = Easing.OutQuint;
+        private const double fade_time = 300;
+        private const Easing easing = Easing.OutQuint;
 
         private const int sprite_size = 120;
 
@@ -61,8 +61,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
             };
         }
 
-        protected override void PopIn() => Content.FadeIn(2 * FADE_TIME, EASING);
+        protected override void PopIn() => Content.FadeIn(2 * fade_time, easing);
 
-        protected override void PopOut() => Content.FadeOut(2 * FADE_TIME, EASING);
+        protected override void PopOut() => Content.FadeOut(2 * fade_time, easing);
     }
 }

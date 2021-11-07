@@ -21,7 +21,7 @@ namespace osu.Game.Rulesets.Gamebosu.IO
 
         private readonly Storage savesStorage;
 
-        public static IEnumerable<string> RECOGNIZED_EXTENSIONS = new[]
+        public static IEnumerable<string> RecognizedExtensions = new[]
         {
             ".gbc",
             ".gb",
@@ -36,24 +36,24 @@ namespace osu.Game.Rulesets.Gamebosu.IO
             Storage = storage.GetStorageForDirectory("roms");
             savesStorage = this.Storage.GetStorageForDirectory("saves");
 
-            foreach (var ext in RECOGNIZED_EXTENSIONS)
+            foreach (var ext in RecognizedExtensions)
                 AddExtension(ext);
         }
 
         public override EmulatedCartridge Get(string name)
         {
-            foreach (var res_name in GetFilenames(name))
+            foreach (var resName in GetFilenames(name))
             {
                 try
                 {
-                    if (Storage.Exists(res_name))
+                    if (Storage.Exists(resName))
                     {
-                        var cart_stream = Storage.GetStream(res_name);
-                        var cart_rom = new byte[cart_stream.Length];
-                        cart_stream.Read(cart_rom, 0, (int)cart_stream.Length);
+                        var cartStream = Storage.GetStream(resName);
+                        var cartRom = new byte[cartStream.Length];
+                        cartStream.Read(cartRom, 0, (int)cartStream.Length);
 
-                        var save_stream = savesStorage.GetStream(res_name + save_file_extension, FileAccess.ReadWrite, FileMode.OpenOrCreate);
-                        return new EmulatedCartridge(cart_rom, new StreamedExternalMemory(save_stream));
+                        var saveStream = savesStorage.GetStream(resName + save_file_extension, FileAccess.ReadWrite, FileMode.OpenOrCreate);
+                        return new EmulatedCartridge(cartRom, new StreamedExternalMemory(saveStream));
                     }
                 }
                 catch (System.Exception e)
@@ -70,6 +70,6 @@ namespace osu.Game.Rulesets.Gamebosu.IO
 
         public override IEnumerable<string> GetAvailableResources() => Storage.GetFiles(".")
                                                                                .ExcludeSystemFileNames()
-                                                                               .Where(file => RECOGNIZED_EXTENSIONS.Any(ext => Path.GetExtension(file)?.Equals(ext, System.StringComparison.Ordinal) ?? false));
+                                                                               .Where(file => RecognizedExtensions.Any(ext => Path.GetExtension(file)?.Equals(ext, System.StringComparison.Ordinal) ?? false));
     }
 }

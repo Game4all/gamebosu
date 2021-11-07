@@ -19,7 +19,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
     {
         public readonly BindableDouble Rate = new BindableDouble();
 
-        private readonly OsuSpriteText rate_text;
+        private readonly OsuSpriteText rateText;
 
         private ScheduledDelegate hideDelegate;
 
@@ -62,7 +62,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
                     Size = new osuTK.Vector2(20),
                     Icon = FontAwesome.Solid.Truck
                 },
-                rate_text = new OsuSpriteText
+                rateText = new OsuSpriteText
                 {
                     Anchor = Anchor.TopCentre,
                     Origin = Anchor.TopCentre,
@@ -87,7 +87,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
             if (Rate.Disabled)
                 return;
 
-            rate_text.Text = $"{Math.Round(e.NewValue, 2, MidpointRounding.AwayFromZero)}x";
+            rateText.Text = $"{Math.Round(e.NewValue, 2, MidpointRounding.AwayFromZero)}x";
             Show();
         }
 

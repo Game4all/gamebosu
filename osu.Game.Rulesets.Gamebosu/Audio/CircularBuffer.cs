@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Emux.Bass
+namespace osu.Game.Rulesets.Gamebosu.Audio
 {
     /// <summary>
     /// A Span<T> version of a fixed-size buffer, that should eventually become actually "circular".
@@ -26,12 +26,12 @@ namespace Emux.Bass
                 data.CopyTo(mem.Span);
         }
 
-        public void Dequeue(Span<T> Outdata)
+        public void Dequeue(Span<T> outdata)
         {
-            if (mem.Span.Length > Outdata.Length)
-                mem.Span.Slice(0, Outdata.Length).CopyTo(Outdata);
+            if (mem.Span.Length > outdata.Length)
+                mem.Span.Slice(0, outdata.Length).CopyTo(outdata);
             else
-                mem.Span.CopyTo(Outdata);
+                mem.Span.CopyTo(outdata);
 
             mem.Span.Fill(default(T)); //clears the buffer
         }

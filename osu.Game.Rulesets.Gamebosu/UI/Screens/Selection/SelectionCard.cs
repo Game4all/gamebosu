@@ -121,7 +121,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
                                         Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
                                         Anchor = Anchor.Centre,
                                         Origin = Anchor.Centre,
-                                        Text = romName.Replace(RomStore.RECOGNIZED_EXTENSIONS.Where(ext => romName.Contains(ext)).First(), "")
+                                        Text = romName.Replace(RomStore.RecognizedExtensions.Where(ext => romName.Contains(ext)).First(), "")
                                     },
                                 }
                             }
