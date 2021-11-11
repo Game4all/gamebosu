@@ -38,7 +38,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
             var backgroundColour = Color4Extensions.FromHex(@"3e3a44");
 
-            InternalChild = waveContainer = new WaveContainer
+            InternalChild = waveContainer = new ListingWaveContainer
             {
                 RelativeSizeAxes = Axes.Both,
                 Children = new Drawable[]
@@ -106,6 +106,17 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             game.UnregisterImportHandler(romImportHandler);
             waveContainer.Hide();
             return base.OnExiting(next);
+        }
+
+        private class ListingWaveContainer : WaveContainer
+        {
+            public ListingWaveContainer()
+            {
+                FirstWaveColour = Color4Extensions.FromHex(@"654d8c");
+                SecondWaveColour = Color4Extensions.FromHex(@"554075");
+                ThirdWaveColour = Color4Extensions.FromHex(@"44325e");
+                FourthWaveColour = Color4Extensions.FromHex(@"392850");
+            }
         }
     }
 }
