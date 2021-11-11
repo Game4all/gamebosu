@@ -112,6 +112,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             Scheduler.AddDelayed(schedulePush, 5000);
         }
 
+        protected override bool OnClick(ClickEvent e)
+        {
+            Scheduler.CancelDelayedTasks();
+            schedulePush();
+            return base.OnClick(e);
+        }
+
         public bool OnPressed(KeyBindingPressEvent<GamebosuAction> action)
         {
             if (action.Action >= GamebosuAction.ButtonA && GamebosuAction.ButtonIncrementClockRate > action.Action)

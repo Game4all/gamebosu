@@ -23,6 +23,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         private AudioFilter lowPassFilter;
 
+        public override bool HideOverlaysOnEnter => true;
+
         public GamebosuMainScreen(GamebosuRuleset ruleset)
         {
             this.ruleset = ruleset;
@@ -57,10 +59,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             lowPassFilter.CutoffTo(1000, 1200, Easing.OutQuint);
 
             var displayDisclaimer = !config.Get<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer);
-            screenStack.Push(displayDisclaimer ? new DisclaimerSubScreen
-            {
-                Complete = () => screenStack.Push(new ListingSubScreen())
-            } : (GamebosuSubScreen)new ListingSubScreen());
+            screenStack.Push(displayDisclaimer
+                ? new DisclaimerSubScreen
+                {
+                    Complete = () => screenStack.Push(new ListingSubScreen())
+                }
+                : (GamebosuSubScreen)new ListingSubScreen());
 
             base.OnEntering(last);
         }
@@ -68,6 +72,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
         public override bool OnExiting(IScreen next)
         {
             lowPassFilter.CutoffTo(AudioFilter.MAX_LOWPASS_CUTOFF, 300);
+
             if (screenStack.CurrentScreen is GameplaySubScreen)
             {
                 screenStack.Exit();
