@@ -32,7 +32,7 @@ namespace osu.Game.Rulesets.Gamebosu
         public override IBeatmapConverter CreateBeatmapConverter(IBeatmap beatmap) =>
             new GamebosuBeatmapConverter(beatmap, this);
 
-        public override DifficultyCalculator CreateDifficultyCalculator(WorkingBeatmap beatmap) =>
+        public override DifficultyCalculator CreateDifficultyCalculator(IWorkingBeatmap beatmap) =>
             new GamebosuDifficultyCalculator(this, beatmap);
 
         //this exists for the sole purpose of disabling the red tint on playfield when health is low.

@@ -14,15 +14,13 @@ namespace osu.Game.Rulesets.Gamebosu
 {
     public class GamebosuDifficultyCalculator : DifficultyCalculator
     {
-        public GamebosuDifficultyCalculator(Ruleset ruleset, WorkingBeatmap beatmap)
-            : base(ruleset, beatmap)
+        public GamebosuDifficultyCalculator(Ruleset ruleset, IWorkingBeatmap beatmap)
+            : base(ruleset.RulesetInfo, beatmap)
         {
         }
 
-        protected override DifficultyAttributes CreateDifficultyAttributes(IBeatmap beatmap, Mod[] mods, Skill[] skills, double clockRate)
-        {
-            return new DifficultyAttributes(mods, skills, 0);
-        }
+        protected override DifficultyAttributes CreateDifficultyAttributes(IBeatmap beatmap, Mod[] mods, Skill[] skills, double clockRate) 
+            => new DifficultyAttributes(mods, 0);
 
         protected override IEnumerable<DifficultyHitObject> CreateDifficultyHitObjects(IBeatmap beatmap, double clockRate) => Enumerable.Empty<DifficultyHitObject>();
 
