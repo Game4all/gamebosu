@@ -45,7 +45,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             var container = new DependencyContainer(parent);
 
             container.Cache(ruleset);
-            container.Cache(config = (GamebosuConfigManager)container.Get<RulesetConfigCache>().GetConfigFor(ruleset));
+            container.Cache(config = (GamebosuConfigManager)container.Get<IRulesetConfigCache>().GetConfigFor(ruleset));
 
             container.Get<TextureStore>().AddStore(new TextureLoaderStore(ruleset.CreateResourceStore()));
 

@@ -8,6 +8,7 @@ using osu.Framework.Platform;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace osu.Game.Rulesets.Gamebosu.IO
@@ -66,7 +67,7 @@ namespace osu.Game.Rulesets.Gamebosu.IO
             return null;
         }
 
-        public override Task<EmulatedCartridge> GetAsync(string name) => Task.Run(() => Get(name));
+        public override Task<EmulatedCartridge> GetAsync(string name, CancellationToken token = default) => Task.Run(() => Get(name), token);
 
         public override IEnumerable<string> GetAvailableResources() => Storage.GetFiles(".")
                                                                                .ExcludeSystemFileNames()
