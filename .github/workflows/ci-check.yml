@@ -1,0 +1,14 @@
+name: CI Compile checks
+on: [pull_request]
+jobs:
+  CI-Compile-Checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Checkout emux submodule
+        run: git submodule update --init --recursive
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v2
+      - name: Compile project
+        run: dotnet build .\osu.Game.Rulesets.Gamebosu.sln
