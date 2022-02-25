@@ -2,5 +2,3 @@
 _Please see the [installation instructions](https://github.com/Game4all/gamebosu#installation-instructions) for detailed steps on installing the ruleset_
 
 This version should work with osu!lazer **_>=_ {LAZER_VERSION}**
-
-_Release notes are coming soon_
