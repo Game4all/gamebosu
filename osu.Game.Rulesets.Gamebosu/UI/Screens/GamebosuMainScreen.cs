@@ -71,13 +71,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
         public override bool OnExiting(IScreen next)
         {
-            lowPassFilter.CutoffTo(AudioFilter.MAX_LOWPASS_CUTOFF, 300);
-
             if (screenStack.CurrentScreen is GameplaySubScreen)
             {
                 screenStack.Exit();
                 return true;
             }
+
+            lowPassFilter.CutoffTo(AudioFilter.MAX_LOWPASS_CUTOFF, 300);
 
             return base.OnExiting(next);
         }
