@@ -100,9 +100,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                     LabelText = "Disable that annoying disclaimer when launching gamebosu!",
                     Current = config.GetBindable<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer)
                 },
-                new WipSettingsButton
+                new YellowSettingsButton
                 {
-                    Text = "Open ROM listing (WIP)",
+                    Text = "Open ROM listing",
                     Action = () => game?.PerformFromScreen(scr => scr.Push(new GamebosuMainScreen(ruleset)))
                 },
             };
@@ -110,7 +110,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
             lockClockRate.BindValueChanged(e => clockRate.Current.Disabled = e.NewValue, true);
         }
 
-        private class WipSettingsButton : SettingsButton
+        private class YellowSettingsButton : SettingsButton
         {
             [BackgroundDependencyLoader]
             private void load(OsuColour colours)
