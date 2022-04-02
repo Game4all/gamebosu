@@ -3,6 +3,7 @@
 
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
@@ -23,14 +24,22 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
             AutoSizeAxes = Axes.Both;
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
+            Masking = true;
+            CornerRadius = 16;
 
             Children = new Drawable[]
             {
+                new Box
+                {
+                    Colour = Colour4.Gray.Opacity(0.4f),
+                    RelativeSizeAxes = Axes.Both
+                },
                 new FillFlowContainer
                 {
                     AutoSizeAxes = Axes.Both,
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
+                    Margin = new MarginPadding(16),
                     Spacing = new osuTK.Vector2(0, 10),
                     Direction = FillDirection.Vertical,
                     Children = new Drawable[]
@@ -53,8 +62,15 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
                         {
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
-                            Font = OsuFont.GetFont(Typeface.Torus, 16, FontWeight.Regular),
+                            Font = OsuFont.GetFont(Typeface.Torus, 18, FontWeight.Regular),
                             Text = "Go grab some ROM files and put 'em in the roms folder",
+                        },
+                        new OsuSpriteText
+                        {
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre,
+                            Font = OsuFont.GetFont(Typeface.Torus, 16, FontWeight.Regular),
+                            Text = "(You can open the roms folder from the settings or drag n' drop the rom files into osu! window)",
                         }
                     }
                 }
