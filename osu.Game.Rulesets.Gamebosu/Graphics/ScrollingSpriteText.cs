@@ -2,6 +2,7 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Transforms;
 using osu.Game.Graphics.Sprites;
 
 namespace osu.Game.Rulesets.Gamebosu.Graphics
@@ -11,33 +12,28 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
     /// </summary>
     public class ScrollingSpriteText : OsuSpriteText
     {
-        private bool done;
+        private TransformSequence<ScrollingSpriteText> scrollTransformSequence;
 
         private const double transform_time = 250;
 
         protected override void Update()
         {
             //if the width goes off of its parent width, let's just make it slide from left to right
-            if (DrawWidth > Parent?.Width && !done)
+            if (DrawWidth > Parent?.Width && scrollTransformSequence == null)
             {
-                Schedule(() =>
-                {
-                    Anchor = Anchor.CentreLeft;
-                    Origin = Anchor.CentreLeft;
+                Anchor = Anchor.CentreLeft;
+                Origin = Anchor.CentreLeft;
 
-                    var speedRatio = DrawWidth / Parent.DrawWidth * 8;
+                var speedRatio = DrawWidth / Parent.DrawWidth * 8;
 
-                    this.MoveToX(-(DrawWidth + 20), speedRatio * DrawWidth)
-                        .Then()
-                        .FadeOut(transform_time)
-                        .Then()
-                        .MoveToX(0)
-                        .Delay(transform_time)
-                        .FadeIn(transform_time)
-                        .Loop();
-                });
-
-                done = true;
+                scrollTransformSequence = this.MoveToX(-(DrawWidth + 20), speedRatio * DrawWidth)
+                                              .Then()
+                                              .FadeOut(transform_time)
+                                              .Then()
+                                              .MoveToX(0)
+                                              .Delay(transform_time)
+                                              .FadeIn(transform_time)
+                                              .Loop();
             }
 
             base.Update();
