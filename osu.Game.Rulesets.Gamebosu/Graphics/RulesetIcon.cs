@@ -31,7 +31,7 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
                 {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Texture = store.Get("Textures/logo.png"),
+                    Texture = store.Get("Textures/logo_pixelated.png"),
                     FillMode = FillMode.Fit,
                     Size = new Vector2(40)
                 }

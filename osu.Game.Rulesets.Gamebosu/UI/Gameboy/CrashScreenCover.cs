@@ -10,7 +10,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
     public class CrashScreenCover : Sprite
     {
-        private readonly float scale = 0.5f;
+        private readonly float scale = 0.8f;
 
         public CrashScreenCover()
         {
@@ -23,7 +23,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         [BackgroundDependencyLoader]
         private void load(TextureStore textures)
         {
-            Texture = textures.Get("Textures/emu_crash");
+            Texture = textures.Get("Textures/emu_went_brrr");
         }
     }
 }
