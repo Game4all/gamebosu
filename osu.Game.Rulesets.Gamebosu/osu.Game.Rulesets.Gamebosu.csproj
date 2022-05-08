@@ -15,6 +15,6 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release'">
     <PackageReference Include="Fody" Version="6.6.1" PrivateAssets="All" />
-    <PackageReference Include="ILMerge.Fody" Version="1.22.0" PrivateAssets="All" />
+    <PackageReference Include="ILMerge.Fody" Version="1.23.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
