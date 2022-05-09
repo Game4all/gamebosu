@@ -106,7 +106,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             });
         }
 
-        public override void OnEntering(IScreen last)
+        public override void OnEntering(ScreenTransitionEvent last)
         {
             base.OnEntering(last);
             Scheduler.AddDelayed(schedulePush, 5000);

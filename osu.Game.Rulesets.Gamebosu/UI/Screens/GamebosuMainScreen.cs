@@ -54,7 +54,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             return container;
         }
 
-        public override void OnEntering(IScreen last)
+        public override void OnEntering(ScreenTransitionEvent last)
         {
             lowPassFilter.CutoffTo(1000, 1200, Easing.OutQuint);
 
@@ -69,7 +69,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             base.OnEntering(last);
         }
 
-        public override bool OnExiting(IScreen next)
+        public override bool OnExiting(ScreenExitEvent next)
         {
             if (screenStack.CurrentScreen is GameplaySubScreen)
             {

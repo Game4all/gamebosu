@@ -33,7 +33,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         protected override LocalisableString Header => "gamebosu!";
 
         [BackgroundDependencyLoader]
-        private void load(Storage storage, DialogOverlay dialog, OsuGame game)
+        private void load(Storage storage, IDialogOverlay dialog, OsuGame game)
         {
             var config = Config as GamebosuConfigManager;
             lockClockRate = config.GetBindable<bool>(GamebosuSetting.LockClockRate);

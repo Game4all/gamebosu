@@ -18,10 +18,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             RelativeSizeAxes = Axes.Both;
         }
 
-        public bool ValidForResume { get; set; } = true;
-        public bool ValidForPush { get; set; } = true;
-
-        public virtual void OnEntering(IScreen last)
+        public virtual void OnEntering(ScreenTransitionEvent e)
         {
             Content
                 .ScaleTo(0.5f)
@@ -29,7 +26,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 .FadeInFromZero(500, Easing.OutQuint);
         }
 
-        public virtual bool OnExiting(IScreen next)
+        public virtual bool OnExiting(ScreenExitEvent e)
         {
             Content
                 .ScaleTo(1)
@@ -39,12 +36,16 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             return false;
         }
 
-        public virtual void OnResuming(IScreen last)
+        public virtual void OnResuming(ScreenTransitionEvent e)
         {
         }
 
-        public virtual void OnSuspending(IScreen next)
+        public virtual void OnSuspending(ScreenTransitionEvent e)
         {
         }
+
+        public bool ValidForResume { get; set; } = true;
+        public bool ValidForPush { get; set; } = true;
+
     }
 }

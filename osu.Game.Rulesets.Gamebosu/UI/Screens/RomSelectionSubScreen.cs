@@ -84,13 +84,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 romSelector.AvailableRoms.Value = list;
         }
 
-        public override void OnEntering(IScreen last)
+        public override void OnEntering(ScreenTransitionEvent last)
         {
             romListUpdateDelegate = Scheduler.AddDelayed(fetchRomList, 5000, true);
             base.OnEntering(last);
         }
 
-        public override bool OnExiting(IScreen next)
+        public override bool OnExiting(ScreenExitEvent next)
         {
             romListUpdateDelegate?.Cancel();
             return base.OnExiting(next);

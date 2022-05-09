@@ -82,26 +82,26 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             });
         }
 
-        public override void OnEntering(IScreen last)
+        public override void OnEntering(ScreenTransitionEvent last)
         {
             game?.RegisterImportHandler(romImportHandler);
             waveContainer.Show();
             Refresh();
         }
 
-        public override void OnSuspending(IScreen next)
+        public override void OnSuspending(ScreenTransitionEvent next)
         {
             waveContainer.Hide();
             base.OnSuspending(next);
         }
 
-        public override void OnResuming(IScreen last)
+        public override void OnResuming(ScreenTransitionEvent last)
         {
             waveContainer.Show();
             base.OnResuming(last);
         }
 
-        public override bool OnExiting(IScreen next)
+        public override bool OnExiting(ScreenExitEvent next)
         {
             game.UnregisterImportHandler(romImportHandler);
             waveContainer.Hide();
