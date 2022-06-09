@@ -20,9 +20,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     public class DisclaimerSubScreen : GamebosuSubScreen, IKeyBindingHandler<GamebosuAction>
     {
-        private OsuTextFlowContainer textFlow;
+        private readonly OsuTextFlowContainer textFlow;
 
-        private static string[] disclaimer_tips = new string[]
+        private static readonly string[] disclaimer_tips =
         {
             "You can delete ROM save data from the settings overlay, try searching for 'delete ROM save data'!",
             "Try pressing Page-up or Page-down to change the ROM emulation speed!",
