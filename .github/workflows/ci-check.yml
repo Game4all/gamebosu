@@ -18,7 +18,7 @@ jobs:
           dotnet-version: 6.0.x
       
       - name: Compile project
-        run: dotnet build osu.Game.Rulesets.Gamebosu.sln
+        run: dotnet build -c release osu.Game.Rulesets.Gamebosu.sln
       
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3.1.0
