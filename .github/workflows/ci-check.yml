@@ -3,7 +3,7 @@ name: CI Compile checks
 on: [push]
 
 jobs:
-  CI-Compile-Checks:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -24,5 +24,5 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: osu.Game.Rulesets.Gamebosu.dll
-          path: "osu.Game.Rulesets.Gamebosu/bin/Release/net6.0"
+          path: "osu.Game.Rulesets.Gamebosu/bin/Release/netstandard2.1"
           retention-days: 90
