@@ -1,10 +1,6 @@
 name: CI Compile checks
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+on: [push]
 
 jobs:
   CI-Compile-Checks:
