@@ -1,6 +1,6 @@
 name: CI Compile checks
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   Build:
