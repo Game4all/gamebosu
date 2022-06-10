@@ -1,14 +1,32 @@
 name: CI Compile checks
-on: [pull_request]
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
 jobs:
   CI-Compile-Checks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      
       - name: Checkout emux submodule
         run: git submodule update --init --recursive
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+      
       - name: Compile project
         run: dotnet build osu.Game.Rulesets.Gamebosu.sln
+      
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: osu.Game.Rulesets.Gamebosu.dll
+          path: "osu.Game.Rulesets.Gamebosu/bin/Release/net6.0"
+          retention-days: 90
