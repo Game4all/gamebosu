@@ -25,4 +25,4 @@ jobs:
         with:
           name: osu.Game.Rulesets.Gamebosu.dll
           path: "osu.Game.Rulesets.Gamebosu/bin/Release/netstandard2.1"
-          retention-days: 90
+          retention-days: 30
