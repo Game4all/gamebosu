@@ -2,7 +2,6 @@
 // See LICENSE at root of repo for more information on licensing.
 
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
 using osu.Game.Beatmaps;
 using osu.Game.Configuration;
