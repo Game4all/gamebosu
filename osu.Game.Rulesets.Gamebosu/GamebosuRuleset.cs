@@ -60,7 +60,7 @@ namespace osu.Game.Rulesets.Gamebosu
             new KeyBinding(InputKey.BackSpace, GamebosuAction.ButtonStart),
         };
 
-        public override Drawable CreateIcon() => new RulesetIcon(new TextureStore(new TextureLoaderStore(CreateResourceStore()), false))
+        public override Drawable CreateIcon() => new RulesetIcon(this)
         {
             Anchor = Anchor.Centre,
             Origin = Anchor.Centre,
