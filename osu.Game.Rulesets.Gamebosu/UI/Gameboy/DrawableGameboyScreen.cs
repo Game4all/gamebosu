@@ -5,6 +5,9 @@ using Emux.GameBoy.Graphics;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using System;
+using osu.Framework.Allocation;
+using osu.Framework.Platform;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
@@ -16,9 +19,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         private readonly SpanTextureUpload upload;
         private Memory<byte> screenData;
 
+        [BackgroundDependencyLoader]
+        private void load(GameHost host)
+        {
+            Texture = host.Renderer.CreateTexture(160, 144, false, TextureFilteringMode.Nearest, WrapMode.ClampToEdge, WrapMode.ClampToEdge, new Rgba32(0xFFFFFFFF));
+        }
+
         public DrawableGameboyScreen()
         {
-            Texture = new Texture(160, 144);
             screenData = new Memory<byte>(new byte[160 * 144 * sizeof(int)]); //since the 4 components of a color (r, g, b a) are each a byte (4 bytes in total), the same as an int.
             upload = new SpanTextureUpload(screenData);
         }
