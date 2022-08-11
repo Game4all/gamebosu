@@ -7,6 +7,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Platform;
+using osu.Game.Rulesets.Gamebosu.Utils;
 using osuTK;
 using osuTK.Graphics;
 
@@ -24,8 +25,10 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
         }
 
         [BackgroundDependencyLoader]
-        private void load(GameHost host)
+        private void load(GameHost host, TextureStore store)
         {
+            ResourceLoaderUtils.EnsureResourcesLoaded(store, ruleset);
+
             AutoSizeAxes = Axes.Both;
             InternalChildren = new Drawable[]
             {
@@ -41,11 +44,17 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
                 {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Texture = new TextureStore(host.Renderer, new TextureLoaderStore(ruleset.CreateResourceStore())).Get("Textures/logo_pixelated.png"),
+                    Texture = store.Get("Textures/logo_pixelated.png"),
                     FillMode = FillMode.Fit,
                     Size = new Vector2(40)
                 }
             };
+        }
+
+        protected override void Dispose(bool isDisposing)
+        {
+            ResourceLoaderUtils.FreeResources();
+            base.Dispose(isDisposing);
         }
     }
 }
