@@ -32,7 +32,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI
 
         public override DrawableHitObject<GamebosuHitObject> CreateDrawableRepresentation(GamebosuHitObject h) => new DrawableGamebosuHitObject(h);
 
-        protected override PassThroughInputManager CreateInputManager() => new GamebosuInputManager(Ruleset?.RulesetInfo);
+        protected override PassThroughInputManager CreateInputManager() => new PassThroughInputManager();
 
         public override bool AllowGameplayOverlays => false;
     }

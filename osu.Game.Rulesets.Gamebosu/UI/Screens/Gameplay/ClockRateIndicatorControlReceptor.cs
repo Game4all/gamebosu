@@ -1,6 +1,7 @@
 ﻿using osu.Framework.Graphics;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Input.Events;
+using osu.Game.Rulesets.Gamebosu.UI.Input;
 using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay

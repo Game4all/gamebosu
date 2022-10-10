@@ -3,6 +3,7 @@
 
 using NUnit.Framework;
 using osu.Framework.Input.Events;
+using osu.Game.Rulesets.Gamebosu.UI.Input;
 using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
 using osu.Game.Tests.Visual;
 using System.Linq;

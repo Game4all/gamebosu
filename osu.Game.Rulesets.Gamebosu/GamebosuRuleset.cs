@@ -13,6 +13,7 @@ using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.Graphics;
 using osu.Game.Rulesets.Gamebosu.UI;
 using osu.Game.Rulesets.Gamebosu.UI.Configuration;
+using osu.Game.Rulesets.Gamebosu.UI.Input;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;

@@ -10,6 +10,7 @@ using osu.Framework.Screens;
 using osu.Game.Audio.Effects;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.IO;
+using osu.Game.Rulesets.Gamebosu.UI.Input;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
