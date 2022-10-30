@@ -5,9 +5,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Input;
 using osu.Framework.Input.Bindings;
-using osu.Game.Input;
 using osu.Game.Input.Bindings;
-using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Input
 {
@@ -34,12 +32,6 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Input
             public RulesetKeyBindingContainer(RulesetInfo ruleset, int variant, SimultaneousBindingMode unique)
                 : base(ruleset, variant, unique, KeyCombinationMatchingMode.Any)
             {
-            }
-
-            protected override void ReloadMappings()
-            {
-                base.ReloadMappings();
-                KeyBindings = KeyBindings.Where((IKeyBinding b) => RealmKeyBindingStore.CheckValidForGameplay(b.KeyCombination)).ToList();
             }
         }
     }
