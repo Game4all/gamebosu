@@ -70,6 +70,7 @@ namespace osu.Game.Rulesets.Gamebosu
         static GamebosuRuleset()
         {
             StartupTaskQueue.EnqueueStartupTask((game, ruleset) => game.Textures.AddTextureSource(new TextureLoaderStore(ruleset.CreateResourceStore())));
+            StartupTaskQueue.EnqueueStartupTask(UIInjectionHook.InjectToolbarIcon);
         }
 
         public override IRulesetConfigManager CreateConfig(SettingsStore settings) => new GamebosuConfigManager(settings, RulesetInfo);

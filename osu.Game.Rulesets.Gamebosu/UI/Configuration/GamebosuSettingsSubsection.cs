@@ -115,6 +115,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
             [BackgroundDependencyLoader]
             private void load(OsuColour colours)
             {
+                Height = 60;
                 BackgroundColour = colours.Yellow;
             }
         }
