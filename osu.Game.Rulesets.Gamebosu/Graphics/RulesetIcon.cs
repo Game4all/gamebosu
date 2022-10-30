@@ -6,7 +6,6 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
-using osu.Framework.Platform;
 using osu.Game.Rulesets.Gamebosu.Utils;
 using osuTK;
 using osuTK.Graphics;
@@ -25,9 +24,11 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
         }
 
         [BackgroundDependencyLoader]
-        private void load(GameHost host, TextureStore store)
+        private void load(OsuGame game, TextureStore store)
         {
-            ResourceLoaderUtils.EnsureResourcesLoaded(store, ruleset);
+            // startup tasks are run from here as the ruleset icon is the first long-lived component initialized
+            // by the game UI that has access to DI.
+            StartupTaskQueue.RunStartupTasks(game, ruleset);
 
             AutoSizeAxes = Axes.Both;
             InternalChildren = new Drawable[]
@@ -53,7 +54,7 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
 
         protected override void Dispose(bool isDisposing)
         {
-            ResourceLoaderUtils.FreeResources();
+            StartupTaskQueue.FreeInstance();
             base.Dispose(isDisposing);
         }
     }

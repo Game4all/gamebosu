@@ -18,6 +18,8 @@ using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
 using System;
 using System.Collections.Generic;
+using osu.Game.Rulesets.Gamebosu.Utils;
+using osu.Framework.Graphics.Textures;
 
 namespace osu.Game.Rulesets.Gamebosu
 {
@@ -64,6 +66,11 @@ namespace osu.Game.Rulesets.Gamebosu
             Anchor = Anchor.Centre,
             Origin = Anchor.Centre,
         };
+
+        static GamebosuRuleset()
+        {
+            StartupTaskQueue.EnqueueStartupTask((game, ruleset) => game.Textures.AddTextureSource(new TextureLoaderStore(ruleset.CreateResourceStore())));
+        }
 
         public override IRulesetConfigManager CreateConfig(SettingsStore settings) => new GamebosuConfigManager(settings, RulesetInfo);
 
