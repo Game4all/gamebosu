@@ -9,8 +9,6 @@ public sealed class FetchLazerVersion : FrostingTask<Context>
 {
     public override void Run(Context context)
     {
-        context.Information("Fetching lazer version...");
-
         var process = Process.Start(new ProcessStartInfo
         {
             FileName = "dotnet",
@@ -25,5 +23,7 @@ public sealed class FetchLazerVersion : FrostingTask<Context>
         var parsed_package_version_info = output[(output.IndexOf('>') + 1)..].Split(' ').Where(str => !string.IsNullOrWhiteSpace(str));
 
         context.RequiredLazerVersion = parsed_package_version_info.ElementAt(1);
+
+        context.Information($"Lazer version is {context.RequiredLazerVersion}");
     }
 }

@@ -8,8 +8,8 @@ using Cake.Frosting;
 using Octokit;
 
 [TaskName("UploadRelease")]
-[Dependency(typeof(BuildRelease))]
 [Dependency(typeof(FetchLazerVersion))]
+[Dependency(typeof(BuildRelease))]
 public sealed class UploadRelease : FrostingTask<Context>
 {
     public override void Run(Context context)
