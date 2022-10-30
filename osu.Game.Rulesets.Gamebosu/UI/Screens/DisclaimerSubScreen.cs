@@ -13,6 +13,7 @@ using osu.Framework.Screens;
 using osu.Framework.Utils;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Containers;
+using osu.Game.Rulesets.Gamebosu.UI.Input;
 using osuTK.Graphics;
 using System;
 

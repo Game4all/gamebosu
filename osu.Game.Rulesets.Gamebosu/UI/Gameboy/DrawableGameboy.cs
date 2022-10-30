@@ -15,6 +15,7 @@ using osu.Framework.Input.Events;
 using osu.Framework.Logging;
 using osu.Game.Rulesets.Gamebosu.Audio;
 using osu.Game.Rulesets.Gamebosu.Configuration;
+using osu.Game.Rulesets.Gamebosu.UI.Input;
 using System.Collections.Generic;
 using System.Linq;
 
