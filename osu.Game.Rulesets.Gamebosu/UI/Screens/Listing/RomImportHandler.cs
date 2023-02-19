@@ -15,7 +15,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
     /// <summary>
     /// Handles import of GB / GBC files.
     /// </summary>
-    public class RomImportHandler : Component, ICanAcceptFiles
+    public partial class RomImportHandler : Component, ICanAcceptFiles
     {
         [Resolved]
         private ListingSubScreen listing { get; set; }
@@ -25,9 +25,9 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 
         public IEnumerable<string> HandledExtensions => RomStore.RecognizedExtensions;
 
-        public Task Import(params string[] paths) => Import(paths.Select(path => new ImportTask(path)).ToArray());
+        public Task Import(params string[] paths) => Import(paths.Select(path => new ImportTask(path)).ToArray(), default);
 
-        public Task Import(params ImportTask[] tasks) => Task.Run(() =>
+        public Task Import(ImportTask[] tasks, ImportParameters parameters) => Task.Run(() =>
         {
             foreach (var task in tasks)
             {
