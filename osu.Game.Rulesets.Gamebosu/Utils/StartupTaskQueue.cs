@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using osu.Framework.Testing;
 
@@ -43,8 +42,6 @@ namespace osu.Game.Rulesets.Gamebosu.Utils
             if (!gameFinishedStartup)
             {
                 startup_tasks.ForEach(task => task(game, ruleset));
-
-                Debug.WriteLine("");
 
                 gameFinishedStartup = true;
             }
