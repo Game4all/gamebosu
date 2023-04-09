@@ -10,6 +10,8 @@ using osu.Framework.Bindables;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Input.Events;
 using osu.Framework.Logging;
@@ -31,6 +33,8 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         private readonly CrashScreenCover crashScreenCover;
 
+        private readonly Sprite cutoutSprite;
+
         private GameBoy gameBoy;
 
         private IEnumerable<BassAudioChannelOutput> audioChannels;
@@ -50,16 +54,36 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
             InternalChildren = new Drawable[]
             {
                 clock = new DrawableGameboyClock(),
-                screen = new DrawableGameboyScreen
+                cutoutSprite = new Sprite
                 {
-                    Size = new osuTK.Vector2(160, 144),
                     Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre
+                    Origin = Anchor.Centre,
+                    Scale = new osuTK.Vector2(0.5f),
                 },
-                crashScreenCover = new CrashScreenCover
+                new Container
                 {
-                    Alpha = 0
-                }
+                    Padding = new MarginPadding { Left = 2 },
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    AutoSizeAxes = Axes.Both,
+                    Children = new Drawable[]
+                    {
+                        screen = new DrawableGameboyScreen
+                        {
+                            Size = new osuTK.Vector2(160, 144),
+                            Margin = new MarginPadding()
+                            {
+                                Top = 20
+                            },
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre
+                        },
+                        crashScreenCover = new CrashScreenCover
+                        {
+                            Alpha = 0
+                        }
+                    }
+                },
             };
         }
 
@@ -101,7 +125,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         };
 
         [BackgroundDependencyLoader]
-        private void load(GamebosuConfigManager cfg, AudioManager mng)
+        private void load(GamebosuConfigManager cfg, AudioManager mng, TextureStore textures)
         {
             var forceGbcMode = cartridge.GameBoyColorFlag == GameBoyColorFlag.GameBoyColorOnly ? true : cfg.Get<bool>(GamebosuSetting.PreferGBCMode);
 
@@ -119,6 +143,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
                     });
                     Logger.Log($"Emulation crashed with exception: {e.Exception}", LoggingTarget.Runtime);
                 }
+            };
+
+            var tex = textures.Get("Textures/dmg_sprite.png");
+            cutoutSprite.Texture = tex;
+            cutoutSprite.Margin = new MarginPadding
+            {
+                Top = tex.DisplayHeight / 2,
             };
 
             foreach (var channel in gameBoy.Spu.Channels)
