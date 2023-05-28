@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using osu.Framework.Testing;
 
 namespace osu.Game.Rulesets.Gamebosu.Utils
 {
     /// <summary>
     /// Utility class for registering ruleset initialization tasks during game startup.
     /// </summary>
-    [ExcludeFromDynamicCompile]
     internal static class StartupTaskQueue
     {
         // used for tracking whether the game has already completed startup.
