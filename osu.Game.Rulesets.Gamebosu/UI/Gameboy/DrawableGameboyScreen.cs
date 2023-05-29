@@ -7,7 +7,7 @@ using osu.Framework.Graphics.Textures;
 using System;
 using osu.Framework.Allocation;
 using osu.Framework.Platform;
-using SixLabors.ImageSharp.PixelFormats;
+using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
@@ -22,7 +22,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         [BackgroundDependencyLoader]
         private void load(GameHost host)
         {
-            Texture = host.Renderer.CreateTexture(160, 144, false, TextureFilteringMode.Nearest, WrapMode.ClampToEdge, WrapMode.ClampToEdge, new Rgba32(0xFFFFFFFF));
+            Texture = host.Renderer.CreateTexture(160, 144, false, TextureFilteringMode.Nearest, WrapMode.ClampToEdge, WrapMode.ClampToEdge, Color4.White);
         }
 
         public DrawableGameboyScreen()
