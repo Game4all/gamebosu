@@ -5,7 +5,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests.Screens.Selection
 {
-    public class TestSceneGamebosuSelectionScreen : TestSceneGamebosuScreenStack
+    public partial class TestSceneGamebosuSelectionScreen : TestSceneGamebosuScreenStack
     {
         protected override GamebosuSubScreen CreateSubScreen() => new RomSelectionSubScreen();
     }

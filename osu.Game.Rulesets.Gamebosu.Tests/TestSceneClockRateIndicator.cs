@@ -7,7 +7,7 @@ using osu.Game.Tests.Visual;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests
 {
-    public class TestSceneClockRateIndicator : OsuTestScene
+    public partial class TestSceneClockRateIndicator : OsuTestScene
     {
         private readonly ClockRateIndicator indic;
 

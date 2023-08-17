@@ -5,7 +5,7 @@ using osu.Game.Tests.Visual;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests
 {
-    public class TestSceneOsuGame : OsuGameTestScene
+    public partial class TestSceneOsuGame : OsuGameTestScene
     {
     }
 }

@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests.Screens.Selection
 {
-    public class TestSceneRomSelector : OsuTestScene
+    public partial class TestSceneRomSelector : OsuTestScene
     {
         private RomSelector romSelector;
 

@@ -11,7 +11,7 @@ using osu.Game.Tests.Visual;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests.Screens
 {
-    public abstract class TestSceneGamebosuScreenStack : OsuTestScene
+    public abstract partial class TestSceneGamebosuScreenStack : OsuTestScene
     {
         protected abstract GamebosuSubScreen CreateSubScreen();
 

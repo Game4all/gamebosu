@@ -5,7 +5,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests.Screens
 {
-    public class TestSceneGamebosuDisclaimerSubScreen : TestSceneGamebosuScreenStack
+    public partial class TestSceneGamebosuDisclaimerSubScreen : TestSceneGamebosuScreenStack
     {
         protected override GamebosuSubScreen CreateSubScreen() => new DisclaimerSubScreen();
     }

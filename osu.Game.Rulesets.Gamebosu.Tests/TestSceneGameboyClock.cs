@@ -10,7 +10,7 @@ using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Gamebosu.Tests
 {
-    public class TestSceneGameboyClock : OsuTestScene
+    public partial class TestSceneGameboyClock : OsuTestScene
     {
         private readonly DrawableGameboyClock clock;
         private readonly Box box;
