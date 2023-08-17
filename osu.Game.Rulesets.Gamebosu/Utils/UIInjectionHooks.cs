@@ -10,6 +10,7 @@ namespace osu.Game.Rulesets.Gamebosu.Utils
         /// <summary>
         /// Inject a clickable icon into the game toolbar.
         /// </summary>
+        [StartupTask(Priority = int.MaxValue)]
         public static void InjectToolbarIcon(OsuGame game, GamebosuRuleset ruleset)
         {
             // we're hooking the toolbar load

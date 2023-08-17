@@ -12,7 +12,7 @@ using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Gamebosu.Graphics
 {
-    public class RulesetIcon : CompositeDrawable
+    public partial class RulesetIcon : CompositeDrawable
     {
         protected override bool CanBeFlattened => true;
 
@@ -56,6 +56,12 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
         {
             StartupTaskQueue.FreeInstance();
             base.Dispose(isDisposing);
+        }
+
+        //todo: move this to a more appropriate place ?.
+        [StartupTask(Priority = int.MinValue)]
+        private static void registerResources(OsuGame game, GamebosuRuleset ruleset) {
+            game.Textures.AddTextureSource(new TextureLoaderStore(ruleset.CreateResourceStore()));
         }
     }
 }

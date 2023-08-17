@@ -1,6 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
+using osu.Framework.Logging;
+using LogLevel = osu.Framework.Logging.LogLevel;
 
 namespace osu.Game.Rulesets.Gamebosu.Utils
 {
@@ -13,33 +17,39 @@ namespace osu.Game.Rulesets.Gamebosu.Utils
         private static volatile bool gameFinishedStartup;
         private static volatile int numInstances;
 
-        private static readonly List<Action<OsuGame, GamebosuRuleset>> startup_tasks;
-
         static StartupTaskQueue()
         {
-            startup_tasks = new List<Action<OsuGame, GamebosuRuleset>>();
             numInstances = 0;
             gameFinishedStartup = false;
         }
 
         /// <summary>
-        /// Enqueues a task to be ran once at game startup.
-        /// </summary>
-        /// <param name="task"></param>
-        public static void EnqueueStartupTask(Action<OsuGame, GamebosuRuleset> task)
-        {
-            if (!gameFinishedStartup)
-                startup_tasks.Add(task);
-        }
-
-        /// <summary>
-        /// Runs the registered startup tasks.
+        /// Runs the startup tasks with a <seealso cref="StartupTaskAttribute"/>
         /// </summary>
         public static void RunStartupTasks(OsuGame game, GamebosuRuleset ruleset)
         {
             if (!gameFinishedStartup)
             {
-                startup_tasks.ForEach(task => task(game, ruleset));
+                var startup_tasks = Assembly
+                        .GetExecutingAssembly()
+                        .GetTypes()
+                        .Where(type => type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public)
+                                          .Any(method => method.GetCustomAttributes(typeof(StartupTaskAttribute), false).Any()))
+                        .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public).Where(method => method.GetCustomAttributes(typeof(StartupTaskAttribute), false).Any()))
+                        .OrderBy(method => (method.GetCustomAttributes(typeof(StartupTaskAttribute), false).First() as StartupTaskAttribute).Priority)
+                        .AsEnumerable();
+
+                foreach (var task in startup_tasks)
+                {
+                    try
+                    {
+                        task.Invoke(null, new object[] { game, ruleset });
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Log($"Failed to run startup task {task.DeclaringType.Name}:{task.Name} --> {e}", LoggingTarget.Runtime, LogLevel.Important);
+                    }
+                }
 
                 gameFinishedStartup = true;
             }
