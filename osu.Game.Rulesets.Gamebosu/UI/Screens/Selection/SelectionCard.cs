@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
-    public class SelectionCard : CompositeDrawable
+    public partial class SelectionCard : CompositeDrawable
     {
         private readonly Sprite cartridge;
         private readonly SpriteIcon loadFailedIcon;

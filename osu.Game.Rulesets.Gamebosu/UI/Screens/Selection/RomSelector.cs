@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
-    public class RomSelector : CompositeDrawable, IKeyBindingHandler<GamebosuAction>
+    public partial class RomSelector : CompositeDrawable, IKeyBindingHandler<GamebosuAction>
     {
         public const double FADE_TIME = 300;
         public const Easing EASING = Easing.OutQuint;

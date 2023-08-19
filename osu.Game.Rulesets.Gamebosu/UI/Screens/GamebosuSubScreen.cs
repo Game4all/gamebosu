@@ -7,7 +7,7 @@ using osu.Framework.Screens;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class GamebosuSubScreen : Container, IScreen
+    public partial class GamebosuSubScreen : Container, IScreen
     {
         public override bool RemoveWhenNotAlive => false;
 

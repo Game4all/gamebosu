@@ -17,7 +17,7 @@ using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 {
-    public class GamebosuSettingsSubsection : RulesetSettingsSubsection
+    public partial class GamebosuSettingsSubsection : RulesetSettingsSubsection
     {
         private SettingsSlider<double> clockRate;
         private Bindable<bool> lockClockRate;
@@ -110,7 +110,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
             lockClockRate.BindValueChanged(e => clockRate.Current.Disabled = e.NewValue, true);
         }
 
-        private class YellowSettingsButton : SettingsButton
+        private partial class YellowSettingsButton : SettingsButton
         {
             [BackgroundDependencyLoader]
             private void load(OsuColour colours)

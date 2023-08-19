@@ -15,7 +15,7 @@ using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
 {
-    public class ClockRateIndicator : VisibilityContainer
+    public partial class ClockRateIndicator : VisibilityContainer
     {
         public readonly BindableDouble Rate = new BindableDouble();
 

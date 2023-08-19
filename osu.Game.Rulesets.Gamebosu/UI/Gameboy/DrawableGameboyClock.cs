@@ -11,7 +11,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
     /// <summary>
     /// A gameboy CPU <see cref="IClock"/> wrapped into a <see cref="Component"/> to access <see cref="Drawable.Clock"/> for timing purposes.
     /// </summary>
-    public class DrawableGameboyClock : Component, IClock
+    public partial class DrawableGameboyClock : Component, IClock
     {
         private double lastTickTime;
 

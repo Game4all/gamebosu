@@ -9,7 +9,7 @@ using osu.Game.Graphics.Sprites;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Selection
 {
-    public class NoRomAvailableMessage : VisibilityContainer
+    public partial class NoRomAvailableMessage : VisibilityContainer
     {
         private const int sprite_size = 120;
         private const int text_padding = 20;

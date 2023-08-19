@@ -7,7 +7,7 @@ using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 {
-    public class DeleteDataDialog : PopupDialog
+    public partial class DeleteDataDialog : PopupDialog
     {
         public DeleteDataDialog(Action action)
         {

@@ -14,7 +14,7 @@ using osuTK;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
-    public class ListingHeader : Container
+    public partial class ListingHeader : Container
     {
         public const float HEIGHT = 80;
 

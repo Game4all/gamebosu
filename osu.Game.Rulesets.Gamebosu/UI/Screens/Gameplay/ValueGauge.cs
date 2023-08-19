@@ -12,7 +12,7 @@ using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
 {
-    public class ValueGauge : CompositeDrawable
+    public partial class ValueGauge : CompositeDrawable
     {
         public BindableDouble Value = new BindableDouble(0);
 

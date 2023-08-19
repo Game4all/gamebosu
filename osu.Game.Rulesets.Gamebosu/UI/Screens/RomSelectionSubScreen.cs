@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class RomSelectionSubScreen : GamebosuSubScreen
+    public partial class RomSelectionSubScreen : GamebosuSubScreen
     {
         private RomSelector romSelector;
         private RomStore store;

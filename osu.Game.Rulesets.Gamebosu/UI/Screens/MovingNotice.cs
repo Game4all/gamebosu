@@ -13,7 +13,7 @@ using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class MovingNotice : Container
+    public partial class MovingNotice : Container
     {
         private readonly OsuTextFlowContainer textFlow;
 

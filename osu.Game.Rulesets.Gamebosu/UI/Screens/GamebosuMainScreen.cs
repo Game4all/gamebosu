@@ -14,7 +14,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Input;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class GamebosuMainScreen : ScreenWithCyclingBeatmapBackground
+    public partial class GamebosuMainScreen : ScreenWithCyclingBeatmapBackground
     {
         private readonly GamebosuScreenStack screenStack;
 

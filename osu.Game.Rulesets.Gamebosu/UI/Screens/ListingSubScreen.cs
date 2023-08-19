@@ -14,7 +14,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens.Listing;
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
     [Cached]
-    public class ListingSubScreen : GamebosuSubScreen
+    public partial class ListingSubScreen : GamebosuSubScreen
     {
         private readonly RomListing listing;
 
@@ -108,7 +108,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
             return base.OnExiting(next);
         }
 
-        private class ListingWaveContainer : WaveContainer
+        private partial class ListingWaveContainer : WaveContainer
         {
             public ListingWaveContainer()
             {

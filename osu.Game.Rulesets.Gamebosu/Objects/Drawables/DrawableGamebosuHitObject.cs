@@ -7,7 +7,7 @@ using osuTK;
 
 namespace osu.Game.Rulesets.Gamebosu.Objects.Drawables
 {
-    public class DrawableGamebosuHitObject : DrawableHitObject<GamebosuHitObject>
+    public partial class DrawableGamebosuHitObject : DrawableHitObject<GamebosuHitObject>
     {
         public DrawableGamebosuHitObject(GamebosuHitObject hitObject)
             : base(hitObject)

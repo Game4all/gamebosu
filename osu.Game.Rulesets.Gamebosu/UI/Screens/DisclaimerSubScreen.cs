@@ -19,7 +19,7 @@ using System;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class DisclaimerSubScreen : GamebosuSubScreen, IKeyBindingHandler<GamebosuAction>
+    public partial class DisclaimerSubScreen : GamebosuSubScreen, IKeyBindingHandler<GamebosuAction>
     {
         private readonly OsuTextFlowContainer textFlow;
 

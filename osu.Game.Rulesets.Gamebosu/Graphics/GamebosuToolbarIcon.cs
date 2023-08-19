@@ -5,7 +5,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens;
 
 namespace osu.Game.Rulesets.Gamebosu.Graphics
 {
-    public class GamebosuToolbarIcon : ToolbarButton
+    public partial class GamebosuToolbarIcon : ToolbarButton
     {
         private readonly GamebosuRuleset ruleset;
 

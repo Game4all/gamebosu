@@ -17,7 +17,7 @@ using System.Collections.Generic;
 namespace osu.Game.Rulesets.Gamebosu.UI
 {
     [Cached]
-    public class DrawableGamebosuRuleset : DrawableRuleset<GamebosuHitObject>
+    public partial class DrawableGamebosuRuleset : DrawableRuleset<GamebosuHitObject>
     {
         public DrawableGamebosuRuleset(GamebosuRuleset ruleset, IBeatmap beatmap, IReadOnlyList<Mod> mods = null)
             : base(ruleset, beatmap, mods)

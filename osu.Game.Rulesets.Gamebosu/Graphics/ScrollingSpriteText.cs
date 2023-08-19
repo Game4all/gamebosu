@@ -10,7 +10,7 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
     /// <summary>
     /// A <see cref="OsuSpriteText"/> that scrolls if its width is bigger than its parent.
     /// </summary>
-    public class ScrollingSpriteText : OsuSpriteText
+    public partial class ScrollingSpriteText : OsuSpriteText
     {
         private TransformSequence<ScrollingSpriteText> scrollTransformSequence;
 

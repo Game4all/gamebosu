@@ -9,7 +9,7 @@ using osu.Game.Rulesets.UI;
 namespace osu.Game.Rulesets.Gamebosu.UI
 {
     [Cached]
-    public class GamebosuPlayfield : Playfield
+    public partial class GamebosuPlayfield : Playfield
     {
         [BackgroundDependencyLoader]
         private void load()

@@ -14,7 +14,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
     /// <summary>
     /// The drawable screen of a gameboy emulator.
     /// </summary>
-    public class DrawableGameboyScreen : Sprite, IVideoOutput
+    public partial class DrawableGameboyScreen : Sprite, IVideoOutput
     {
         private readonly SpanTextureUpload upload;
         private Memory<byte> screenData;

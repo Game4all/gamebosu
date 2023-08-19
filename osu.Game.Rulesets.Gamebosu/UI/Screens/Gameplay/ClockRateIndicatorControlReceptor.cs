@@ -10,7 +10,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay
     /// An always present drawable handling global actions for the clock rate indicator.
     /// This is required as hidden drawables won't receive keybindings actions.
     /// </summary>
-    public class ClockRateIndicatorControlReceptor : Drawable, IKeyBindingHandler<GamebosuAction>
+    public partial class ClockRateIndicatorControlReceptor : Drawable, IKeyBindingHandler<GamebosuAction>
     {
         public Action<double> AdjustAction;
 

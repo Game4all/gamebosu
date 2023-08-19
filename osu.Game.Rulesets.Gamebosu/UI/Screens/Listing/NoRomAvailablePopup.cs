@@ -10,7 +10,7 @@ using osu.Game.Graphics.Sprites;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
-    public class NoRomAvailablePopup : VisibilityContainer
+    public partial class NoRomAvailablePopup : VisibilityContainer
     {
         private const double fade_time = 300;
         private const Easing easing = Easing.OutQuint;

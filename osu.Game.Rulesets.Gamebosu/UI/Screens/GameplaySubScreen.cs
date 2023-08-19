@@ -12,7 +12,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens.Gameplay;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class GameplaySubScreen : GamebosuSubScreen
+    public partial class GameplaySubScreen : GamebosuSubScreen
     {
         private DrawableGameboy gameboy;
         private Container container;

@@ -5,7 +5,7 @@ using osu.Framework.Screens;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
-    public class GamebosuScreenStack : ScreenStack
+    public partial class GamebosuScreenStack : ScreenStack
     {
         public GamebosuScreenStack()
             : base(true)

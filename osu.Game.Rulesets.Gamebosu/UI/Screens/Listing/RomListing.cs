@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
-    public class RomListing : Container
+    public partial class RomListing : Container
     {
         private readonly Bindable<IEnumerable<string>> availableRoms = new Bindable<IEnumerable<string>>(Enumerable.Empty<string>());
 

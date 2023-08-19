@@ -6,7 +6,7 @@ using osu.Game.Overlays.Dialog;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 {
-    public class DeleteDataErrorDialog : PopupDialog
+    public partial class DeleteDataErrorDialog : PopupDialog
     {
         public DeleteDataErrorDialog()
         {

@@ -7,7 +7,7 @@ using osu.Game.Rulesets.Gamebosu.UI.Screens.Selection;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
-    public class ListingPanel : OsuClickableContainer
+    public partial class ListingPanel : OsuClickableContainer
     {
         public ListingPanel(string romName) 
             : base(HoverSampleSet.Button)

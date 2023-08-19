@@ -23,7 +23,7 @@ using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
-    public class DrawableGameboy : CompositeDrawable, IKeyBindingHandler<GamebosuAction>
+    public partial class DrawableGameboy : CompositeDrawable, IKeyBindingHandler<GamebosuAction>
     {
         private readonly ICartridge cartridge;
 

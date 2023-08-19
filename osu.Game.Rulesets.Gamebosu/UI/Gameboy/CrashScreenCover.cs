@@ -8,7 +8,7 @@ using osu.Framework.Graphics.Textures;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
-    public class CrashScreenCover : Sprite
+    public partial class CrashScreenCover : Sprite
     {
         private readonly float scale = 0.8f;
 

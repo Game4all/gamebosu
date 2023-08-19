@@ -9,7 +9,7 @@ using osu.Game.Input.Bindings;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Input
 {
-    public class GamebosuInputManager : PassThroughInputManager
+    public partial class GamebosuInputManager : PassThroughInputManager
     {
         private readonly RulesetKeyBindingContainer keybindingContainer;
 
@@ -25,7 +25,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Input
             }));
         }
 
-        private class RulesetKeyBindingContainer : DatabasedKeyBindingContainer<GamebosuAction>
+        private partial class RulesetKeyBindingContainer : DatabasedKeyBindingContainer<GamebosuAction>
         {
             protected override bool HandleRepeats => false;
 
