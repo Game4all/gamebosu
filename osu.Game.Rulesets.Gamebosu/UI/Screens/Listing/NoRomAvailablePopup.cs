@@ -7,6 +7,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
+using osu.Game.Rulesets.Gamebosu.Localisation;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
@@ -56,21 +57,21 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
                             Font = OsuFont.GetFont(Typeface.Torus, 28, FontWeight.Bold),
-                            Text = "Sadly there's no usable ROM avalaible ...",
+                            Text = NoRomAvailablePopupStrings.NoRomAvailable,
                         },
                         new OsuSpriteText
                         {
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
                             Font = OsuFont.GetFont(Typeface.Torus, 18, FontWeight.Regular),
-                            Text = "Go grab some ROM files and put 'em in the roms folder",
+                            Text = NoRomAvailablePopupStrings.AddInstructions,
                         },
                         new OsuSpriteText
                         {
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
                             Font = OsuFont.GetFont(Typeface.Torus, 16, FontWeight.Regular),
-                            Text = "(You can open the roms folder from the settings or drag n' drop the rom files into osu! window)",
+                            Text = NoRomAvailablePopupStrings.AddTip,
                         }
                     }
                 }

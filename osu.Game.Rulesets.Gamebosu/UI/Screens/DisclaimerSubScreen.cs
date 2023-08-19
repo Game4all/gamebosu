@@ -16,6 +16,8 @@ using osu.Game.Graphics.Containers;
 using osu.Game.Rulesets.Gamebosu.UI.Input;
 using osuTK.Graphics;
 using System;
+using osu.Game.Rulesets.Gamebosu.Localisation;
+using osu.Framework.Localisation;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 {
@@ -23,14 +25,14 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
     {
         private readonly OsuTextFlowContainer textFlow;
 
-        private static readonly string[] disclaimer_tips =
-        {
-            "You can delete ROM save data from the settings overlay, try searching for 'delete ROM save data'!",
-            "Try pressing Page-up or Page-down to change the ROM emulation speed!",
-            "You can customize the gameboy screen scale from the settings overlay, try searching for 'gameboy scale'!",
-            "You can open the ROM folder from the settings overlay, try searching for 'open rom folder'!",
-            "You can enable audio playback of the gameboy speaker in the settings, but don't do for the time being. It currently sounds more like noise.",
-            "You can disable this disclaimer in the settings, try searching for 'disable that annoying startup disclaimer'!"
+        private static readonly LocalisableString[] disclaimer_tips =
+        { 
+            DisclaimerSubScreenStrings.Tip1,
+            DisclaimerSubScreenStrings.Tip2,
+            DisclaimerSubScreenStrings.Tip3,
+            DisclaimerSubScreenStrings.Tip4,
+            DisclaimerSubScreenStrings.Tip5,
+            DisclaimerSubScreenStrings.Tip6
         };
 
         /// <summary>
@@ -86,12 +88,12 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
             textFlow.NewParagraph();
 
-            textFlow.AddParagraph("Disclaimer", t =>
+            textFlow.AddParagraph(DisclaimerSubScreenStrings.Disclaimer, t =>
             {
                 t.Font = t.Font.With(size: 30f);
             });
 
-            textFlow.AddParagraph("This is a WIP, so don't expect things to work as expected.");
+            textFlow.AddParagraph(DisclaimerSubScreenStrings.WipDisclaimer);
 
             textFlow.AddParagraph("Tip: " + disclaimer_tips[RNG.Next(0, disclaimer_tips.Length)], t =>
             {
@@ -100,7 +102,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
             textFlow.NewParagraph();
 
-            textFlow.AddParagraph("Press your (A) (B), (Select) (Start) button to skip this.", t =>
+            textFlow.AddParagraph(DisclaimerSubScreenStrings.PressToContinue, t =>
             {
                 t.Colour = color.YellowLighter;
                 t.Font = t.Font.With(size: 12f);

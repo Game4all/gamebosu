@@ -11,6 +11,7 @@ using osu.Game.Graphics.Sprites;
 using osu.Game.Overlays;
 using osu.Game.Screens;
 using osuTK;
+using osu.Game.Rulesets.Gamebosu.Localisation;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
 {
@@ -79,7 +80,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens.Listing
                                     Anchor = Anchor.CentreLeft,
                                     Origin = Anchor.CentreLeft,
                                     Font = OsuFont.GetFont(size: 24),
-                                    Text = "rom listing"
+                                    Text = ListingHeaderStrings.ListingTitle 
                                 }
                             }
                         },

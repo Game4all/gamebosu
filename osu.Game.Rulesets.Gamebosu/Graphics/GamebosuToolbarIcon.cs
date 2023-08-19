@@ -2,6 +2,7 @@
 using osu.Framework.Screens;
 using osu.Game.Overlays.Toolbar;
 using osu.Game.Rulesets.Gamebosu.UI.Screens;
+using osu.Game.Rulesets.Gamebosu.Localisation;
 
 namespace osu.Game.Rulesets.Gamebosu.Graphics
 {
@@ -12,8 +13,8 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
         public GamebosuToolbarIcon(GamebosuRuleset ruleset)
         {
             this.ruleset = ruleset;
-            TooltipMain = "gamebosu";
-            TooltipSub = "Open the ROM selection screen";
+            TooltipMain = GamebosuToolbarIconStrings.TooltipString;
+            TooltipSub = GamebosuToolbarIconStrings.TooltipDescString;
         }
 
         [BackgroundDependencyLoader]
