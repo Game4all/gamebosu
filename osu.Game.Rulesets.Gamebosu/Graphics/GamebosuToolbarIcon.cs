@@ -1,4 +1,6 @@
 ﻿using osu.Framework.Allocation;
+using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Screens;
 using osu.Game.Overlays.Toolbar;
 using osu.Game.Rulesets.Gamebosu.UI.Screens;
@@ -17,9 +19,13 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
         }
 
         [BackgroundDependencyLoader]
-        private void load(OsuGame game)
+        private void load(OsuGame game, TextureStore textures)
         {
-            SetIcon("Textures/gamebosu_toolbar.png");
+            SetIcon(new Sprite
+            { 
+                Texture = textures.Get("Textures/gamebosu_toolbar.png")
+            });
+
             Action = () =>
             {
                 if (!game.LocalUserPlaying.Value)
