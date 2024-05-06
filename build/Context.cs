@@ -22,5 +22,5 @@ public class Context : FrostingContext
 
     public string RulesetProjectPath => Path.Combine(".\\", ruleset_project_name);
 
-    public string RulesetOutputPath => Path.Combine(RulesetProjectPath, "bin/Release/netstandard2.1/osu.Game.Rulesets.Gamebosu.dll");
+    public string RulesetOutputPath => Path.Combine(RulesetProjectPath, "bin/Release/net8.0/osu.Game.Rulesets.Gamebosu.dll");
 }
