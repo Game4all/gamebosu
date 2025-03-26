@@ -10,11 +10,11 @@
     <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ppy.osu.Game" Version="2024.412.1" />
+    <PackageReference Include="ppy.osu.Game" Version="2025.225.0" />
     <ProjectReference Include="..\Emux\Emux.GameBoy\Emux.GameBoy.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.9.1" PrivateAssets="All" />
     <PackageReference Include="ILMerge.Fody" Version="1.24.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

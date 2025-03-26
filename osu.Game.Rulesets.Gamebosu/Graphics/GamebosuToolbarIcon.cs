@@ -4,6 +4,7 @@ using osu.Framework.Graphics.Textures;
 using osu.Framework.Screens;
 using osu.Game.Overlays.Toolbar;
 using osu.Game.Rulesets.Gamebosu.UI.Screens;
+using osu.Game.Screens.Play;
 
 namespace osu.Game.Rulesets.Gamebosu.Graphics
 {
@@ -19,16 +20,17 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
         }
 
         [BackgroundDependencyLoader]
-        private void load(OsuGame game, TextureStore textures)
+        private void load(OsuGame game, ILocalUserPlayInfo playing, TextureStore textures)
         {
             SetIcon(new Sprite
-            { 
+            {
                 Texture = textures.Get("Textures/gamebosu_toolbar.png")
             });
 
             Action = () =>
             {
-                if (!game.LocalUserPlaying.Value)
+
+                if (playing.PlayingState.Value == LocalUserPlayingState.NotPlaying)
                     game.PerformFromScreen(scr => scr.Push(new GamebosuMainScreen(ruleset)));
             };
         }
