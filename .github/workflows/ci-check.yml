@@ -21,7 +21,7 @@ jobs:
         run: dotnet build -c release osu.Game.Rulesets.Gamebosu.sln
       
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: osu.Game.Rulesets.Gamebosu.dll
           path: "osu.Game.Rulesets.Gamebosu/bin/Release/netstandard2.1"
