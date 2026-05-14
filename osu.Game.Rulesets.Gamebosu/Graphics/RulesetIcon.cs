@@ -60,7 +60,8 @@ namespace osu.Game.Rulesets.Gamebosu.Graphics
 
         //todo: move this to a more appropriate place ?.
         [StartupTask(Priority = int.MinValue)]
-        private static void registerResources(OsuGame game, GamebosuRuleset ruleset) {
+        private static void registerResources(OsuGame game, GamebosuRuleset ruleset)
+        {
             game.Textures.AddTextureSource(new TextureLoaderStore(ruleset.CreateResourceStore()));
         }
     }

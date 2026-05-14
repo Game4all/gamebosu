@@ -5,6 +5,7 @@ using Emux.GameBoy.Cartridge;
 using osu.Framework.IO.Stores;
 using osu.Framework.Logging;
 using osu.Framework.Platform;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace osu.Game.Rulesets.Gamebosu.IO
                     {
                         var cartStream = Storage.GetStream(resName);
                         var cartRom = new byte[cartStream.Length];
-                        cartStream.Read(cartRom, 0, (int)cartStream.Length);
+                        cartStream.ReadExactly(new Span<byte>(cartRom));
 
                         var saveStream = savesStorage.GetStream(resName + save_file_extension, FileAccess.ReadWrite, FileMode.OpenOrCreate);
                         return new EmulatedCartridge(cartRom, new StreamedExternalMemory(saveStream));
