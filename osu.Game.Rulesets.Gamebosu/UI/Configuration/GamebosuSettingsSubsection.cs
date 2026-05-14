@@ -9,6 +9,7 @@ using osu.Framework.Localisation;
 using osu.Framework.Platform;
 using osu.Framework.Screens;
 using osu.Game.Graphics;
+using osu.Game.Graphics.UserInterfaceV2;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Gamebosu.Configuration;
@@ -19,8 +20,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
 {
     public partial class GamebosuSettingsSubsection : RulesetSettingsSubsection
     {
-        private SettingsSlider<double> clockRate;
-        private Bindable<bool> lockClockRate;
+        private const string github_url = "https://github.com/Game4all/gamebosu/releases";
+
+        private SettingsItemV2 clockRateSlider;
+
+        private Bindable<double> clockRateBindable;
+
+        private Bindable<bool> lockClockRateBindable;
 
         private readonly GamebosuRuleset ruleset;
 
@@ -33,39 +39,46 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
         protected override LocalisableString Header => "gamebosu!";
 
         [BackgroundDependencyLoader]
-        private void load(Storage storage, IDialogOverlay dialog, OsuGame game)
+        private void load(Storage storage, IDialogOverlay dialog, OsuGame game, OsuColour colors)
         {
             var config = Config as GamebosuConfigManager;
-            lockClockRate = config.GetBindable<bool>(GamebosuSetting.LockClockRate);
+            clockRateBindable = config.GetBindable<double>(GamebosuSetting.ClockRate);
+            lockClockRateBindable = config.GetBindable<bool>(GamebosuSetting.LockClockRate);
+
+            var lockedNote = new SettingsNote.Data(Text: "Clock rate is locked. Disable 'Lock Gameboy Clock Rate' if you want to modify it.", Type: SettingsNote.Type.Informational);
 
             Children = new Drawable[]
             {
-                clockRate = new SettingsSlider<double>
+                clockRateSlider = new SettingsItemV2(new FormSliderBar<double>
                 {
-                    LabelText = "Gameboy Clock rate",
-                    Current = config.GetBindable<double>(GamebosuSetting.ClockRate)
-                },
-                new SettingsCheckbox
+                    Caption = "Gameboy Clock Rate",
+                    HintText = "Controls the clock rate of the emulated gameboy. Baseline is 1x. Higher means faster.",
+                    Current = clockRateBindable
+                }),
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Lock gameboy clock rate",
-                    Current = lockClockRate
-                },
-                new SettingsCheckbox
+                    Caption = "Lock Gameboy Clock Rate",
+                    HintText = "Lock the clock rate from being modified.",
+                    Current = lockClockRateBindable
+                }),
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Prefer Gameboy Color mode when launching original gameboy ROMs",
+                    Caption = "Prefer Gameboy Color mode when launching original gameboy ROMs",
+                    HintText = "When launching DMG-01 (Original Gameboy) ROMS, prefer running the ROM in Gameboy Color mode",
                     Current =  config.GetBindable<bool>(GamebosuSetting.PreferGBCMode)
-                },
-                new SettingsSlider<float>
+                }),
+                new SettingsItemV2(new FormSliderBar<float>
                 {
-                    LabelText = "Gameboy Scale",
+                    Caption = "Gameboy Scale",
+                    HintText = "Scale of the gameboy",
                     Current = config.GetBindable<float>(GamebosuSetting.GameboyScale)
-                },
-                new SettingsButton
+                }),
+                new SettingsButtonV2
                 {
                     Text = "Open ROMs folder",
                     Action = () => storage.GetStorageForDirectory("roms")?.PresentExternally()
                 },
-                new DangerousSettingsButton
+                new DangerousSettingsButtonV2
                 {
                     Text = "Delete ROM save data",
                     Action = () =>
@@ -74,10 +87,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                         {
                             var saves = storage.GetStorageForDirectory("roms/saves");
                             var files = saves.GetFiles(".");
-                            try 
+                            try
                             {
                                 files.ForEach(file => saves.Delete(file));
-                            } 
+                            }
                             catch (Exception)
                             {
                                 dialog.Push(new DeleteDataErrorDialog
@@ -90,29 +103,32 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                         dialog.Push(new DeleteDataDialog(deleteAction));
                     }
                 },
-                new SettingsCheckbox
+                new SettingsItemV2(new FormCheckBox
                 {
-                    LabelText = "Disable that annoying disclaimer when launching gamebosu!",
+                    Caption = "Disable launch disclaimer",
+                    HintText = "Disables that annoying disclaimer popping up everytime you open the overlay",
                     Current = config.GetBindable<bool>(GamebosuSetting.DisableDisplayingThatAnnoyingDisclaimer)
-                },
-                new YellowSettingsButton
+                }),
+                new SettingsButtonV2
                 {
+
                     Text = "Open ROM listing",
+                    BackgroundColour = colors.YellowDark,
+                    Height = 60,
                     Action = () => game?.PerformFromScreen(scr => scr.Push(new GamebosuMainScreen(ruleset)))
                 },
+                new SettingsButtonV2
+                {
+                    Text = "Checkout Github project releases",
+                    Action = () => game?.OpenUrlExternally(github_url),
+                }
             };
 
-            lockClockRate.BindValueChanged(e => clockRate.Current.Disabled = e.NewValue, true);
-        }
-
-        private partial class YellowSettingsButton : SettingsButton
-        {
-            [BackgroundDependencyLoader]
-            private void load(OsuColour colours)
+            lockClockRateBindable.BindValueChanged(e =>
             {
-                Height = 60;
-                BackgroundColour = colours.Yellow;
-            }
+                clockRateBindable.Disabled = e.NewValue;
+                clockRateSlider.Note.Value = e.NewValue ? lockedNote : null;
+            }, true);
         }
     }
 }

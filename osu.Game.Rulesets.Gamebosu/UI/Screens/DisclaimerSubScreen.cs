@@ -91,7 +91,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
                 t.Font = t.Font.With(size: 30f);
             });
 
-            textFlow.AddParagraph("This is a WIP, so don't expect things to work as expected.");
+            textFlow.AddParagraph("This is an eternal WIP, so expect things to potentially break anytime.");
 
             textFlow.AddParagraph("Tip: " + disclaimer_tips[RNG.Next(0, disclaimer_tips.Length)], t =>
             {
@@ -100,7 +100,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Screens
 
             textFlow.NewParagraph();
 
-            textFlow.AddParagraph("Press your (A) (B), (Select) (Start) button to skip this.", t =>
+            textFlow.AddParagraph("Press your (A) (B), (Select) (Start) button or click to skip this.", t =>
             {
                 t.Colour = color.YellowLighter;
                 t.Font = t.Font.With(size: 12f);
