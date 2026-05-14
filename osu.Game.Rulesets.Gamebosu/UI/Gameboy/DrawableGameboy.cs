@@ -80,26 +80,21 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         public bool OnPressed(KeyBindingPressEvent<GamebosuAction> action)
         {
-            if (gameBoy == null) return false;
-
-            gameBoy.KeyPad.PressedButtons |= getFromAction(action.Action);
-
+            gameBoy?.KeyPad.PressedButtons |= getFromAction(action.Action);
             return true;
         }
 
         public void OnReleased(KeyBindingReleaseEvent<GamebosuAction> action)
         {
-            if (gameBoy == null) return;
-
-            gameBoy.KeyPad.PressedButtons &= ~getFromAction(action.Action);
+            gameBoy?.KeyPad.PressedButtons &= ~getFromAction(action.Action);
         }
 
         public void Start()
         {
             screen.Clear();
 
-            if (!gameBoy.Cpu.Running)
-                gameBoy.Run();
+            if (!gameBoy?.Cpu.Running ?? false)
+                gameBoy?.Run();
         }
 
         private GameBoyPadButton getFromAction(GamebosuAction action) => action switch
@@ -145,6 +140,10 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
             // deactivate all sound channels.
             gameBoy.Spu.DeactivateAllChannels();
+
+            // bind clock rate to config
+            clockRate = cfg.GetBindable<double>(GamebosuSetting.ClockRate);
+            clock.Rate.BindTo(clockRate);
         }
 
         protected override void Dispose(bool isDisposing)
