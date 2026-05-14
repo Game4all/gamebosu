@@ -5,9 +5,7 @@ using Emux.GameBoy;
 using Emux.GameBoy.Cartridge;
 using Emux.GameBoy.Input;
 using osu.Framework.Allocation;
-using osu.Framework.Audio;
 using osu.Framework.Bindables;
-using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
@@ -15,11 +13,8 @@ using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Bindings;
 using osu.Framework.Input.Events;
 using osu.Framework.Logging;
-using osu.Game.Rulesets.Gamebosu.Audio;
 using osu.Game.Rulesets.Gamebosu.Configuration;
 using osu.Game.Rulesets.Gamebosu.UI.Input;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 {
@@ -37,11 +32,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
 
         private GameBoy gameBoy;
 
-        private IEnumerable<BassAudioChannelOutput> audioChannels;
-
         private Bindable<double> clockRate;
-
-        private Bindable<bool> soundPlayback;
 
         public DrawableGameboy(ICartridge cart)
         {
@@ -125,7 +116,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
         };
 
         [BackgroundDependencyLoader]
-        private void load(GamebosuConfigManager cfg, AudioManager mng, TextureStore textures)
+        private void load(GamebosuConfigManager cfg, TextureStore textures)
         {
             var forceGbcMode = cartridge.GameBoyColorFlag == GameBoyColorFlag.GameBoyColorOnly ? true : cfg.Get<bool>(GamebosuSetting.PreferGBCMode);
 
@@ -152,35 +143,13 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Gameboy
                 Top = tex.DisplayHeight / 2,
             };
 
-            foreach (var channel in gameBoy.Spu.Channels)
-            {
-                var bchannel = new BassAudioChannelOutput();
-                channel.ChannelOutput = bchannel;
-                mng.AddItem(bchannel);
-            }
-
-            audioChannels = gameBoy.Spu.Channels.Select(t => t.ChannelOutput).OfType<BassAudioChannelOutput>();
-
-            clockRate = cfg.GetBindable<double>(GamebosuSetting.ClockRate);
-            clock.Rate.BindTo(clockRate);
-
-            soundPlayback = cfg.GetBindable<bool>(GamebosuSetting.EnableSoundPlayback);
-            soundPlayback.BindValueChanged(t =>
-            {
-                if (t.NewValue)
-                    audioChannels.ForEach(ch => ch.Play());
-                else
-                    audioChannels.ForEach(ch => ch.Stop());
-            }, true);
+            // deactivate all sound channels.
+            gameBoy.Spu.DeactivateAllChannels();
         }
 
         protected override void Dispose(bool isDisposing)
         {
             gameBoy?.Dispose();
-
-            foreach (var channel in audioChannels)
-                channel.Dispose();
-
             base.Dispose(isDisposing);
         }
     }
