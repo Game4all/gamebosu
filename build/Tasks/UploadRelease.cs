@@ -7,9 +7,10 @@ using Cake.Common.Diagnostics;
 using Cake.Frosting;
 using Octokit;
 
+[TaskDescription("Creates a GitHub release and uploads the built ruleset assembly.")]
 [TaskName("UploadRelease")]
-[Dependency(typeof(FetchLazerVersion))]
-[Dependency(typeof(BuildRelease))]
+[IsDependentOn(typeof(FetchLazerVersion))]
+[IsDependentOn(typeof(BuildRelease))]
 public sealed class UploadRelease : FrostingTask<Context>
 {
     public override void Run(Context context)

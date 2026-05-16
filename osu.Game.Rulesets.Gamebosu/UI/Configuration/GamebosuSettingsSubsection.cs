@@ -119,7 +119,7 @@ namespace osu.Game.Rulesets.Gamebosu.UI.Configuration
                 },
                 new SettingsButtonV2
                 {
-                    Text = "Checkout Github project releases",
+                    Text = "Check project releases out on GitHub",
                     Action = () => game?.OpenUrlExternally(github_url),
                 }
             };

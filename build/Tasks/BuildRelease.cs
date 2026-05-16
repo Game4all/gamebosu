@@ -1,30 +1,31 @@
 using Cake.Common.Diagnostics;
-using Cake.Common.Tools.DotNetCore;
+using Cake.Common.Tools.DotNet;
 using Cake.Frosting;
-using Cake.Common.Tools.DotNetCore.MSBuild;
-using Cake.Common.Tools.DotNetCore.Build;
+using Cake.Common.Tools.DotNet.MSBuild;
+using Cake.Common.Tools.DotNet.Build;
 
+[TaskDescription("Builds the ruleset in Release mode with the current release version.")]
 [TaskName("BuildRelease")]
-[Dependency(typeof(RestoreProject))]
+[IsDependentOn(typeof(RestoreProject))]
 public sealed class BuildRelease : FrostingTask<Context>
 {
     public override void Run(Context context)
     {
         context.Information("Cleaning previous build artifacts ...");
 
-        context.DotNetCoreClean(context.RulesetProjectPath);
+        context.DotNetClean(context.RulesetProjectPath);
 
         context.Information($"Building release version {context.ReleaseVersion}");
 
-        var msbuildOpts = new DotNetCoreMSBuildSettings();
+        var msbuildOpts = new DotNetMSBuildSettings();
         msbuildOpts.SetVersion(context.ReleaseVersion);
 
-        var buildOpts = new DotNetCoreBuildSettings {
+        var buildOpts = new DotNetBuildSettings {
             Configuration = "Release",
             MSBuildSettings = msbuildOpts
         };
 
-        context.DotNetCoreBuild(context.RulesetProjectPath, buildOpts);
+        context.DotNetBuild(context.RulesetProjectPath, buildOpts);
 
         context.Information("Release built sucessfully");
     }

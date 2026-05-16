@@ -4,7 +4,8 @@ using System.Linq;
 using Cake.Common.Diagnostics;
 using Cake.Frosting;
 
-[Dependency(typeof(RestoreProject))]
+[TaskDescription("Reads the required Lazer package version from the ruleset project.")]
+[IsDependentOn(typeof(RestoreProject))]
 public sealed class FetchLazerVersion : FrostingTask<Context>
 {
     public override void Run(Context context)
@@ -16,6 +17,7 @@ public sealed class FetchLazerVersion : FrostingTask<Context>
             RedirectStandardOutput = true
         });
 
+        process.WaitForExit();
         var output = process.StandardOutput.ReadToEnd();
 
         //[0] is package name
